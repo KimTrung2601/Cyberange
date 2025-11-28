@@ -1,0 +1,25 @@
+[
+  {
+    "username": "kimtrungg",
+    "password": "123",
+    "email": "kimtrung@gmail.com",
+    "progress": {
+      "arp_spoofing": 80,
+      "dhcp_attack": 20
+    }
+  },
+  {
+    "username": "kimtrung",
+    "password": "123",
+    "email": "kimdt@gmail.com",
+    "progress": {
+      "dhcp_attack": 100,
+      "brute_force_ssh": 20,
+      "dns_psn": 20,
+      "chiem_q": 20,
+      "soc_en": 20,
+      "phongthu_arp": 20,
+      "arp_spoofing": 20
+    }
+  }
+]
