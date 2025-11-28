@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phòng thủ ARP Spoofing – Dynamic ARP Inspection</title>
+
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-dark: #0f1624;
+            --bg-card: #1a2332;
+            --blue: #3fa9f5;
+            --text: #e6eef7;
+            --muted: #98a6b8;
+            --orange: #f5b041;
+            --red: #e74c3c;
+            --border-light: #2c3a4d;
+        }
+
+        body {
+            background: var(--bg-dark);
+            margin: 0;
+            font-family: "Segoe UI", sans-serif;
+        }
+
+        .app { display: flex; min-height: 100vh; }
+
+        .sidebar {
+            min-width: 280px;
+            background: #131b29;
+            border-right: 1px solid #243044;
+            padding: 24px;
+            height: 100vh;
+            position: sticky;
+            top: 0;
+            overflow-y: auto;
+        }
+
+        .nav-item {
+            padding: 10px 14px;
+            display: block;
+            border-radius: 6px;
+            color: var(--muted);
+            text-decoration: none;
+            transition: 0.2s;
+        }
+        .nav-item:hover { background: #1f2a3b; color: white; }
+
+        .main { flex-grow: 1; }
+
+        .main-topbar {
+            background: #10141a;
+            padding: 15px 30px;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .guide-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 25px;
+            color: var(--text);
+        }
+
+        h2 {
+            margin-top: 35px;
+            font-size: 24px;
+            color: var(--blue);
+            border-bottom: 2px solid var(--border-light);
+            padding-bottom: 8px;
+        }
+
+        h3 {
+            margin-top: 20px;
+            font-size: 19px;
+            color: var(--text);
+            font-weight: 700;
+        }
+
+        p, ul {
+            font-size: 16px;
+            line-height: 1.7;
+            color: var(--muted);
+        }
+        ul { padding-left: 22px; }
+
+        .guide-image-container {
+            border: 1px solid var(--border-light);
+            border-radius: 10px;
+            margin: 25px 0;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0,0,0,0.4);
+        }
+        .guide-image-container img { width:100%; display:block; }
+        .image-caption {
+            padding: 10px;
+            background: #1e2a38;
+            color: #cfe1ff;
+            font-style: italic;
+            font-size: 14px;
+        }
+
+        .code-block {
+            background:#131c27;
+            border-left:5px solid var(--orange);
+            padding:18px 20px;
+            border-radius:10px;
+            margin:25px 0;
+            box-shadow:0 0 12px rgba(0,0,0,0.6);
+            font-family:Consolas, monospace;
+            color:#f6d76c;
+            font-size:15px;
+            white-space:pre-wrap;
+        }
+
+        .log-block {
+            background:#1a2332;
+            border-left:5px solid var(--red);
+            padding:18px 20px;
+            border-radius:10px;
+            margin:25px 0;
+            box-shadow:0 0 12px rgba(231,76,60,0.4);
+            font-family:Consolas, monospace;
+            color:#ffb3b3;
+            font-size:15px;
+            white-space:pre-wrap;
+        }
+
+        /* Quiz */
+        .quiz-container {
+            background: var(--bg-card);
+            padding: 25px;
+            border-radius: 12px;
+            margin-top: 40px;
+            border: 1px solid var(--border-light);
+        }
+
+        .input-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .quiz-input {
+            flex-grow: 1;
+            padding: 10px;
+            background: #0f1624;
+            border: 1px solid var(--border-light);
+            color: var(--text);
+            border-radius: 6px;
+        }
+
+        .quiz-button {
+            padding: 10px 20px;
+            background: #27ae60;
+            color: white;
+            border-radius: 6px;
+            cursor: pointer;
+            border: none;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <header class="sidebar-logo">
+            <i class="fas fa-shield-alt"></i>
+            <span>CYBER<br>RANGES</span>
+        </header>
+
+        <div class="sidebar-user">
+            <strong id="sidebar-username">My Account</strong>
+            <small>My Account</small>
+        </div>
+
+        <nav class="sidebar-nav">
+            <a href="#" onclick="history.back(); return false;" class="nav-item active">
+                <i class="fas fa-arrow-left"></i> Back to Playlists
+            </a>
+
+
+            <h3 style="color:white; margin-top:20px;">Mục lục</h3>
+            <a class="nav-item" href="#tong-quan">1. Tổng quan</a>
+            <a class="nav-item" href="#cau-hinh">2. Cấu hình DAI</a>
+            <a class="nav-item" href="#kiem-tra">3. Kiểm tra & Log</a>
+            <a class="nav-item" href="#quiz">4. Quiz</a>
+        </nav>
+    </aside>
+
+    <!-- Main -->
+    <main class="main">
+
+        <header class="main-topbar">
+            <h1 style="color:white; margin:0;font-size:26px;">
+                <i class="fas fa-shield-alt" style="color:var(--blue); margin-right:10px;"></i>
+                Phòng thủ ARP Spoofing – Dynamic ARP Inspection
+            </h1>
+        </header>
+
+        <section class="guide-container">
+
+
+            <h2 id="tong-quan">📌 1. Tổng quan</h2>
+            <p>
+          <div class="video-embed" style="margin-bottom:35px; position:relative; padding-bottom:56.25%; height:0;">
+    <iframe style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;"
+            src="https://www.youtube.com/embed/K6MKrEn5uGc?si=bSPaQ197tIDVasem"
+            allowfullscreen></iframe>
+</div>
+                Dynamic ARP Inspection (DAI) sử dụng DHCP Snooping Binding Table để xác thực ARP.
+            </p>
+<!-- ========================= -->
+<!-- ⭐ 2. CẤU HÌNH DAI ⭐ -->
+<!-- ========================= -->
+
+<h2 id="cau-hinh">⚙️ 2. Cấu hình Dynamic ARP Inspection (DAI)</h2>
+
+<p>Tiến hành cấu hình DAI theo các bước dưới đây.</p>
+
+<!-- Hình 96 -->
+<div class="guide-image-container">
+    <img src="images/hinh96.jpg">
+    <div class="image-caption">Hình 24. Lệnh cấu hình Dynamic ARP Inspection</div>
+</div>
+
+<p><strong>Giải thích:</strong></p>
+<ul>
+    <li>Kích hoạt DAI trên VLAN 1.</li>
+    <li>Chỉ định cổng <strong>trust</strong> – cổng nối đến Router hoặc DHCP Server.</li>
+    <li>Trong bài này, cổng <strong>GigabitEthernet0/0</strong> được cấu hình làm cổng trust.</li>
+</ul>
+
+<h3>Lệnh quan trọng:</h3>
+<div class="code-block">
+ip arp inspection vlan 1
+interface gi0/0
+  ip arp inspection trust
+
+ip arp inspection validate src-mac dst-mac ip
+</div>
+
+<p><strong>Ý nghĩa các tham số:</strong></p>
+
+<ul>
+    <li><strong style="color:#3fa9f5;">src-mac:</strong> So MAC trong Ethernet header với MAC trong ARP.</li>
+    <li><strong style="color:#3fa9f5;">dst-mac:</strong> Kiểm tra MAC đích trong ARP Reply.</li>
+    <li><strong style="color:#3fa9f5;">ip:</strong> Kiểm tra địa chỉ IP gửi/nhận.</li>
+</ul>
+
+<!-- ========================= -->
+<!-- ⭐ 3. KIỂM TRA & LOG ⭐ -->
+<!-- ========================= -->
+
+<h2 id="kiem-tra">🔍 3. Kiểm tra hoạt động của DAI</h2>
+
+<p>
+    Ngay khi cấu hình hoàn tất, Switch đã phát hiện gói ARP bất thường từ máy tấn công
+    và ghi log như hình bên dưới.
+</p>
+
+<!-- Hình 97 -->
+<div class="guide-image-container">
+    <img src="images/hinh97.jpg">
+    <div class="image-caption">Hình 25. Switch phát hiện và chặn ARP Spoofing</div>
+</div>
+
+<h3>Phân tích log:</h3>
+
+<div class="log-block">
+%SW_DAI-4-DHCP_SNOOPING_DENY:
+1 Invalid ARPs (Res) on Gi0/2, vlan 1.
+([000c.295b.ccf0/192.168.1.1/000c.2961.a810/192.168.1.6])
+
+→ Switch phát hiện ARP Reply không hợp lệ và <strong>tự động chặn</strong>.
+</div>
+
+<p>Kiểm tra lại ARP Cache trên Windows → không còn hiện MAC trùng nhau → chứng tỏ tấn công đã bị ngăn chặn thành công.</p>
+<!-- ========================= -->
+<!-- ⭐ 4. QUIZ KIỂM TRA KIẾN THỨC ⭐ -->
+<!-- ========================= -->
+
+<h2 id="quiz">📝 4. Quiz kiểm tra kiến thức</h2>
+
+<div class="quiz-container" style="
+    background: var(--bg-card);
+    padding: 30px;
+    border-radius: 12px;
+    margin-top: 25px;
+    border: 1px solid var(--border-light);
+    box-shadow: 0 0 12px rgba(63,169,245,0.25);
+">
+
+    <!-- Thông báo hoàn thành -->
+    <div id="completion-message" style="
+        display:none;
+        padding:20px;
+        background:#27ae60;
+        color:white;
+        border-radius:8px;
+        text-align:center;
+        font-size:18px;
+        font-weight:700;
+        box-shadow:0 0 10px rgba(0,0,0,0.3);
+    ">
+        <i class="fas fa-check-circle"></i> CHÚC MỪNG! BẠN ĐÃ HOÀN THÀNH BÀI LAB PHÒNG THỦ!
+    </div>
+
+    <!-- Câu 1 -->
+    <div id="question-1" class="question-block">
+        <h3>1. DAI hoạt động dựa trên bảng nào để kiểm tra IP–MAC?</h3>
+        <p>Nhập tên cơ chế tạo bảng IP–MAC binding.</p>
+
+        <div class="input-group">
+            <input type="text" id="answer-1" class="quiz-input" placeholder="Nhập tên cơ chế..." />
+            <button class="quiz-button" onclick="checkAnswer(1)">Check</button>
+        </div>
+
+        <p id="feedback-1" class="quiz-feedback"></p>
+    </div>
+
+    <!-- Câu 2 -->
+    <div id="question-2" class="question-block" style="display:none;">
+        <h3>2. Tính năng nào kiểm tra và lọc ARP giả mạo?</h3>
+        <p>Trả lời bằng tên đầy đủ hoặc viết tắt.</p>
+
+        <div class="input-group">
+            <input type="text" id="answer-2" class="quiz-input" placeholder="Nhập tên cơ chế..." />
+            <button class="quiz-button" onclick="checkAnswer(2)">Check</button>
+        </div>
+
+        <p id="feedback-2" class="quiz-feedback"></p>
+    </div>
+
+    <!-- Câu 3 -->
+    <div id="question-3" class="question-block" style="display:none;">
+        <h3>3. Cổng nào cần cấu hình “trust” trong DAI?</h3>
+        <p>Nhập tên giao diện (ví dụ: gi0/0).</p>
+
+        <div class="input-group">
+            <input type="text" id="answer-3" class="quiz-input" placeholder="Nhập tên cổng..." />
+            <button class="quiz-button" onclick="checkAnswer(3)">Check</button>
+        </div>
+
+        <p id="feedback-3" class="quiz-feedback"></p>
+    </div>
+
+    <!-- Câu 4 -->
+    <div id="question-4" class="question-block" style="display:none;">
+        <h3>4. Tham số `src-mac` dùng để kiểm tra điều gì?</h3>
+
+        <div class="input-group">
+            <input type="text" id="answer-4" class="quiz-input" placeholder="Nhập ý nghĩa..." />
+            <button class="quiz-button" onclick="checkAnswer(4)">Check</button>
+        </div>
+
+        <p id="feedback-4" class="quiz-feedback"></p>
+    </div>
+
+    <!-- Câu 5 -->
+    <div id="question-5" class="question-block" style="display:none;">
+        <h3>5. Khi DAI chặn ARP giả, Switch sẽ làm gì?</h3>
+
+        <div class="input-group">
+            <input type="text" id="answer-5" class="quiz-input" placeholder="Nhập hành động..." />
+            <button class="quiz-button" onclick="checkAnswer(5)">Check</button>
+        </div>
+
+        <p id="feedback-5" class="quiz-feedback"></p>
+    </div>
+
+</div>
+
+
+<!-- ========================= -->
+<!-- ⭐ FOOTER ⭐ -->
+<!-- ========================= -->
+
+<div style="margin-top:60px; border-top:1px solid var(--border-light); padding-top:20px; text-align:center; color:var(--muted);">
+    © 2025 Cyber Ranges Platform
+</div>
+
+
+<!-- ========================= -->
+<!-- ⭐ SCRIPT QUIZ & USERNAME ⭐ -->
+<!-- ========================= -->
+
+<script>
+    // 1. CẤU HÌNH ĐÁP ÁN (có thể đổi nội dung cho phù hợp lab DHCP)
+    const correctAnswers = {
+        1: ["..."],
+        2: ["..."],
+        3: ["..."],
+        4: ["..."],
+        5: ["..."]
+    };
+
+    // --- HÀM GỬI TIẾN ĐỘ (NHẬN SỐ PHẦN TRĂM) ---
+    async function submitProgress(percent) {
+        const username = localStorage.getItem("cyber_current_user");
+        
+        if (!username) {
+            console.log("Chưa đăng nhập, không lưu được.");
+            return;
+        }
+
+        try {
+            console.log(`Đang gửi tiến độ ${percent}% về Server...`);
+            
+            // 👇 CHỈ ĐỔI labId Ở ĐÂY
+            const response = await fetch('/api/submit-quiz', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ 
+                    username: username, 
+                    labId: 'phongthu_arp',   // <-- tên lab DHCP
+                    progress: percent 
+                })
+            });
+
+            const data = await response.json();
+            console.log("Server đã lưu:", data);
+
+        } catch (error) {
+            console.error("Lỗi kết nối Server:", error);
+        }
+    }
+
+    // 2. HÀM CHUẨN HÓA ĐÁP ÁN
+    function normalizeAnswer(answer) {
+        return answer.toLowerCase().trim()
+            .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"")
+            .replace(/\s{2,}/g," ");
+    }
+
+    // 3. HÀM CHECK ĐÁP ÁN
+    function checkAnswer(questionNumber) {
+        const inputId = 'answer-' + questionNumber;
+        const feedbackId = 'feedback-' + questionNumber;
+        const currentQuestionId = 'question-' + questionNumber;
+        
+        const userInput = document.getElementById(inputId).value;
+        const feedbackElement = document.getElementById(feedbackId);
+        const currentQuestionElement = document.getElementById(currentQuestionId);
+        
+        const normalizedInput = normalizeAnswer(userInput);
+        const validAnswers = correctAnswers[questionNumber];
+        let isCorrect = false;
+
+        for (const valid of validAnswers) {
+            if (normalizedInput.includes(normalizeAnswer(valid))) {
+                isCorrect = true;
+                break;
+            }
+        }
+
+        if (isCorrect) {
+            feedbackElement.style.color = '#2ecc71';
+            feedbackElement.innerHTML = '<i class="fas fa-check"></i> Chính xác!';
+            
+            document.getElementById(inputId).disabled = true;
+            currentQuestionElement.querySelector('.quiz-button').disabled = true;
+
+            const currentPercent = questionNumber * 20;
+            submitProgress(currentPercent); 
+
+            setTimeout(() => {
+                currentQuestionElement.style.display = 'none';
+
+                if (questionNumber < 5) {
+                    const nextQuestionId = 'question-' + (questionNumber + 1);
+                    const nextQuestionElement = document.getElementById(nextQuestionId);
+                    if (nextQuestionElement) {
+                        nextQuestionElement.style.display = 'block';
+                        document.getElementById('feedback-' + (questionNumber + 1)).innerHTML = '';
+                    }
+                } else {
+                    document.getElementById('completion-message').style.display = 'block';
+                    document.getElementById('quiz').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }, 500);
+
+        } else {
+            feedbackElement.style.color = '#e74c3c';
+            feedbackElement.innerHTML = '<i class="fas fa-times"></i> Chưa chính xác. Vui lòng thử lại!';
+        }
+    }
+
+    // 4. KHỞI TẠO
+    document.addEventListener('DOMContentLoaded', () => {
+        const allQuestions = document.querySelectorAll('.question-block');
+        allQuestions.forEach(q => { q.style.display = 'none'; });
+        const firstQuestion = document.getElementById('question-1');
+        if (firstQuestion) { firstQuestion.style.display = 'block'; }
+    });
+</script>
+

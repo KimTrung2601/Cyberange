@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hướng dẫn: Tấn công DNS Spoofing</title>
+
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-dark: #0f1624;
+            --bg-card: #1a2332;
+            --blue: #3fa9f5;
+            --text: #e6eef7;
+            --muted: #98a6b8;
+            --orange: #f5b041;
+            --red: #e74c3c;
+            --border-light: #2c3a4d;
+        }
+
+        html, body { height: 100%; margin: 0; padding: 0; background: var(--bg-dark);}
+        .app { display: flex; min-height: 100vh; }
+
+        /* SIDEBAR */
+        .sidebar {
+            background: #131b29;
+            border-right: 1px solid #243044;
+            min-width: 280px;
+            padding: 24px 20px;
+            position: sticky; top: 0;
+            height: 100vh;
+            display: flex; flex-direction: column;
+            overflow-y: hidden;
+        }
+
+        .sidebar-nav {
+            flex-grow: 1;
+            overflow-y: auto;
+            display: flex; flex-direction: column;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .nav-item {
+            padding: 10px 14px;
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 15px;
+            border-radius: 6px;
+            transition: 0.25s;
+        }
+        .nav-item:hover { background: #1f2a3b; color: white; }
+
+        /* MAIN CONTENT */
+        .main { flex-grow: 1; width: 100%; }
+        .main-topbar {
+            background: #10141a;
+            padding: 15px 30px;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .guide-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 25px;
+            color: var(--text);
+            animation: fadeIn .4s ease;
+        }
+
+        @keyframes fadeIn { from{opacity:0; transform:translateY(10px);} to{opacity:1;transform:translateY(0);} }
+
+        h2 {
+            margin-top: 35px;
+            color: var(--blue);
+            border-bottom: 2px solid var(--border-light);
+            padding-bottom: 8px;
+            font-size: 24px;
+        }
+
+        h3 {
+            margin-top: 25px;
+            font-size: 19px;
+            font-weight: bold;
+        }
+
+        .guide-image-container {
+            margin: 25px 0;
+            border: 1px solid var(--border-light);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .guide-image-container img { width: 100%; }
+        .image-caption {
+            padding: 10px; background: #1e2a38;
+            color: #cfe1ff; font-size: 14px; font-style: italic;
+        }
+
+        .video-embed {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            margin: 20px 0;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 2px solid var(--blue);
+            background: #10141a;
+        }
+
+        .video-embed iframe {
+            position: absolute;
+            top:0; left:0;
+            width:100%; height:100%;
+        }
+
+        .attack-step {
+            background: var(--bg-card);
+            padding: 20px;
+            border-left: 5px solid var(--red);
+            border-radius: 8px;
+            margin: 35px 0;
+        }
+
+        .quiz-input {
+            padding: 10px;
+            background: #0f1624;
+            border: 1px solid var(--border-light);
+            color: white;
+            width: 80%;
+        }
+
+        .quiz-button {
+            padding: 10px 20px;
+            background: #27ae60;
+            border: none;
+            color: white;
+            cursor: pointer;
+        }
+
+        .code-block {
+            background: #1a2332;
+            padding: 10px;
+            color: #f5b041;
+            font-family: monospace;
+            border-left: 4px solid var(--orange);
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+<div class="app">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <header class="sidebar-logo">
+            <i class="fas fa-shield-alt"></i>
+            <span>CYBER<br>RANGES</span>
+        </header>
+
+        <div class="sidebar-user">
+            <strong>ĐH Công Thương</strong>
+            <small>My Account</small>
+        </div>
+
+        <nav class="sidebar-nav">
+            <a href="#" onclick="history.back(); return false;" class="nav-item active">
+                <i class="fas fa-arrow-left"></i> Back to Playlists
+            </a>
+
+            <h3 style="color:var(--text); margin-top:20px;">Mục lục</h3>
+
+            <a href="#tong-quan" class="nav-item">1. Tổng quan</a>
+            <a href="#web-gia" class="nav-item">I. Cấu hình Website giả mạo</a>
+            <a href="#etterdns" class="nav-item">II. Cấu hình etter.dns</a>
+            <a href="#arp" class="nav-item">III. ARP Poisoning & DNS Spoof</a>
+            <a href="#kiem-tra" class="nav-item">IV. Kiểm tra kết quả</a>
+            <a href="#quiz" class="nav-item">V. Quiz</a>
+        </nav>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main">
+        <header class="main-topbar">
+            <h1 style="color:white;"><i class="fas fa-globe" style="color:var(--red);"></i> DNS Spoofing Attack</h1>
+        </header>
+
+        <section class="guide-container">
+
+            <!-- ================= TỔNG QUAN ================= -->
+            <h2 id="tong-quan">📘 1. Tổng quan kịch bản</h2>
+
+            <p>Kịch bản mô phỏng tấn công <strong>DNS Spoofing</strong> nhằm chuyển hướng người dùng đến trang web giả mạo thông qua ARP Poisoning và Ettercap.</p>
+            <div class="video-embed" style="margin-bottom:35px; position:relative; padding-bottom:56.25%; height:0;">
+                <iframe style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;"
+                        src="https://www.youtube.com/embed/8-pAeSKHx4k?si=RLxFRjEUCiCwLWjm"
+                        title="YouTube video player" frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+            
+            <ul>
+                <li><strong>Máy tấn công (Kali Linux):</strong> 192.168.247.135</li>
+                <li><strong>Máy nạn nhân (Windows 10):</strong> 192.168.247.134</li>
+            </ul>
+
+       
+
+            <!-- ================= WEB GIẢ ================= -->
+            <h2 id="web-gia">I. Cấu hình Website giả mạo</h2>
+
+            <div class="attack-step">
+                <h3>Bước 1: Tạo nội dung trang web giả</h3>
+
+                <p>Tiến hành chỉnh sửa trang HTML tại thư mục Web Server:</p>
+
+                <div class="code-block">sudo nano /var/www/html/index.html</div>
+
+                <div class="guide-image-container">
+                    <img src="images/hinh13.jpg">
+                    <div class="image-caption">Chỉnh sửa nội dung trang phishing</div>
+                </div>
+
+                <p>Sau khi chỉnh sửa → khởi động lại Apache để cập nhật:</p>
+                <div class="code-block">service apache2 restart</div>
+            </div>
+
+            <!-- ================= ETTER.DNS ================= -->
+            <h2 id="etterdns">II. Cấu hình file etter.dns</h2>
+
+            <div class="attack-step">
+                <h3>Bước 2: Mở file etter.dns</h3>
+
+                <p>File này chứa thông tin ánh xạ domain → IP giả.</p>
+
+                <div class="code-block">sudo nano /etc/ettercap/etter.dns</div>
+
+                <div class="guide-image-container">
+                    <img src="images/hinh14.jpg">
+                    <div class="image-caption">Thêm record DNS giả mạo vào etter.dns</div>
+                </div>
+
+                <p>Thêm cấu hình chuyển hướng:</p>
+
+                <div class="code-block">
+google.com   A 192.168.247.135<br>
+facebook.com A 192.168.247.135
+                </div>
+            </div>
+
+            <!-- ================= ARP POISONING ================= -->
+            <h2 id="arp">III. ARP Poisoning & bật DNS Spoof</h2>
+
+            <div class="attack-step">
+                <h3>Bước 3: Mở giao diện Ettercap</h3>
+
+                <div class="code-block">sudo ettercap -G</div>
+
+                <div class="guide-image-container">
+                    <img src="images/hinh15.jpg">
+                    <div class="image-caption">Scan host – tìm máy nạn nhân</div>
+                </div>
+            </div>
+
+            <div class="attack-step">
+                <h3>Bước 4: Add Target & kích hoạt ARP-Poisoning</h3>
+
+                <div class="guide-image-container">
+                    <img src="images/hinh16.jpg">
+                    <img src="images/hinh17.jpg">
+                    <div class="image-caption">Tiến hành ARP Poisoning</div>
+                </div>
+            </div>
+
+            <div class="attack-step">
+                <h3>Bước 5: Kích hoạt Plugin DNS Spoofing</h3>
+
+                <div class="guide-image-container">
+                    <img src="images/hinh18.jpg">
+                    <div class="image-caption">DNS Spoof plugin bắt đầu hoạt động</div>
+                </div>
+            </div>
+            
+            <!-- ================= KIỂM TRA ================= -->
+            <h2 id="kiem-tra">IV. Kiểm tra kết quả</h2>
+
+            <p>Nạn nhân truy cập:</p>
+            <ul>
+                <li>google.com</li>
+                <li>facebook.com</li>
+            </ul>
+
+            <p>→ Họ sẽ bị chuyển hướng đến Web giả mạo được cấu hình ở bước đầu.</p>
+
+            <div class="guide-image-container">
+                <img src="images/hinh19.jpg">
+                <div class="image-caption">Nạn nhân bị chuyển hướng sang website giả</div>
+            </div>
+
+            <!-- ================= QUIZ ================= -->
+            <h2 id="quiz">📝 V. Quiz kiểm tra kiến thức</h2>
+
+            <div style="background:#1a2332;padding:30px;border-radius:10px;">
+
+                <div id="completion-message"
+                    style="display:none;padding:20px;background:#27ae60;color:white;text-align:center;border-radius:8px;">
+                    🎉 Bạn đã hoàn thành quiz!
+                </div>
+
+                <div id="question-1" class="question-block">
+                    <h3>1. DNS Spoofing nhằm mục đích gì?</h3>
+                    <input id="answer-1" class="quiz-input">
+                    <button class="quiz-button" onclick="checkAnswer(1)">Check</button>
+                    <p id="feedback-1"></p>
+                </div>
+
+                <div id="question-2" class="question-block" style="display:none;">
+                    <h3>2. Công cụ nào được sử dụng để tấn công trong lab?</h3>
+                    <input id="answer-2" class="quiz-input">
+                    <button class="quiz-button" onclick="checkAnswer(2)">Check</button>
+                    <p id="feedback-2"></p>
+                </div>
+
+                <div id="question-3" class="question-block" style="display:none;">
+                    <h3>3. File nào chứa cấu hình record dùng để redirect domain?</h3>
+                    <input id="answer-3" class="quiz-input">
+                    <button class="quiz-button" onclick="checkAnswer(3)">Check</button>
+                    <p id="feedback-3"></p>
+                </div>
+
+                <div id="question-4" class="question-block" style="display:none;">
+                    <h3>4. Kỹ thuật nào được sử dụng để chen ngang luồng DNS?</h3>
+                    <input id="answer-4" class="quiz-input">
+                    <button class="quiz-button" onclick="checkAnswer(4)">Check</button>
+                    <p id="feedback-4"></p>
+                </div>
+
+                <div id="question-5" class="question-block" style="display:none;">
+                    <h3>5. Sau tấn công nạn nhân bị chuyển đến đâu?</h3>
+                    <input id="answer-5" class="quiz-input">
+                    <button class="quiz-button" onclick="checkAnswer(5)">Check</button>
+                    <p id="feedback-5"></p>
+                </div>
+            </div>
+
+        </section>
+    </main>
+</div>
+
+<script>
+    // 1. CẤU HÌNH ĐÁP ÁN (có thể đổi nội dung cho phù hợp lab DHCP)
+    const correctAnswers = {
+        1: ["..."],
+        2: ["..."],
+        3: ["..."],
+        4: ["..."],
+        5: ["..."]
+    };
+
+    // --- HÀM GỬI TIẾN ĐỘ (NHẬN SỐ PHẦN TRĂM) ---
+    async function submitProgress(percent) {
+        const username = localStorage.getItem("cyber_current_user");
+        
+        if (!username) {
+            console.log("Chưa đăng nhập, không lưu được.");
+            return;
+        }
+
+        try {
+            console.log(`Đang gửi tiến độ ${percent}% về Server...`);
+            
+            // 👇 CHỈ ĐỔI labId Ở ĐÂY
+            const response = await fetch('/api/submit-quiz', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ 
+                    username: username, 
+                    labId: 'dns_psn',   // <-- tên lab DHCP
+                    progress: percent 
+                })
+            });
+
+            const data = await response.json();
+            console.log("Server đã lưu:", data);
+
+        } catch (error) {
+            console.error("Lỗi kết nối Server:", error);
+        }
+    }
+
+    // 2. HÀM CHUẨN HÓA ĐÁP ÁN
+    function normalizeAnswer(answer) {
+        return answer.toLowerCase().trim()
+            .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"")
+            .replace(/\s{2,}/g," ");
+    }
+
+    // 3. HÀM CHECK ĐÁP ÁN
+    function checkAnswer(questionNumber) {
+        const inputId = 'answer-' + questionNumber;
+        const feedbackId = 'feedback-' + questionNumber;
+        const currentQuestionId = 'question-' + questionNumber;
+        
+        const userInput = document.getElementById(inputId).value;
+        const feedbackElement = document.getElementById(feedbackId);
+        const currentQuestionElement = document.getElementById(currentQuestionId);
+        
+        const normalizedInput = normalizeAnswer(userInput);
+        const validAnswers = correctAnswers[questionNumber];
+        let isCorrect = false;
+
+        for (const valid of validAnswers) {
+            if (normalizedInput.includes(normalizeAnswer(valid))) {
+                isCorrect = true;
+                break;
+            }
+        }
+
+        if (isCorrect) {
+            feedbackElement.style.color = '#2ecc71';
+            feedbackElement.innerHTML = '<i class="fas fa-check"></i> Chính xác!';
+            
+            document.getElementById(inputId).disabled = true;
+            currentQuestionElement.querySelector('.quiz-button').disabled = true;
+
+            const currentPercent = questionNumber * 20;
+            submitProgress(currentPercent); 
+
+            setTimeout(() => {
+                currentQuestionElement.style.display = 'none';
+
+                if (questionNumber < 5) {
+                    const nextQuestionId = 'question-' + (questionNumber + 1);
+                    const nextQuestionElement = document.getElementById(nextQuestionId);
+                    if (nextQuestionElement) {
+                        nextQuestionElement.style.display = 'block';
+                        document.getElementById('feedback-' + (questionNumber + 1)).innerHTML = '';
+                    }
+                } else {
+                    document.getElementById('completion-message').style.display = 'block';
+                    document.getElementById('quiz').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }, 500);
+
+        } else {
+            feedbackElement.style.color = '#e74c3c';
+            feedbackElement.innerHTML = '<i class="fas fa-times"></i> Chưa chính xác. Vui lòng thử lại!';
+        }
+    }
+
+    // 4. KHỞI TẠO
+    document.addEventListener('DOMContentLoaded', () => {
+        const allQuestions = document.querySelectorAll('.question-block');
+        allQuestions.forEach(q => { q.style.display = 'none'; });
+        const firstQuestion = document.getElementById('question-1');
+        if (firstQuestion) { firstQuestion.style.display = 'block'; }
+    });
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <title>Cyber Ranges - Đăng ký</title>
+  <link rel="stylesheet" href="css/auth.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body class="auth-body">
+  <div class="auth-container">
+    <header class="auth-logo">
+      <i class="fas fa-shield-alt"></i>
+      CYBER RANGES
+    </header>
+
+    <div class="auth-panel single">
+      <section class="auth-form">
+        <h2>TẠO TÀI KHOẢN MỚI</h2>
+        <form id="register-form">
+          <div class="input-group">
+            <label for="reg-username">Tên người dùng</label>
+            <input id="reg-username" type="text" />
+            <small class="error" id="reg-user-error">Trường này là bắt buộc.</small>
+          </div>
+
+          <div class="input-group">
+            <label for="reg-email">Email</label>
+            <input id="reg-email" type="email" />
+            <small class="error" id="reg-email-error">Email không hợp lệ.</small>
+          </div>
+
+          <div class="input-group input-password">
+            <label for="reg-password">Mật khẩu</label>
+            <input id="reg-password" type="password" />
+            <button type="button" class="password-toggle" onclick="togglePassword('reg-password', this)">
+              <i class="fas fa-eye"></i>
+            </button>
+            <small class="error" id="reg-pass-error">Mật khẩu không được bỏ trống.</small>
+          </div>
+
+          <button type="submit" class="btn btn-secondary">Tạo tài khoản</button>
+
+          <p class="auth-note">
+            Đã có tài khoản?
+            <a href="index.html" class="link-primary">Đăng nhập</a>
+          </p>
+        </form>
+      </section>
+    </div>
+  </div>
+
+  <script src="js/auth.js"></script>
+</body>
+</html>

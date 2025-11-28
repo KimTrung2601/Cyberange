@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <title>Cyber Ranges - Đăng nhập</title>
+  <link rel="stylesheet" href="css/auth.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body class="auth-body">
+  <div class="auth-container">
+    <header class="auth-logo">
+      <i class="fas fa-shield-alt"></i>
+      CYBER RANGES
+    </header>
+
+    <div class="auth-panel">
+      <section class="auth-side">
+        <h2>BẠN CHƯA PHẢI LÀ NGƯỜI DÙNG CYBER RANGES?</h2>
+        <p>Đăng ký ngay hôm nay<br>để bắt đầu tập luyện.</p>
+        <button class="btn btn-primary" onclick="location.href='register.html'">
+          Đăng ký
+        </button>
+      </section>
+
+      <div class="auth-separator">
+        <span>HOẶC</span>
+      </div>
+
+      <section class="auth-form">
+        <h2>ĐĂNG NHẬP</h2>
+        <form id="login-form">
+          <div class="input-group">
+            <label for="login-identifier">Tên người dùng hoặc Email</label>
+            <input id="login-identifier" type="text" />
+            <small class="error" id="login-id-error">Trường này là bắt buộc.</small>
+          </div>
+
+          <div class="input-group input-password">
+            <label for="login-password">Mật khẩu</label>
+            <input id="login-password" type="password" />
+            <button type="button" class="password-toggle" onclick="togglePassword('login-password', this)">
+              <i class="fas fa-eye"></i>
+            </button>
+            <small class="error" id="login-pass-error">Trường này là bắt buộc.</small>
+          </div>
+
+          <div class="auth-options">
+            <label><input type="checkbox" /> Nhớ tôi</label>
+            <a href="#" class="link-muted">Quên mật khẩu?</a>
+          </div>
+
+          <button type="submit" class="btn btn-secondary">Đăng nhập</button>
+        </form>
+      </section>
+    </div>
+  </div>
+
+  <script src="js/auth.js"></script>
+</body>
+</html>

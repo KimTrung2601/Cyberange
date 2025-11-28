@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hướng dẫn: Tấn công Brute Force SMB (Hydra)</title>
+
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-dark: #0f1624;
+            --bg-card: #1a2332;
+            --blue: #3fa9f5;
+            --text: #e6eef7;
+            --muted: #98a6b8;
+            --orange: #f5b041;
+            --red: #e74c3c;
+            --border-light: #2c3a4d;
+        }
+
+        html, body { height: 100%; margin: 0; padding: 0;background: var(--bg-dark);}
+        .app { display: flex; min-height: 100vh;}
+
+        /* SIDEBAR */
+        .sidebar {
+            background: #131b29;
+            border-right: 1px solid #243044;
+            min-width: 280px;
+            padding: 24px 20px;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-y: hidden;
+        }
+
+        .sidebar-nav {
+            flex-grow: 1;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .nav-item {
+            padding: 10px 14px;
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 15px;
+            border-radius: 6px;
+            transition: 0.25s;
+        }
+        .nav-item:hover { background:#1f2a3b; color:white; }
+
+        /* MAIN */
+        .main { flex-grow:1; width:100%; }
+        .main-topbar {
+            background: #10141a;
+            padding: 15px 30px;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .guide-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 25px;
+            color: var(--text);
+        }
+
+        h2 {
+            color:var(--blue);
+            margin-top:35px;
+            padding-bottom:8px;
+            border-bottom:2px solid var(--border-light);
+        }
+
+        h3 { margin-top:25px; font-size:19px; }
+
+        .guide-image-container {
+            margin:25px 0;
+            border:1px solid var(--border-light);
+            border-radius:10px;
+            overflow:hidden;
+        }
+        .guide-image-container img { width:100%; }
+        .image-caption {
+            padding:10px;
+            background:#1e2a38;
+            font-style:italic;
+            color:#cfe1ff;
+        }
+
+        /* VIDEO */
+        .video-embed {
+            position:relative;
+            padding-bottom:56.25%;
+            height:0;
+            margin:20px 0;
+            border-radius:12px;
+            border:2px solid var(--blue);
+            overflow:hidden;
+        }
+        .video-embed iframe {
+            position:absolute;
+            top:0;left:0;width:100%;height:100%;
+        }
+
+        .attack-step {
+            background:var(--bg-card);
+            padding:20px;
+            border-left:5px solid var(--red);
+            margin:35px 0;
+            border-radius:8px;
+        }
+
+        .code-block {
+            background:#1a2332;
+            padding:10px;
+            font-family:monospace;
+            color:#f5b041;
+            border-left:4px solid var(--orange);
+            border-radius:5px;
+            margin:12px 0;
+        }
+
+        .quiz-input {
+            padding:10px;
+            width:80%;
+            background:#0f1624;
+            border:1px solid var(--border-light);
+            color:white;
+        }
+        .quiz-button {
+            padding:10px 20px;
+            background:#27ae60;
+            color:white;
+            border:none;
+            cursor:pointer;
+            margin-left:10px;
+        }
+    </style>
+</head>
+
+<body>
+<div class="app">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <header class="sidebar-logo">
+            <i class="fas fa-shield-alt"></i>
+            <span>CYBER<br>RANGES</span>
+        </header>
+
+        <div class="sidebar-user">
+            <strong>ĐH Công Thương</strong>
+            <small>My Account</small>
+        </div>
+
+        <nav class="sidebar-nav">
+            <a href="#" onclick="history.back(); return false;" class="nav-item active">
+                <i class="fas fa-arrow-left"></i> Back to Playlists
+            </a>
+            <h3 style="color:white;margin-top:20px;">Mục lục</h3>
+            <a href="#tong-quan" class="nav-item">1. Tổng quan</a>
+            <a href="#scan" class="nav-item">I. Quét port</a>
+            <a href="#userlist" class="nav-item">II. Tạo user.txt</a>
+            <a href="#passlist" class="nav-item">III. Tạo passlist</a>
+            <a href="#hydra" class="nav-item">IV. Hydra brute-force</a>
+            <a href="#quiz" class="nav-item">V. Quiz</a>
+        </nav>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main">
+
+        <header class="main-topbar">
+            <h1 style="color:white;"><i class="fas fa-user-secret" style="color:var(--red);"></i> Brute-force SMB Attack với Hydra</h1>
+        </header>
+
+        <section class="guide-container">
+
+            <!-- TỔNG QUAN -->
+            <h2 id="tong-quan">📘 1. Tổng quan kịch bản</h2>
+
+            <p>Trong bài lab này, bạn sẽ thực hiện tấn công <strong>Brute-force</strong> vào dịch vụ <strong>SMB (cổng 445)</strong> của máy Windows 10 đích.</p>
+            <div class="video-embed">
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/a1uQzCgwbNU?si=QC9cqAvPCSDrhRZR" 
+                    title="YouTube video player" frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+
+            <ul>
+                <li><strong>Máy tấn công (Kali):</strong> 192.168.247.135</li>
+                <li><strong>Máy nạn nhân (Win10):</strong> 192.168.247.138</li>
+            </ul>
+
+         
+
+            <!-- SCAN -->
+            <h2 id="scan">I. Bước 1 – Quét các cổng đang mở</h2>
+
+            <p>Mục đích: Xác định dịch vụ nào đang mở và có thể bị tấn công.</p>
+
+            <div class="code-block">sudo nmap -sV 192.168.247.138</div>
+
+            <div class="guide-image-container">
+                <img src="images/hinh1.jpg">
+                <div class="image-caption">Kết quả quét port bằng Nmap</div>
+            </div>
+
+            <p>Các port như SMB (445), msrpc/netbios (135/139), WinRM (5985)… đang mở → đây là bề mặt tấn công rõ ràng.</p>
+
+            <!-- USER.TXT -->
+            <h2 id="userlist">II. Bước 2 – Tạo danh sách tên người dùng</h2>
+
+            <p>Tạo file user.txt</p>
+
+            <div class="code-block">nano user.txt</div>
+
+            <div class="guide-image-container">
+                <img src="images/hinh2.jpg">
+                <div class="image-caption">Tạo danh sách user</div>
+            </div>
+
+            <!-- PASSLIST -->
+            <h2 id="passlist">III. Bước 3 – Tạo danh sách mật khẩu</h2>
+
+            <div class="code-block">nano custom_pass.txt</div>
+
+            <div class="guide-image-container">
+                <img src="images/hinh3.jpg">
+                <div class="image-caption">Tạo danh sách mật khẩu</div>
+            </div>
+
+            <!-- HYDRA -->
+            <h2 id="hydra">IV. Bước 4 – Thực hiện Brute-force SMB bằng Hydra</h2>
+
+            <p>Sau khi có danh sách user + mật khẩu → tiến hành tấn công:</p>
+
+            <div class="code-block">
+hydra -L user.txt -P custom_pass.txt 192.168.247.138 smb
+            </div>
+
+            <div class="guide-image-container">
+                <img src="images/hinh4.jpg">
+                <div class="image-caption">Hydra brute-force SMB thành công</div>
+            </div>
+
+            <p>Kết quả thu được:</p>
+            <ul>
+                <li><strong>User:</strong> Administrator</li>
+                <li><strong>Password:</strong> Cd@152004</li>
+                <li><strong>Server:</strong> 192.168.247.138</li>
+            </ul>
+
+            <!-- QUIZ -->
+            <h2 id="quiz">📝 V. Quiz kiểm tra kiến thức</h2>
+
+            <div style="background:#1a2332;padding:30px;border-radius:10px;">
+
+                <div id="completion-message"
+                    style="display:none;background:#27ae60;padding:20px;color:white;text-align:center;border-radius:10px;font-size:18px;">
+                    🎉 Bạn đã hoàn thành quiz!
+                </div>
+
+                <!-- Q1 -->
+                <div id="question-1">
+                    <h3>1. Hydra đang brute-force dịch vụ nào?</h3>
+                    <input id="answer-1" class="quiz-input">
+                    <button class="quiz-button" onclick="checkAnswer(1)">Check</button>
+                    <p id="feedback-1"></p>
+                </div>
+
+                <!-- Q2 -->
+                <div id="question-2" style="display:none;">
+                    <h3>2. File chứa danh sách user tên là gì?</h3>
+                    <input id="answer-2" class="quiz-input">
+                    <button class="quiz-button" onclick="checkAnswer(2)">Check</button>
+                    <p id="feedback-2"></p>
+                </div>
+
+                <!-- Q3 -->
+                <div id="question-3" style="display:none;">
+                    <h3>3. Công cụ nào dùng để brute-force?</h3>
+                    <input id="answer-3" class="quiz-input">
+                    <button class="quiz-button" onclick="checkAnswer(3)">Check</button>
+                    <p id="feedback-3"></p>
+                </div>
+
+                <!-- Q4 -->
+                <div id="question-4" style="display:none;">
+                    <h3>4. Port SMB mặc định là bao nhiêu?</h3>
+                    <input id="answer-4" class="quiz-input">
+                    <button class="quiz-button" onclick="checkAnswer(4)">Check</button>
+                    <p id="feedback-4"></p>
+                </div>
+
+                <!-- Q5 -->
+                <div id="question-5" style="display:none;">
+                    <h3>5. Mục tiêu brute-force trong bài lab là máy nào?</h3>
+                    <input id="answer-5" class="quiz-input">
+                    <button class="quiz-button" onclick="checkAnswer(5)">Check</button>
+                    <p id="feedback-5"></p>
+                </div>
+
+            </div>
+
+        </section>
+    </main>
+</div>
+
+<script>
+    // 1. CẤU HÌNH ĐÁP ÁN
+    const correctAnswers = {
+        1: ["00:0c:29:5b:cc:f0", "mac của kali", "kali linux", "máy tấn công", "attacker"],
+        2: ["man-in-the-middle", "man in the middle", "nghe lén"],
+        3: ["chuyển tiếp gói tin", "ip forwarding", "trạm trung chuyển", "forwarding"],
+        4: ["dynamic arp inspection", "dai", "dai inspection"],
+        5: ["dhcp snooping", "dhcp snooping"]
+    };
+
+    // --- HÀM GỬI TIẾN ĐỘ (NHẬN SỐ PHẦN TRĂM) ---
+    async function submitProgress(percent) {
+        const username = localStorage.getItem("cyber_current_user");
+        
+        if (!username) {
+            console.log("Chưa đăng nhập, không lưu được.");
+            return;
+        }
+
+        try {
+            console.log(`Đang gửi tiến độ ${percent}% về Server...`);
+            
+            // Gửi số % cụ thể về Server
+            const response = await fetch('/api/submit-quiz', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ 
+                    username: username, 
+                    labId: 'brute_force_ssh', 
+                    progress: percent 
+                })
+            });
+
+            const data = await response.json();
+            console.log("Server đã lưu:", data);
+
+        } catch (error) {
+            console.error("Lỗi kết nối Server:", error);
+        }
+    }
+
+    // 2. HÀM CHUẨN HÓA ĐÁP ÁN
+    function normalizeAnswer(answer) {
+        return answer.toLowerCase().trim().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"").replace(/\s{2,}/g," ");
+    }
+
+    // 3. HÀM CHECK ĐÁP ÁN (ĐÃ SỬA ĐỂ GỬI ĐIỂM TỪNG CÂU)
+    function checkAnswer(questionNumber) {
+        const inputId = 'answer-' + questionNumber;
+        const feedbackId = 'feedback-' + questionNumber;
+        const currentQuestionId = 'question-' + questionNumber;
+        
+        const userInput = document.getElementById(inputId).value;
+        const feedbackElement = document.getElementById(feedbackId);
+        const currentQuestionElement = document.getElementById(currentQuestionId);
+        
+        const normalizedInput = normalizeAnswer(userInput);
+        const validAnswers = correctAnswers[questionNumber];
+        let isCorrect = false;
+
+        for (const valid of validAnswers) {
+            if (normalizedInput.includes(normalizeAnswer(valid))) {
+                isCorrect = true;
+                break;
+            }
+        }
+
+        if (isCorrect) {
+            // --- XỬ LÝ KHI ĐÚNG ---
+            feedbackElement.style.color = '#2ecc71';
+            feedbackElement.innerHTML = '<i class="fas fa-check"></i> Chính xác!';
+            
+            // Khóa nút lại
+            document.getElementById(inputId).disabled = true;
+            currentQuestionElement.querySelector('.quiz-button').disabled = true;
+
+            // 👉 TÍNH TOÁN VÀ GỬI ĐIỂM NGAY LẬP TỨC 👈
+            // Câu 1 đúng -> 20%, Câu 2 đúng -> 40%...
+            const currentPercent = questionNumber * 20;
+            submitProgress(currentPercent); 
+
+            
+            // Chuyển câu hỏi sau 0.5 giây
+            setTimeout(() => {
+                currentQuestionElement.style.display = 'none';
+
+                if (questionNumber < 5) {
+                    // Hiện câu tiếp theo
+                    const nextQuestionId = 'question-' + (questionNumber + 1);
+                    const nextQuestionElement = document.getElementById(nextQuestionId);
+                    if (nextQuestionElement) {
+                        nextQuestionElement.style.display = 'block';
+                        document.getElementById('feedback-' + (questionNumber + 1)).innerHTML = '';
+                    }
+                } else {
+                    // Nếu là câu cuối cùng (Câu 5)
+                    document.getElementById('completion-message').style.display = 'block';
+                    document.getElementById('quiz').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }, 500);
+
+        } else {
+            // --- XỬ LÝ KHI SAI ---
+            feedbackElement.style.color = '#e74c3c';
+            feedbackElement.innerHTML = '<i class="fas fa-times"></i> Chưa chính xác. Vui lòng thử lại!';
+        }
+    }
+
+    // 4. KHỞI TẠO
+    document.addEventListener('DOMContentLoaded', () => {
+        const allQuestions = document.querySelectorAll('.question-block');
+        allQuestions.forEach(q => { q.style.display = 'none'; });
+        const firstQuestion = document.getElementById('question-1');
+        if (firstQuestion) { firstQuestion.style.display = 'block'; }
+    });
+</script>
+</body>
+</html>

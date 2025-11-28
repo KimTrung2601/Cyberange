@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hướng dẫn: SETOOLKIT - Fake Facebook Login</title>
+
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-dark: #0f1624;
+            --bg-card: #1a2332;
+            --blue: #3fa9f5;
+            --text: #e6eef7;
+            --muted: #98a6b8;
+            --orange: #f5b041;
+            --red: #e74c3c;
+            --border-light: #2c3a4d;
+        }
+
+        body {
+            background: var(--bg-dark);
+            margin: 0;
+            font-family: "Segoe UI", sans-serif;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .app {
+            display: flex;
+            min-height: 100vh;
+            background: var(--bg-dark);
+        }
+
+        .sidebar {
+            background: #131b29;
+            border-right: 1px solid #243044;
+            min-width: 280px;
+            padding: 24px 20px;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar-nav {
+            flex-grow: 1;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .nav-item {
+            padding: 10px 14px;
+            text-decoration: none;
+            font-size: 15px;
+            border-radius: 6px;
+            color: var(--muted);
+            transition: 0.25s;
+        }
+        .nav-item:hover { background: #1f2a3b; color: white; }
+
+        .main { flex-grow: 1; }
+
+        .main-topbar {
+            background: #10141a;
+            padding: 15px 30px;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .guide-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 25px;
+            color: var(--text);
+            animation: fadeIn 0.4s ease;
+        }
+
+        h2 {
+            margin-top: 35px;
+            color: var(--blue);
+            border-bottom: 2px solid var(--border-light);
+            padding-bottom: 8px;
+            font-size: 24px;
+            text-shadow: 0 0 10px rgba(63,169,245,0.4);
+        }
+
+        h3 { margin-top: 25px; font-size: 19px; color: var(--text); font-weight: 700; }
+
+        .guide-image-container {
+            border: 1px solid var(--border-light);
+            border-radius: 10px;
+            margin: 25px 0;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0,0,0,0.4);
+        }
+
+        .guide-image-container img { width: 100%; }
+        .image-caption {
+            padding: 10px;
+            background: #1e2a38;
+            color: #cfe1ff;
+            font-size: 14px;
+            font-style: italic;
+        }
+
+        .attack-step {
+            background: var(--bg-card);
+            border-left: 5px solid var(--red);
+            padding: 20px;
+            margin: 35px 0;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(231,76,60,0.3);
+        }
+
+        .info-box {
+            background:#1a2332;
+            border:1px solid var(--border-light);
+            padding:18px 22px;
+            border-radius:10px;
+            margin:25px 0;
+            box-shadow:0 0 12px rgba(0,0,0,0.5);
+        }
+        .info-box p {
+            margin:6px 0;
+            font-size:16px;
+            color:var(--muted);
+        }
+
+        .video-embed {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            margin: 20px 0;
+            border-radius: 12px;
+            border: 2px solid var(--blue);
+            overflow: hidden;
+        }
+        .video-embed iframe {
+            position: absolute;
+            top:0; left:0;
+            width:100%; height:100%;
+        }
+
+        .quiz-container .question-block { margin-top: 35px; }
+        .input-group { display: flex; gap: 10px; }
+        .quiz-input {
+            flex-grow: 1;
+            padding: 10px;
+            background: #0f1624;
+            border: 1px solid var(--border-light);
+            color: var(--text);
+            border-radius: 4px;
+        }
+        .quiz-button {
+            padding: 10px 20px;
+            background: #27ae60;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+    </style>
+</head>
+
+<body>
+<div class="app">
+
+    <aside class="sidebar">
+        <header class="sidebar-logo">
+            <i class="fas fa-shield-alt"></i>
+            <span>CYBER<br>RANGES</span>
+        </header>
+  <strong id="sidebar-username">My Account</strong>
+        <small>My Account</small>
+
+        <nav class="sidebar-nav">
+            <a href="#" onclick="history.back(); return false;" class="nav-item active">
+                <i class="fas fa-arrow-left"></i> Back to Playlists
+            </a>
+            <h3 style="padding-left:14px;">Mục lục</h3>
+            <a href="#tong-quan" class="nav-item">1. Tổng quan</a>
+            <a href="#cau-hinh-ban-dau" class="nav-item">I. Cấu hình ban đầu</a>
+            <a href="#thuc-hien-tan-cong" class="nav-item">II. Thực hiện tấn công</a>
+            <a href="#kiem-tra-ket-qua" class="nav-item">III. Kiểm tra kết quả</a>
+            <a href="#quiz" class="nav-item">IV. Quiz</a>
+        </nav>
+    </aside>
+
+    <main class="main">
+
+        <header class="main-topbar">
+            <h1 style="color:white; margin:0;">
+                <i class="fas fa-satellite-dish" style="color:var(--red); margin-right:10px;"></i>
+                SETOOLKIT – Fake Facebook Login
+            </h1>
+        </header>
+
+        <section class="guide-container">
+
+            <h2 id="tong-quan">📖 1. Tổng quan kịch bản</h2>
+
+            <div class="video-embed">
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/H1LJOC3VKgc?si=FWTvJfUdtacvVfQM" 
+            title="YouTube video player" frameborder="0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+</div>
+
+            <p>Sử dụng SETOOLKIT để tạo trang đăng nhập Facebook giả và thu thập Username & Password.</p>
+
+            <div class="info-box">
+                <p><strong>Kali Linux:</strong> Máy tấn công chạy SETOOLKIT</p>
+                <p><strong>Windows 10:</strong> Máy nạn nhân truy cập trang giả mạo</p>
+            </div>
+
+            <div class="guide-image-container">
+                <img src="images/hinh69.jpg">
+                <div class="image-caption">Hình 69. Giao diện SETOOLKIT</div>
+            </div>
+
+            <h2 id="cau-hinh-ban-dau">I. Cấu hình ban đầu</h2>
+
+            <p>Trong SET, chọn lần lượt: <strong>1 → 2 → 3</strong></p>
+
+            <div class="guide-image-container">
+                <img src="images/hinh70.jpg">
+                <div class="image-caption">Hình 70. Chọn Social Engineering Attacks</div>
+            </div>
+
+            <div class="guide-image-container">
+                <img src="images/hinh71.jpg">
+                <div class="image-caption">Hình 71. Credential Harvester Attack Method</div>
+            </div>
+
+            <h3>Nhập IP máy tấn công</h3>
+
+            <div class="guide-image-container">
+                <img src="images/hinh72.jpg">
+                <div class="image-caption">Hình 72. Nhập IP máy tấn công</div>
+            </div>
+
+            <h3>Chuẩn bị giao diện Facebook thật</h3>
+
+            <div class="guide-image-container">
+                <img src="images/hinh73.jpg">
+                <div class="image-caption">Hình 73. Nhập URL Facebook thật</div>
+            </div>
+
+            <div class="guide-image-container">
+                <img src="images/hinh74.jpg">
+                <div class="image-caption">Hình 74. Giao diện Facebook được sao chép</div>
+            </div>
+
+            <h2 id="thuc-hien-tan-cong">II. Thực hiện tấn công</h2>
+
+            <div class="attack-step">
+                <h3>Nạn nhân truy cập IP máy tấn công</h3>
+
+                <div class="guide-image-container">
+                    <img src="images/hinh77.jpg">
+                    <div class="image-caption">Hình 77. Nạn nhân truy cập trang giả</div>
+                </div>
+
+                <div class="guide-image-container">
+                    <img src="images/hinh78.jpg">
+                    <div class="image-caption">Hình 78. Giao diện đăng nhập Facebook giả</div>
+                </div>
+            </div>
+
+            <div class="attack-step">
+                <h3>Nạn nhân nhập Username & Password</h3>
+
+                <div class="guide-image-container">
+                    <img src="images/hinh79.jpg">
+                    <div class="image-caption">Hình 79. Nạn nhân nhập thông tin</div>
+                </div>
+
+                <div class="guide-image-container">
+                    <img src="images/hinh80.jpg">
+                    <div class="image-caption">Hình 80. SET thu thập thông tin</div>
+                </div>
+            </div>
+
+            <h2 id="kiem-tra-ket-qua">III. Kiểm tra kết quả</h2>
+
+            <p>Kết quả sẽ hiển thị trên terminal của Kali Linux khi người dùng nhập thông tin.</p>
+
+            <div class="guide-image-container">
+                <img src="images/hinh80.jpg">
+                <div class="image-caption">Thu thập Username & Password thành công</div>
+            </div>
+        </section>
+        <!-- QUIZ -->
+        <section id="quiz" class="guide-container quiz-container" 
+            style="background: var(--bg-card); margin-top:40px; border-radius:12px; 
+                   border:1px solid var(--border-light); padding:35px;">
+
+            <h2>📝 IV. Quiz kiểm tra kiến thức</h2>
+
+            <div id="completion-message" 
+                style="display:none; background:#27ae60; padding:20px; color:white; 
+                       font-weight:bold; border-radius:10px; text-align:center;">
+                🎉 CHÚC MỪNG! Bạn đã hoàn thành bài lab!
+            </div>
+
+            <div id="question-1" class="question-block">
+                <h3>1. SETOOLKIT dùng để làm gì?</h3>
+                <div class="input-group">
+                    <input id="answer-1" class="quiz-input" placeholder="Nhập câu trả lời...">
+                    <button class="quiz-button" onclick="checkAnswer(1)">Check</button>
+                </div>
+                <p id="feedback-1"></p>
+            </div>
+
+            <div id="question-2" class="question-block" style="display:none;">
+                <h3>2. Fake Facebook Login thuộc kỹ thuật nào?</h3>
+                <div class="input-group">
+                    <input id="answer-2" class="quiz-input">
+                    <button class="quiz-button" onclick="checkAnswer(2)">Check</button>
+                </div>
+                <p id="feedback-2"></p>
+            </div>
+
+            <div id="question-3" class="question-block" style="display:none;">
+                <h3>3. Khi nạn nhân nhập thông tin SETOOLKIT sẽ?</h3>
+                <div class="input-group">
+                    <input id="answer-3" class="quiz-input">
+                    <button class="quiz-button" onclick="checkAnswer(3)">Check</button>
+                </div>
+                <p id="feedback-3"></p>
+            </div>
+
+        </section>
+                    <div style="margin-top: 50px; border-top: 1px solid var(--border-light); padding-top: 20px; font-size: 14px; text-align: center; color: var(--muted);">
+                    &copy; 2025 Cyber Ranges Platform. All rights reserved.
+                </div>
+    </main>
+</div>
+
+
+<script>
+    // 1. CẤU HÌNH ĐÁP ÁN (có thể đổi nội dung cho phù hợp lab DHCP)
+    const correctAnswers = {
+        1: ["..."],
+        2: ["..."],
+        3: ["..."],
+        4: ["..."],
+        5: ["..."]
+    };
+
+    // --- HÀM GỬI TIẾN ĐỘ (NHẬN SỐ PHẦN TRĂM) ---
+    async function submitProgress(percent) {
+        const username = localStorage.getItem("cyber_current_user");
+        
+        if (!username) {
+            console.log("Chưa đăng nhập, không lưu được.");
+            return;
+        }
+
+        try {
+            console.log(`Đang gửi tiến độ ${percent}% về Server...`);
+            
+            // 👇 CHỈ ĐỔI labId Ở ĐÂY
+            const response = await fetch('/api/submit-quiz', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ 
+                    username: username, 
+                    labId: 'soc_en',   // <-- tên lab DHCP
+                    progress: percent 
+                })
+            });
+
+            const data = await response.json();
+            console.log("Server đã lưu:", data);
+
+        } catch (error) {
+            console.error("Lỗi kết nối Server:", error);
+        }
+    }
+
+    // 2. HÀM CHUẨN HÓA ĐÁP ÁN
+    function normalizeAnswer(answer) {
+        return answer.toLowerCase().trim()
+            .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"")
+            .replace(/\s{2,}/g," ");
+    }
+
+    // 3. HÀM CHECK ĐÁP ÁN
+    function checkAnswer(questionNumber) {
+        const inputId = 'answer-' + questionNumber;
+        const feedbackId = 'feedback-' + questionNumber;
+        const currentQuestionId = 'question-' + questionNumber;
+        
+        const userInput = document.getElementById(inputId).value;
+        const feedbackElement = document.getElementById(feedbackId);
+        const currentQuestionElement = document.getElementById(currentQuestionId);
+        
+        const normalizedInput = normalizeAnswer(userInput);
+        const validAnswers = correctAnswers[questionNumber];
+        let isCorrect = false;
+
+        for (const valid of validAnswers) {
+            if (normalizedInput.includes(normalizeAnswer(valid))) {
+                isCorrect = true;
+                break;
+            }
+        }
+
+        if (isCorrect) {
+            feedbackElement.style.color = '#2ecc71';
+            feedbackElement.innerHTML = '<i class="fas fa-check"></i> Chính xác!';
+            
+            document.getElementById(inputId).disabled = true;
+            currentQuestionElement.querySelector('.quiz-button').disabled = true;
+
+            const currentPercent = questionNumber * 20;
+            submitProgress(currentPercent); 
+
+            setTimeout(() => {
+                currentQuestionElement.style.display = 'none';
+
+                if (questionNumber < 5) {
+                    const nextQuestionId = 'question-' + (questionNumber + 1);
+                    const nextQuestionElement = document.getElementById(nextQuestionId);
+                    if (nextQuestionElement) {
+                        nextQuestionElement.style.display = 'block';
+                        document.getElementById('feedback-' + (questionNumber + 1)).innerHTML = '';
+                    }
+                } else {
+                    document.getElementById('completion-message').style.display = 'block';
+                    document.getElementById('quiz').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }, 500);
+
+        } else {
+            feedbackElement.style.color = '#e74c3c';
+            feedbackElement.innerHTML = '<i class="fas fa-times"></i> Chưa chính xác. Vui lòng thử lại!';
+        }
+    }
+
+    // 4. KHỞI TẠO
+    document.addEventListener('DOMContentLoaded', () => {
+        const allQuestions = document.querySelectorAll('.question-block');
+        allQuestions.forEach(q => { q.style.display = 'none'; });
+        const firstQuestion = document.getElementById('question-1');
+        if (firstQuestion) { firstQuestion.style.display = 'block'; }
+    });
+</script>
+
+</body>
+</html>

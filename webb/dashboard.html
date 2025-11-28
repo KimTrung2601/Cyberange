@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <title>Cyber Ranges - Dashboard</title>
+  <link rel="stylesheet" href="css/dashboard.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <header class="sidebar-logo">
+        <i class="fas fa-shield-alt"></i>
+        <span>CYBER<br>RANGES</span>
+      </header>
+
+      <div class="sidebar-user">
+        <strong id="sidebar-username">ĐH Công Thương</strong>
+        <small>My Account</small>
+      </div>
+
+      <nav class="sidebar-nav">
+        <button class="nav-item active" data-view="intro">
+          <i class="fas fa-info-circle"></i>
+          <span>Giới thiệu</span>
+        </button>
+        <button class="nav-item" data-view="tools">
+          <i class="fas fa-cogs"></i>
+          <span>Công cụ</span>
+        </button>
+        <button class="nav-item" data-view="playlists">
+          <i class="fas fa-list"></i>
+          <span>Playlists</span>
+        </button>
+      </nav>
+
+      <button class="logout-btn" onclick="xuLyDangXuat()">
+        <i class="fas fa-sign-out-alt"></i> Đăng xuất
+    </button>
+    </aside>
+
+    <main class="main">
+      <header class="main-topbar">
+        <div class="search">
+          <i class="fas fa-search"></i>
+          <input id="search-input" type="text" placeholder="Search playlists..." />
+        </div>
+      </header>
+
+      <section class="view active" id="view-intro">
+        <h1>🛡️ GIỚI THIỆU CYBER RANGES</h1>
+        <p class="view-subtitle">
+          Môi trường mô phỏng an ninh mạng thực chiến – nơi bạn được huấn luyện, thử thách và phát triển kỹ năng phòng thủ & tấn công mạng như ngoài đời thật.
+        </p>
+
+        <div class="intro-section">
+          <h2 class="intro-title">
+            <i class="fas fa-bullseye"></i> Tầm nhìn & Sứ mệnh
+          </h2>
+          <p class="intro-text">
+            Cyber Ranges được xây dựng nhằm mang đến cho học viên một môi trường thực hành an toàn, trực quan và sát thực tế. 
+            Tại đây, bạn có thể khai phá kỹ năng an ninh mạng từ cơ bản đến nâng cao.
+          </p>
+
+          <ul class="intro-list">
+            <li><strong>✔ Học thông qua trải nghiệm thực chiến</strong> – thay vì lý thuyết khô khan.</li>
+            <li><strong>✔ Mô phỏng các cuộc tấn công thật</strong> như Brute-force, ARP Spoofing...</li>
+            <li><strong>✔ Rèn luyện tư duy phân tích & phản ứng nhanh</strong> trong các tình huống khẩn cấp.</li>
+            <li><strong>✔ Xây dựng kỹ năng sử dụng công cụ bảo mật</strong> như Nmap, Hydra, Metasploit...</li>
+          </ul>
+        </div>
+
+        <div class="intro-section">
+          <h2 class="intro-title">
+            <i class="fas fa-laptop-code"></i> Cyber Range là gì?
+          </h2>
+          <p class="intro-text">
+             Là “phòng tập gym” dành cho dân an ninh mạng. Thay vì tập tạ, bạn “tập” bằng cách đối đầu với các mô hình mạng, hệ điều hành thật 100%.
+          </p>
+
+          <div class="intro-grid">
+            <div class="intro-card">
+              <i class="fas fa-shield-alt"></i>
+              <h3>Phòng thủ </h3>
+              <p>Giám sát log, phân tích sự cố, truy vết tấn công, bảo vệ hệ thống.</p>
+            </div>
+            <div class="intro-card">
+              <i class="fas fa-user-secret"></i>
+              <h3>Tấn công </h3>
+              <p>Khai thác lỗ hổng, chiếm quyền truy cập, leo thang đặc quyền.</p>
+            </div>
+            <div class="intro-card">
+              <i class="fas fa-brain"></i>
+              <h3>Tư duy phân tích</h3>
+              <p>Phân tích hành vi, hiểu rõ bản chất của mỗi lỗ hổng & kỹ thuật tấn công.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="intro-section">
+          <h2 class="intro-title">
+            <i class="fas fa-layer-group"></i> Thành phần của Cyber Ranges
+          </h2>
+          <div class="intro-grid-2">
+            <div class="intro-card-2">
+              <h3>🔹 Hệ thống máy ảo</h3>
+              <p>Kali Linux, Windows 10/Server, Ubuntu, các server dịch vụ thật…</p>
+            </div>
+            <div class="intro-card-2">
+              <h3>🔹 Kịch bản (Scenarios)</h3>
+              <p>Bao gồm tấn công, phòng thủ, phân tích mã độc, forensic…</p>
+            </div>
+            <div class="intro-card-2">
+              <h3>🔹 Playlists</h3>
+              <p>Tập hợp nhiều bài lab theo một chủ đề hoặc lộ trình học.</p>
+            </div>
+            <div class="intro-card-2">
+              <h3>🔹 Hệ thống đánh giá</h3>
+              <p>Theo dõi tiến độ – kiểm tra kỹ năng – chấm điểm theo từng lab.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="intro-section highlight">
+          <h2 class="intro-title">🚀 Sẵn sàng bắt đầu chưa?</h2>
+          <p class="intro-text">
+            Hãy truy cập mục <strong>Playlists</strong> để bắt đầu với các kịch bản tấn công – phòng thủ thực tế nhất.
+          </p>
+        </div>
+      </section>
+
+
+      <section class="view" id="view-tools">
+        <h1>🛠️ CÔNG CỤ VÀ MÔI TRƯỜNG THỰC CHIẾN</h1>
+        <p class="view-subtitle">
+            Các phần mềm, hệ điều hành và hướng dẫn cấu hình môi trường lab để thực hành các kịch bản tấn công/phòng thủ
+            trong Cyber Ranges.
+        </p>
+
+        <div class="tools-section">
+            <h2 class="tools-title">
+                <i class="fas fa-link"></i>
+                Tải xuống các phần mềm cần thiết
+            </h2>
+            <p class="tools-text">
+                Để bắt đầu thực hành các kịch bản trong Cyber Ranges, bạn cần cài đặt một nền tảng máy ảo và các hệ điều hành
+                được khuyến nghị dưới đây.
+            </p>
+
+            <div class="download-grid">
+                <a href="https://www.virtualbox.org/wiki/Downloads" target="_blank" class="download-card border-accent">
+                    <i class="fas fa-layer-group"></i>
+                    <h3>Nền tảng Máy ảo</h3>
+                    <p>Sử dụng: VirtualBox (khuyến nghị) hoặc VMWare Workstation Pro/Player.</p>
+                    <span class="download-btn">Tải về</span>
+                </a>
+
+                <a href="https://www.kali.org/get-kali/#kali-installer-images" target="_blank" class="download-card border-red">
+                    <i class="fab fa-linux"></i>
+                    <h3>Máy Tấn công (Attacker)</h3>
+                    <p>Hệ điều hành: Kali Linux (phiên bản VM pre-built).</p>
+                    <span class="download-btn">Tải về Kali</span>
+                </a>
+
+                <a href="https://www.microsoft.com/en-us/software-download/windows10" target="_blank" class="download-card border-blue">
+                    <i class="fab fa-windows"></i>
+                    <h3>Máy Nạn nhân (Victim)</h3>
+                    <p>Hệ điều hành: Windows 10.</p>
+                    <span class="download-btn">Tải về Windows</span>
+                </a>
+
+                <a href="https://www.microsoft.com/en-us/evalcenter/download-windows-server-2016" target="_blank" class="download-card border-blue">
+                    <i class="fab fa-windows"></i>
+                    <h3>Máy Nạn nhân (Victim)</h3>
+                    <p>Hệ điều hành: Windows Server 2016.</p>
+                    <span class="download-btn">Tải về Windows</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="tools-section">
+            <h2 class="tools-title">
+<i class="fas fa-cogs"></i>
+                Hướng dẫn cài đặt môi trường
+            </h2>
+
+            <div class="setup-grid">
+                <div class="setup-card">
+                    <h3>1. Thiết lập Nền tảng Máy ảo</h3>
+                    <p>
+                        Sau khi tải xuống và cài đặt VirtualBox hoặc VMWare, bạn cần thiết lập cấu hình mạng
+                        <strong>NAT Network</strong> hoặc <strong>Host-Only</strong> để các máy ảo có thể giao tiếp với nhau
+                        trong một môi trường cách ly.
+                    </p>
+                    <p>
+                        <strong>Lưu ý:</strong> Đảm bảo máy Kali và máy Windows Victim của bạn nằm chung một dải mạng nội bộ.
+                    </p>
+                </div>
+
+                <div class="setup-card">
+                    <h3>2. Chuẩn bị Máy Tấn công (Kali Linux)</h3>
+                    <p>
+                        Sử dụng phiên bản Kali Linux (OVA/VMDK) và nạp (Import) vào VirtualBox/VMWare. Kali đã được cài đặt sẵn
+                        hầu hết các công cụ cần thiết như <span class="code">nmap</span>, <span class="code">metasploit</span>,
+                        <span class="code">hydra</span>, <span class="code">ettercap</span>...
+                    </p>
+                    <p>
+                        <strong>Lệnh cơ bản sau khi cài đặt:</strong>
+                        <span class="code">sudo apt update && sudo apt upgrade -y</span>
+                    </p>
+                </div>
+
+                <div class="setup-card">
+                    <h3>3. Chuẩn bị Máy Nạn nhân (Windows)</h3>
+                    <p>
+                        Cài đặt Windows 10 hoặc Windows Server (Evaluation) vào máy ảo. Tắt Windows Firewall để dễ dàng thực hành các kịch bản tấn công.
+                    </p>
+                    <p>
+                        <strong>Cần thiết:</strong> Tạo tài khoản có quyền Administrator để thực hành kịch bản Chiếm quyền Users.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="tools-section">
+            <h2 class="tools-title">
+                <i class="fas fa-flask"></i>
+                Chi tiết các công cụ sử dụng trong kịch bản
+            </h2>
+
+            <div class="tools-detail-grid">
+                <div class="tool-card">
+                    <h3>Nmap <i class="fas fa-search-location"></i></h3>
+<p>
+                        <strong>Mô tả:</strong> Công cụ quét cổng và phát hiện mạng hàng đầu. Dùng để tìm máy chủ đang hoạt động, dịch vụ đang chạy (SSH, SMB…).
+                    </p>
+                    <p>
+                        <strong>Sử dụng trong:</strong> Thu thập thông tin ban đầu, dò mật khẩu, phân tích dịch vụ.
+                    </p>
+                </div>
+
+                <div class="tool-card">
+                    <h3>Hydra <i class="fas fa-lock-open"></i></h3>
+                    <p><strong>Mô tả:</strong> Công cụ brute-force đăng nhập dịch vụ SSH/FTP/SMB.</p>
+                    <p><strong>Ứng dụng:</strong> Kịch bản SSH Bruteforce.</p>
+                </div>
+
+                <div class="tool-card">
+                    <h3>Ettercap <i class="fas fa-network-wired"></i></h3>
+                    <p><strong>Mô tả:</strong> Công cụ MITM – sử dụng trong ARP Spoofing và DNS Poisoning.</p>
+                </div>
+
+                <div class="tool-card">
+                    <h3>Metasploit <i class="fas fa-skull-crossbones"></i></h3>
+                    <p><strong>Mô tả:</strong> Bộ công cụ khai thác lỗ hổng mạnh nhất trên Linux.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+      <section class="view" id="view-playlists">
+          <h1><i class="fas fa-list-alt"></i> PLAYLISTS HUẤN LUYỆN</h1>
+          
+          <div class="tab-controls">
+              <button class="tab-button active" data-tab="attack">
+                  <i class="fas fa-user-secret"></i> TẤN CÔNG 
+              </button>
+              <button class="tab-button" data-tab="defense">
+                  <i class="fas fa-shield-alt"></i> PHÒNG THỦ 
+              </button>
+          </div>
+      
+          
+      
+          <div class="tab-content active" id="tab-attack">
+            <div class="category-module">
+                <h3>1. Module Tấn công Hạ tầng Mạng (Network Infrastructure)</h3>
+                <p class="module-description">Tập trung vào khai thác các lỗ hổng giao thức nền tảng như ARP, DHCP, DNS.</p>
+                <div class="playlist-grid">
+                    
+                  <a href="huongdan_arp_spoofing.html" class="playlist-card" data-id="arp_spoofing" data-title="arp spoofing">
+                    <img src="images/arp_spoofing.jpg" alt="ARP Spoofing" />
+                    <div class="playlist-card" data-id="arp_spoofing">
+                      <div class="card-body">
+                          <h4>Tấn công ARP Spoofing</h4>
+                          <p>3 Scenarios • 5h</p>
+                  
+                          <div class="progress-container">
+                              <div class="progress-fill" id="arp_spoofing-bar" style="width: 0%;"></div>
+                          </div>
+                  
+                          <div class="progress-text" id="arp_spoofing-text" 
+                               style="color:#00ff88; font-size:12px; margin-top:5px;">
+                              0%
+                          </div>
+                  
+                          <span class="badge">FREE</span>
+                      </div>
+                  </div>
+                  
+                  
+                </a>
+                    <a href="huongdan_dhcp_attack.html" class="playlist-card" data-title="dhcp attack hạ tầng">
+                        <img src="images/dhcp_attack.jpg" alt="DHCP Attack" />
+                        <div class="card-body">
+                            <h4>Tấn công DHCP</h4>
+                            <p>8 Scenarios • 11h</p>
+                            <div class="progress-container">
+                              <div class="progress-fill" id="dhcp_attack-bar" style="width: 0%;"></div>
+                           </div>
+                          
+                          <div class="progress-text" id="dhcp_attack-text"
+                               style="color:#00ff88; font-size:12px; margin-top:5px;">
+                              0%
+                          </div>
+                            <span class="badge">FREE</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+    
+            <div class="category-module">
+                <h3>2. Module Tấn công Hệ thống & Ứng dụng (System & Application)</h3>
+                <p class="module-description">Tập trung vào khai thác dịch vụ, hệ điều hành và leo thang đặc quyền.</p>
+                <div class="playlist-grid">
+    
+                    <a href="huongdan_brute_force_ssh.html" class="playlist-card" data-title="brute force ssh">
+                        <img src="images/brute_force_ssh.jpg" alt="Brute Force SSH" />
+                        <div class="card-body">
+                            <h4>Dò mật khẩu SSH (Brute-force)</h4>
+                            <p>24 Scenarios • 1d 16h</p>
+                            <div class="progress-container">
+                              <div class="progress-fill" id="brute_force_ssh-bar" style="width: 0%;"></div>
+                           </div>
+                          <div class="progress-text" id="brute_force_ssh-text"
+                               style="color:#00ff88; font-size:12px; margin-top:5px;">
+                              0%
+                          </div>
+                            <span class="badge">FREE</span>
+                        </div>
+                    </a>
+
+                    <a href="huongdan_dns_poisoning_apt.html" class="playlist-card" data-title="dns poisoning mitm">
+                        <img src="images/dns_poisoning_apt.jpg" alt="DNS Poisoning" />
+                        <div class="card-body">
+                            <h4>Tấn công DNS Poisoning</h4>
+                            <p>Kỹ năng MiTM & chuyển hướng traffic</p>
+                            <div class="progress-container">
+                              <div class="progress-fill" id="dns_psn-bar" style="width: 0%;"></div>
+                           </div>
+                          <div class="progress-text" id="dns_psn-text"
+                               style="color:#00ff88; font-size:12px; margin-top:5px;">
+                              0%
+                          </div>
+                            <span class="badge">FREE</span>
+                        </div>
+                    </a>
+
+                    <a href="huongdan_data_exfiltration.html" class="playlist-card" data-title="privilege escalation">
+                        <img src="images/privilege_escalation.jpg" alt="Privilege Escalation" />
+                        <div class="card-body">
+                            <h4>Leo thang đặc quyền</h4>
+                            <p>5 Scenarios • 8h</p>
+                            <div class="progress-container">
+                              <div class="progress-fill" id="chiem_q-bar" style="width: 0%;"></div>
+                           </div>
+                          <div class="progress-text" id="chiem_q-text"
+                               style="color:#00ff88; font-size:12px; margin-top:5px;">
+                              0%
+                          </div>
+                            <span class="badge">FREE</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+    
+            <div class="category-module">
+                <h3>3. Module Tấn công Người dùng (Human Factor)</h3>
+                <p class="module-description">Tập trung vào khai thác yếu tố con người thông qua các kỹ thuật lừa đảo.</p>
+                <div class="playlist-grid">
+    
+                    <a href="huongdan_social_engineering.html" class="playlist-card" data-title="social engineering phishing">
+                        <img src="images/social_engineering.jpg" alt="Social Engineering" />
+                        <div class="card-body">
+                            <h4>Kỹ thuật xã hội (Social Engineering)</h4>
+                            <p>3 Scenarios • 10h</p>
+                            <div class="progress-container">
+                              <div class="progress-fill" id="soc_en-bar" style="width: 0%;"></div>
+                           </div>
+                          <div class="progress-text" id="soc_en-text"
+                               style="color:#00ff88; font-size:12px; margin-top:5px;">
+                              0%
+                          </div>
+                            <span class="badge">FREE</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-content" id="tab-defense">
+          <div class="category-module">
+              <h3>1. Module Phòng thủ Hạ tầng Mạng</h3>
+              <p class="module-description">Triển khai các biện pháp bảo vệ Switch, Router và DNS.</p>
+              <div class="playlist-grid">
+                  <a href="phongthu_arp.html" class="playlist-card coming-soon" data-title="defense network protocols" data-lab-id="lab_defense_dai">
+                      <img src="images/thu.jpg" alt="Defense ARP">
+                      <div class="card-body">
+                          <h4>Phòng thủ ARP/DHCP/DNS <span class="status-icon" id="status-lab_defense_dai"></span></h4>
+                          <p>3 Scenarios • 7h</p>
+                          <div class="progress-container">
+                            <div class="progress-fill" id="phongthu_arp-bar" style="width: 0%;"></div>
+                         </div>
+                        
+                        <div class="progress-text" id="phongthu_arp-text"
+                             style="color:#00ff88; font-size:12px; margin-top:5px;">
+                            0%
+                        </div>
+                          <span class="badge badge-warning">FREE</span>
+                      </div>
+                  </a>
+              </div>
+          </div>
+
+          <div class="category-module">
+              <h3>2. Module Phòng thủ Hệ thống & Ứng dụng (System Hardening)</h3>
+              <p class="module-description">Bảo mật dịch vụ & giảm thiểu tấn công.</p>
+
+              <div class="playlist-grid">
+                  <a href="defense_system_hardening.html" class="playlist-card coming-soon" data-title="defense system hardening" data-lab-id="lab_defense_hardening">
+                      <img src="images/thu2.jpg" alt="Defense System">
+                      <div class="card-body">
+                          <h4>Phòng thủ Hệ thống (MFA, Fail2Ban) <span class="status-icon" id="status-lab_defense_hardening"></span></h4>
+                          <p>5 Scenarios • 12h</p>
+                          <span class="badge badge-warning">FREE</span>
+                      </div>
+                  </a>
+              </div>
+          </div>
+
+          <div class="category-module">
+              <h3>3. Module Giám sát & Phản ứng Sự cố (SOC / IR)</h3>
+              <p class="module-description">Phân tích log – Phát hiện xâm nhập – Phản ứng sự cố.</p>
+
+              <div class="playlist-grid">
+                  <a href="defense_soc_monitoring.html" class="playlist-card coming-soon" data-title="soc monitoring" data-lab-id="lab_soc_monitoring">
+                      <img src="images/thu3.jpg" alt="SOC Monitoring">
+                      <div class="card-body">
+                          <h4>Phân tích & Phản ứng Sự cố <span class="status-icon" id="status-lab_soc_monitoring"></span></h4>
+                          <p>8 Scenarios • 18h</p>
+                          <span class="badge badge-warning">FREE</span>
+                      </div>
+                  </a>
+              </div>
+          </div>
+
+      </div>
+
+          <!-- MINI TIẾN ĐỘ TỔNG GÓC PHẢI -->
+    <div class="global-mini-progress">
+      <div class="global-mini-label">Tiến độ tổng</div>
+      <div class="global-mini-bar">
+          <div class="global-mini-fill" id="global-mini-fill"></div>
+      </div>
+      <div class="global-mini-percent" id="global-mini-percent">0%</div>
+    </div>
+
+      </section>
+    </main>
+  </div>
+
+  <script src="js/dashboard.js"></script>
+  
+  
+</body>
+</html>
