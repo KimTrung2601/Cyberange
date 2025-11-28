@@ -119,6 +119,8 @@ app.post('/api/get-progress', (req, res) => {
     }
 });
 
-app.listen(port, () => {
-    console.log(`Server đang chạy tại http://localhost:${port}`);
+const PORT = process.env.PORT || port;
+
+app.listen(PORT, () => {
+    console.log(`Server đang chạy tại http://localhost:${PORT}`);
 });
