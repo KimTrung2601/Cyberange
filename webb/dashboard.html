@@ -35,6 +35,17 @@
         </button>
       </nav>
 
+      <div id="logout-modal" class="logout-modal">
+        <div class="logout-box">
+            <h3>Đăng xuất?</h3>
+            <p>Bạn có chắc chắn muốn đăng xuất không?</p>
+      
+            <div class="logout-btn-grp">
+                <button id="logout-confirm" class="btn-yes">Đăng xuất</button>
+                <button id="logout-cancel" class="btn-no">Hủy</button>
+            </div>
+        </div>
+      </div>
       <button class="logout-btn" onclick="xuLyDangXuat()">
         <i class="fas fa-sign-out-alt"></i> Đăng xuất
     </button>
@@ -358,21 +369,7 @@
                         </div>
                     </a>
 
-                    <a href="huongdan_data_exfiltration.html" class="playlist-card" data-title="privilege escalation">
-                        <img src="images/privilege_escalation.jpg" alt="Privilege Escalation" />
-                        <div class="card-body">
-                            <h4>Leo thang đặc quyền</h4>
-                            <p>5 Scenarios • 8h</p>
-                            <div class="progress-container">
-                              <div class="progress-fill" id="chiem_q-bar" style="width: 0%;"></div>
-                           </div>
-                          <div class="progress-text" id="chiem_q-text"
-                               style="color:#00ff88; font-size:12px; margin-top:5px;">
-                              0%
-                          </div>
-                            <span class="badge">FREE</span>
-                        </div>
-                    </a>
+                    
                 </div>
             </div>
     
@@ -396,6 +393,21 @@
                             <span class="badge">FREE</span>
                         </div>
                     </a>
+                    <a href="huongdan_data_exfiltration.html" class="playlist-card" data-title="privilege escalation">
+                      <img src="images/privilege_escalation.jpg" alt="Privilege Escalation" />
+                      <div class="card-body">
+                          <h4>Leo thang đặc quyền</h4>
+                          <p>5 Scenarios • 8h</p>
+                          <div class="progress-container">
+                            <div class="progress-fill" id="chiem_q-bar" style="width: 0%;"></div>
+                         </div>
+                        <div class="progress-text" id="chiem_q-text"
+                             style="color:#00ff88; font-size:12px; margin-top:5px;">
+                            0%
+                        </div>
+                          <span class="badge">FREE</span>
+                      </div>
+                  </a>
                 </div>
             </div>
         </div>
@@ -408,7 +420,7 @@
                   <a href="phongthu_arp.html" class="playlist-card coming-soon" data-title="defense network protocols" data-lab-id="lab_defense_dai">
                       <img src="images/thu.jpg" alt="Defense ARP">
                       <div class="card-body">
-                          <h4>Phòng thủ ARP/DHCP/DNS <span class="status-icon" id="status-lab_defense_dai"></span></h4>
+                          <h4>Phòng thủ ARP <span class="status-icon" id="status-lab_defense_dai"></span></h4>
                           <p>3 Scenarios • 7h</p>
                           <div class="progress-container">
                             <div class="progress-fill" id="phongthu_arp-bar" style="width: 0%;"></div>
@@ -421,6 +433,22 @@
                           <span class="badge badge-warning">FREE</span>
                       </div>
                   </a>
+                  <a href="phongthu_dhcp.html" class="playlist-card coming-soon" data-title="defense dhcp snooping" data-lab-id="lab_defense_dhcp">
+                    <img src="images/thudhcp.jpg" alt="Defense DHCP">
+                <div class="card-body">
+                  <h4>Phòng thủ DHCP <span class="status-icon" id="status-lab_defense_dhcp"></span></h4>
+                    <p>5 Scenarios • 8h</p>
+                    <div class="progress-container">
+                      <div class="progress-fill" id="phongthu_dhcp-bar" style="width: 0%;"></div>
+                   </div>
+                  
+                  <div class="progress-text" id="phongthu_dhcp-text"
+                       style="color:#00ff88; font-size:12px; margin-top:5px;">
+                      0%
+                  </div>
+              <span class="badge badge-warning">FREE</span>
+               </div>
+               </a>
               </div>
           </div>
 
@@ -429,14 +457,37 @@
               <p class="module-description">Bảo mật dịch vụ & giảm thiểu tấn công.</p>
 
               <div class="playlist-grid">
-                  <a href="defense_system_hardening.html" class="playlist-card coming-soon" data-title="defense system hardening" data-lab-id="lab_defense_hardening">
+                  <a href="phongthu_bruteforce.html" class="playlist-card coming-soon" data-title="defense system hardening" data-lab-id="lab_defense_hardening">
                       <img src="images/thu2.jpg" alt="Defense System">
                       <div class="card-body">
-                          <h4>Phòng thủ Hệ thống (MFA, Fail2Ban) <span class="status-icon" id="status-lab_defense_hardening"></span></h4>
+                          <h4>Phòng thủ Bruteforce <span class="status-icon" id="status-lab_defense_hardening"></span></h4>
                           <p>5 Scenarios • 12h</p>
+                          <div class="progress-container">
+                            <div class="progress-fill" id="phongthu_brf   -bar" style="width: 0%;"></div>
+                                </div>
+                           <div class="progress-text" id="phongthu_brf-text"
+                              style="color:#00ff88; font-size:12px; margin-top:5px;">
+                                      0%
+                     </div>
                           <span class="badge badge-warning">FREE</span>
                       </div>
                   </a>
+                  <a href="phongthu_dns.html" class="playlist-card coming-soon" data-title="defense dhcp snooping" data-lab-id="lab_defense_dhcp">
+                    <img src="images/thudhcp.jpg" alt="Defense DHCP">
+                <div class="card-body">
+                  <h4>Phòng thủ DNS <span class="status-icon" id="status-lab_defense_dhcp"></span></h4>
+                    <p>5 Scenarios • 8h</p>
+                          <div class="progress-container">
+                      <div class="progress-fill" id="phongthu_dns-bar" style="width: 0%;"></div>
+                          </div>
+                     <div class="progress-text" id="phongthu_dns-text"
+                        style="color:#00ff88; font-size:12px; margin-top:5px;">
+                                0%
+               </div>
+              <span class="badge badge-warning">FREE</span>
+               </div>
+               </a>
+
               </div>
           </div>
 
@@ -453,6 +504,21 @@
                           <span class="badge badge-warning">FREE</span>
                       </div>
                   </a>
+                  <a href="phongthu_dhcp.html" class="playlist-card coming-soon" data-title="defense dhcp snooping" data-lab-id="lab_defense_dhcp">
+                    <img src="images/thudhcp.jpg" alt="Defense DHCP">
+                <div class="card-body">
+                  <h4>Phòng thủ DHCP <span class="status-icon" id="status-lab_defense_dhcp"></span></h4>
+                    <p>5 Scenarios • 8h</p>
+                          <div class="progress-container">
+                      <div class="progress-fill" id="phongthu_dhcp-bar" style="width: 0%;"></div>
+                          </div>
+                     <div class="progress-text" id="phongthu_dhcp-text"
+                        style="color:#00ff88; font-size:12px; margin-top:5px;">
+                                0%
+               </div>
+              <span class="badge badge-warning">FREE</span>
+               </div>
+               </a>
               </div>
           </div>
 
@@ -466,11 +532,16 @@
       </div>
       <div class="global-mini-percent" id="global-mini-percent">0%</div>
     </div>
-
+    <button id="btn-certificate" class="btn-cert" style="display:none;">
+      🏅 Xuất chứng chỉ
+    </button>
       </section>
     </main>
   </div>
 
+  
+  <div id="toast" class="toast"></div>
+  <script src="js/auth.js"></script>    
   <script src="js/dashboard.js"></script>
   
   

@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phòng thủ DNS Spoofing – Secure DNS & System Hardening</title>
+
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-dark: #0f1624;
+            --bg-card: #1a2332;
+            --blue: #3fa9f5;
+            --text: #e6eef7;
+            --muted: #98a6b8;
+            --orange: #f5b041;
+            --red: #e74c3c;
+            --border-light: #2c3a4d;
+        }
+
+        body { background: var(--bg-dark); margin: 0; font-family: "Segoe UI", sans-serif; }
+
+        .app { display: flex; min-height: 100vh; }
+
+        .sidebar {
+            min-width: 280px;
+            background: #131b29;
+            border-right: 1px solid #243044;
+            padding: 24px;
+            height: 100vh;
+            position: sticky;
+            top: 0;
+            overflow-y: auto;
+        }
+
+        .nav-item {
+            padding: 10px 14px;
+            display: block;
+            border-radius: 6px;
+            color: var(--muted);
+            text-decoration: none;
+        }
+        .nav-item:hover { background: #1f2a3b; color: white; }
+
+        .main { flex-grow: 1; }
+
+        .main-topbar {
+            background: #10141a;
+            padding: 15px 30px;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .guide-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 25px;
+            color: var(--text);
+        }
+
+        h2 {
+            margin-top: 35px;
+            font-size: 24px;
+            color: var(--blue);
+            border-bottom: 2px solid var(--border-light);
+            padding-bottom: 8px;
+        }
+        h3 { font-size: 19px; margin-top: 20px; color: var(--text); font-weight: 700; }
+
+        p, ul { font-size: 16px; color: var(--muted); line-height: 1.7; }
+        ul { padding-left: 22px; }
+
+        .guide-image-container {
+            border: 1px solid var(--border-light);
+            border-radius: 10px;
+            margin: 25px 0;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0,0,0,0.4);
+        }
+        .guide-image-container img { width: 100%; display: block; }
+
+        .image-caption {
+            padding: 10px;
+            background: #1e2a38;
+            font-size: 14px;
+            color: #cfe1ff;
+            font-style: italic;
+        }
+
+        .code-block {
+            background:#131c27;
+            border-left:5px solid var(--orange);
+            padding:18px 20px;
+            border-radius:10px;
+            margin:25px 0;
+            font-family:Consolas, monospace;
+            color:#f6d76c;
+        }
+
+        .log-block {
+            background:#1a2332;
+            border-left:5px solid var(--red);
+            padding:18px;
+            border-radius:10px;
+            font-family:Consolas, monospace;
+            color:#ffb3b3;
+        }
+
+        /* Quiz */
+        .quiz-container {
+            background: var(--bg-card);
+            padding: 25px;
+            border-radius: 12px;
+            margin-top: 40px;
+            border: 1px solid var(--border-light);
+        }
+
+        .input-group { display: flex; gap: 10px; }
+        .quiz-input {
+            flex-grow: 1;
+            padding: 10px;
+            background: #0f1624;
+            border: 1px solid var(--border-light);
+            color: var(--text);
+        }
+
+        .quiz-button {
+            padding: 10px 20px;
+            background: #27ae60;
+            font-weight: bold;
+            color: white;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <header class="sidebar-logo">
+            <i class="fas fa-shield-alt"></i>
+            <span>CYBER<br>RANGES</span>
+        </header>
+
+        <div class="sidebar-user">
+            <strong id="sidebar-username">My Account</strong>
+            <small>My Account</small>
+        </div>
+
+        <nav class="sidebar-nav">
+            <a href="#" onclick="history.back(); return false;" class="nav-item active">
+                <i class="fas fa-arrow-left"></i> Back to Playlists
+            </a>
+
+            <h3 style="color:white;">Mục lục</h3>
+            <a class="nav-item" href="#tong-quan">1. Tổng quan</a>
+            <a class="nav-item" href="#secure-dns">2. Secure DNS</a>
+            <a class="nav-item" href="#arp-static">3. ARP Static</a>
+            <a class="nav-item" href="#flushdns">4. Flush DNS</a>
+            <a class="nav-item" href="#quiz">5. Quiz</a>
+        </nav>
+    </aside>
+
+    <!-- Main -->
+    <main class="main">
+
+        <header class="main-topbar">
+            <h1 style="color:white; margin:0;">
+                <i class="fas fa-shield-alt" style="color:var(--blue);"></i>
+                Phòng thủ DNS Spoofing – Secure DNS & Hardening
+            </h1>
+        </header>
+
+        <section class="guide-container">
+
+            <!-- ========================= -->
+            <!-- 1. TỔNG QUAN -->
+            <!-- ========================= -->
+
+            <h2 id="tong-quan">📌 1. Tổng quan</h2>
+       <div class="video-embed" style="margin-bottom:35px; position:relative; padding-bottom:56.25%; height:0;">
+    <iframe style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;"
+            src="https://www.youtube.com/embed/K6MKrEn5uGc?si=bSPaQ197tIDVasem"
+            allowfullscreen></iframe>
+</div>
+            <p>
+                DNS Spoofing xảy ra khi kẻ tấn công giả mạo bản ghi DNS để chuyển hướng người dùng đến trang web giả mạo.
+                Để phòng thủ, ta sẽ thực hiện:
+            </p>
+
+            <ul>
+                <li>Bật DNS an toàn (Secure DNS)</li>
+                <li>Khóa ARP Gateway để chống MITM</li>
+                <li>Xoá DNS cache độc hại</li>
+            </ul>
+
+            <!-- ========================= -->
+            <!-- 2. SECURE DNS -->
+            <!-- ========================= -->
+
+            <h2 id="secure-dns">🛡️ 2. Thiết lập DNS An toàn</h2>
+
+            <p><b>→ Truy cập Cài đặt Bảo mật Trình duyệt:</b></p>
+
+            <p>Mở Microsoft Edge → Settings → Privacy, search, and services.</p>
+
+            <!-- Hình 1 -->
+            <div class="guide-image-container">
+                <img src="images/hinh111.jpg">
+                <div class="image-caption">Hình 1 — Truy cập Privacy, search and services</div>
+            </div>
+
+            <p><b>Thiết lập DNS An toàn:</b></p>
+
+            <p>
+                Cuộn xuống phần <b>Security</b> và tìm tùy chọn <b>Use secure DNS</b>.
+            </p>
+
+            <!-- Hình 2 -->
+            <div class="guide-image-container">
+                <img src="images/hinh112.jpg">
+                <div class="image-caption">Hình 2 — Bật Secure DNS và chọn nhà cung cấp DoH</div>
+            </div>
+
+            <p>Bật công tắc và chọn “Choose a service provider”. Nhập DoH:</p>
+
+            <div class="code-block">
+https://dns.google/dns-query{?dns}
+            </div>
+
+            <!-- ========================= -->
+            <!-- 3. ARP STATIC -->
+            <!-- ========================= -->
+
+            <h2 id="arp-static">🔒 3. Thiết lập ARP Tĩnh cho Gateway</h2>
+
+            <p><b>Mở Command Prompt với quyền Quản trị viên.</b></p>
+
+            <p>Dùng lệnh bên dưới để thêm mục ARP tĩnh:</p>
+
+            <!-- Hình 3 -->
+            <div class="guide-image-container">
+                <img src="images/hinh113.jpg">
+                <div class="image-caption">Hình 3 — Thêm ARP tĩnh cho Gateway</div>
+            </div>
+
+            <div class="code-block">
+netsh interface ipv4 add neighbors "Ethernet0" "192.168.247.2" "00-50-56-f4-7f-44" store=persistent
+            </div>
+
+            <h3>Kiểm tra Trạng thái ARP:</h3>
+
+            <!-- Hình 4 -->
+            <div class="guide-image-container">
+                <img src="images/hinh114.jpg">
+                <div class="image-caption">Hình 4 — IP Gateway ở trạng thái static</div>
+            </div>
+
+            <!-- ========================= -->
+            <!-- 4. FLUSH DNS -->
+            <!-- ========================= -->
+
+            <h2 id="flushdns">🧹 4. Thực hiện Flush DNS</h2>
+
+            <p>Mở Command Prompt (Admin) và chạy lệnh:</p>
+
+            <!-- Hình 5 -->
+            <div class="guide-image-container">
+                <img src="images/hinh115.jpg">
+                <div class="image-caption">Hình 5 — Lệnh xóa DNS Cache</div>
+            </div>
+
+            <div class="code-block">
+ipconfig /flushdns
+            </div>
+
+            <div class="log-block">
+Successfully flushed the DNS Resolver Cache.
+            </div>
+
+            <p><b>Lưu ý:</b> Kết nối HTTPS phải đưa bạn đến trang chính thức, không bị chuyển hướng.</p>
+
+            <!-- Hình 6 -->
+            <div class="guide-image-container">
+                <img src="images/hinh116.jpg">
+                <div class="image-caption">Hình 6 — Truy cập Google qua HTTPS</div>
+            </div>
+
+            <!-- ========================= -->
+            <!-- 5. QUIZ -->
+            <!-- ========================= -->
+
+            <h2 id="quiz">📝 5. Quiz kiểm tra kiến thức</h2>
+
+            <div class="quiz-container">
+
+                <div id="completion-message" style="
+                    display:none; padding:20px; background:#27ae60;
+                    color:white; font-size:18px; font-weight:700; border-radius:8px;">
+                    ✔ CHÚC MỪNG! Bạn đã hoàn thành phòng thủ DNS!
+                </div>
+
+                <!-- Q1 -->
+                <div id="question-1">
+                    <h3>1. Secure DNS giúp ngăn loại tấn công nào?</h3>
+                    <div class="input-group">
+                        <input id="answer-1" class="quiz-input">
+                        <button class="quiz-button" onclick="checkAnswer(1)">Check</button>
+                    </div>
+                    <p id="feedback-1"></p>
+                </div>
+
+                <!-- Q2 -->
+                <div id="question-2" style="display:none;">
+                    <h3>2. Lệnh dùng để xóa DNS Cache?</h3>
+                    <div class="input-group">
+                        <input id="answer-2" class="quiz-input">
+                        <button class="quiz-button" onclick="checkAnswer(2)">Check</button>
+                    </div>
+                    <p id="feedback-2"></p>
+                </div>
+
+                <!-- Q3 -->
+                <div id="question-3" style="display:none;">
+                    <h3>3. ARP Static chống lại kiểu tấn công nào?</h3>
+                    <div class="input-group">
+                        <input id="answer-3" class="quiz-input">
+                        <button class="quiz-button" onclick="checkAnswer(3)">Check</button>
+                    </div>
+                    <p id="feedback-3"></p>
+                </div>
+
+                <!-- Q4 -->
+                <div id="question-4" style="display:none;">
+                    <h3>4. Giao thức DNS an toàn là gì?</h3>
+                    <div class="input-group">
+                        <input id="answer-4" class="quiz-input">
+                        <button class="quiz-button" onclick="checkAnswer(4)">Check</button>
+                    </div>
+                    <p id="feedback-4"></p>
+                </div>
+
+                <!-- Q5 -->
+                <div id="question-5" style="display:none;">
+                    <h3>5. Vì sao cần DNS qua HTTPS?</h3>
+                    <div class="input-group">
+                        <input id="answer-5" class="quiz-input">
+                        <button class="quiz-button" onclick="checkAnswer(5)">Check</button>
+                    </div>
+                    <p id="feedback-5"></p>
+                </div>
+
+            </div>
+        </section>
+
+        <footer style="text-align:center; padding:30px; color:var(--muted);">
+            © 2025 Cyber Ranges Platform
+        </footer>
+
+    </main>
+</div>
+
+            <script>
+                // 1. CẤU HÌNH ĐÁP ÁN (có thể đổi nội dung cho phù hợp lab DHCP)
+                const correctAnswers = {
+                    1: ["..."],
+                    2: ["..."],
+                    3: ["..."],
+                    4: ["..."],
+                    5: ["..."]
+                };
+                //--- HÀM GỬI TIẾN ĐỘ (NHẬN SỐ PHẦN TRĂM) ---
+                async function submitProgress(percent) {
+                    const username = localStorage.getItem("cyber_current_user");
+                    
+                    if (!username) {
+                        console.log("Chưa đăng nhập, không lưu được.");
+                        return;
+                    }
+            
+                    try {
+                        console.log(`Đang gửi tiến độ ${percent}% về Server...`);
+                        
+                        // 👇 CHỈ ĐỔI labId Ở ĐÂY
+                        const response = await fetch('/api/submit-quiz', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ 
+                                username: username, 
+                                labId: 'phongthu_dns',   // <-- tên lab DHCP
+                                progress: percent 
+                            })
+                        });
+                        const data = await response.json();
+                        console.log("Server đã lưu:", data);
+            
+                    } catch (error) {
+                        console.error("Lỗi kết nối Server:", error);
+                    }
+                }
+            
+                // 2. HÀM CHUẨN HÓA ĐÁP ÁN
+                function normalizeAnswer(answer) {
+                    return answer.toLowerCase().trim()
+                        .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"")
+                        .replace(/\s{2,}/g," ");
+                }
+            
+                // 3. HÀM CHECK ĐÁP ÁN
+                function checkAnswer(questionNumber) {
+                    const inputId = 'answer-' + questionNumber;
+                    const feedbackId = 'feedback-' + questionNumber;
+                    const currentQuestionId = 'question-' + questionNumber;
+                    
+                    const userInput = document.getElementById(inputId).value;
+                    const feedbackElement = document.getElementById(feedbackId);
+                    const currentQuestionElement = document.getElementById(currentQuestionId);
+                    
+                    const normalizedInput = normalizeAnswer(userInput);
+                    const validAnswers = correctAnswers[questionNumber];
+                    let isCorrect = false;
+            
+                    for (const valid of validAnswers) {
+                        if (normalizedInput.includes(normalizeAnswer(valid))) {
+                            isCorrect = true;
+                            break;
+                        }
+                    }
+            
+                    if (isCorrect) {
+                        feedbackElement.style.color = '#2ecc71';
+                        feedbackElement.innerHTML = '<i class="fas fa-check"></i> Chính xác!';
+                        
+                        document.getElementById(inputId).disabled = true;
+                        currentQuestionElement.querySelector('.quiz-button').disabled = true;
+            
+                        const currentPercent = questionNumber * 20;
+                        submitProgress(currentPercent); 
+            
+                        setTimeout(() => {
+                            currentQuestionElement.style.display = 'none';
+            
+                            if (questionNumber < 5) {
+                                const nextQuestionId = 'question-' + (questionNumber + 1);
+                                const nextQuestionElement = document.getElementById(nextQuestionId);
+                                if (nextQuestionElement) {
+                                    nextQuestionElement.style.display = 'block';
+                                    document.getElementById('feedback-' + (questionNumber + 1)).innerHTML = '';
+                                }
+                            } else {
+                                document.getElementById('completion-message').style.display = 'block';
+                                document.getElementById('quiz').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                            }
+                        }, 500);
+            
+                    } else {
+                        feedbackElement.style.color = '#e74c3c';
+                        feedbackElement.innerHTML = '<i class="fas fa-times"></i> Chưa chính xác. Vui lòng thử lại!';
+                    }
+                }
+            
+                // 4. KHỞI TẠO
+                document.addEventListener('DOMContentLoaded', () => {
+                    const allQuestions = document.querySelectorAll('.question-block');
+                    allQuestions.forEach(q => { q.style.display = 'none'; });
+                    const firstQuestion = document.getElementById('question-1');
+                    if (firstQuestion) { firstQuestion.style.display = 'block'; }
+                });
+            </script>
+            
+            

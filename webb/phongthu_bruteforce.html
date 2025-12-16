@@ -1,0 +1,475 @@
+    <!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phòng thủ Brute Force – Account Lockout Policy</title>
+
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-dark: #0f1624;
+            --bg-card: #1a2332;
+            --blue: #3fa9f5;
+            --text: #e6eef7;
+            --muted: #98a6b8;
+            --orange: #f5b041;
+            --red: #e74c3c;
+            --border-light: #2c3a4d;
+        }
+
+        body {
+            background: var(--bg-dark);
+            margin: 0;
+            font-family: "Segoe UI", sans-serif;
+        }
+
+        .app { display: flex; min-height: 100vh; }
+
+        /* SIDEBAR */
+        .sidebar {
+            width: 270px;
+            background: #131b29;
+            padding: 24px;
+            border-right: 1px solid var(--border-light);
+            height: 100vh;
+            position: sticky;
+            top: 0;
+            overflow-y: auto;
+        }
+
+        .sidebar-logo {
+            font-size: 20px;
+            color: white;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .nav-item {
+            padding: 10px 14px;
+            border-radius: 6px;
+            color: var(--muted);
+            display: block;
+            transition: 0.2s;
+            text-decoration: none;
+        }
+
+        .nav-item:hover {
+            background: #1f2a3b;
+            color: white;
+        }
+
+        /* MAIN */
+        .main {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .main-topbar {
+            padding: 18px 30px;
+            background: #10141a;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .guide-container {
+            max-width: 1020px;
+            margin: 0 auto;
+            padding: 40px 28px;
+        }
+
+        h2 {
+            font-size: 24px;
+            color: var(--blue);
+            margin-top: 40px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--border-light);
+        }
+
+        h3 {
+            font-size: 19px;
+            color: white;
+            margin-top: 22px;
+        }
+
+        p, ul {
+            color: var(--muted);
+            line-height: 1.7;
+            font-size: 16px;
+        }
+
+        ul { margin-top: 10px; padding-left: 22px; }
+
+        /* IMAGE BLOCK */
+        .guide-image-container {
+            margin: 25px 0;
+            border-radius: 10px;
+            border: 1px solid var(--border-light);
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0,0,0,0.45);
+        }
+
+        .guide-image-container img {
+            width: 100%;
+            display: block;
+        }
+
+        .image-caption {
+            background: #1e2a38;
+            padding: 10px 12px;
+            font-style: italic;
+            font-size: 14px;
+            color: #cfe1ff;
+        }
+
+        /* CODE BLOCK */
+        .code-block {
+            margin: 25px 0;
+            padding: 18px 20px;
+            background: #131c27;
+            color: #f6d76c;
+            border-left: 5px solid var(--orange);
+            border-radius: 10px;
+            font-family: Consolas, monospace;
+        }
+
+        /* QUIZ */
+        .quiz-container {
+            margin-top: 50px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            padding: 28px;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 12px;
+        }
+
+        .quiz-input {
+            flex-grow: 1;
+            padding: 10px;
+            background: #0f1624;
+            color: white;
+            border: 1px solid var(--border-light);
+            border-radius: 6px;
+        }
+
+        .quiz-button {
+            padding: 10px 18px;
+            background: #27ae60;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="app">
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+
+    <header class="sidebar-logo">
+        <i class="fas fa-shield-alt"></i> CYBER<br>RANGES
+    </header>
+
+    <nav class="sidebar-nav">
+        <a href="#" onclick="history.back(); return false;" class="nav-item">
+            <i class="fas fa-arrow-left"></i> Back to Playlists
+        </a>
+
+        <h3 style="color:white;margin-top:25px;">Mục lục</h3>
+        <a class="nav-item" href="#tong-quan">1. Tổng quan</a>
+        <a class="nav-item" href="#lockout">2. Account Lockout Policy</a>
+        <a class="nav-item" href="#audit">3. Audit Logon Events</a>
+        <a class="nav-item" href="#quiz">4. Quiz</a>
+    </nav>
+</aside>
+
+<!-- MAIN -->
+<main class="main">
+
+<header class="main-topbar">
+    <h1 style="color:white;margin:0; font-size:26px;">
+        <i class="fas fa-shield-alt" style="color:var(--blue); margin-right:8px;"></i>
+        Phòng thủ Brute Force – Account Lockout Policy
+    </h1>
+</header>
+
+<section class="guide-container">
+
+<!-- ========================== -->
+<!-- 1. TỔNG QUAN -->
+<!-- ========================== -->
+
+<h2 id="tong-quan">📌 1. Tổng quan</h2>
+
+<div class="video-embed" style="margin-bottom:35px; position:relative; padding-bottom:56.25%; height:0;">
+    <iframe style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;"
+            src="https://www.youtube.com/embed/K6MKrEn5uGc?si=bSPaQ197tIDVasem"
+            allowfullscreen></iframe>
+</div>
+
+<p>
+Brute forcing là kỹ thuật kẻ tấn công thử nhiều mật khẩu liên tục cho đến khi đăng nhập thành công.  
+Chính sách <b>Account Lockout Policy</b> giúp tự động khóa tài khoản sau nhiều lần đăng nhập thất bại.
+</p>
+
+<!-- ========================== -->
+<!-- 2. ACCOUNT LOCKOUT POLICY -->
+<!-- ========================== -->
+
+<h2 id="lockout">🛡️ 2. Thiết lập Account Lockout Policy</h2>
+
+<h3>➡️ Truy cập Chính sách</h3>
+<p>
+Mở <b>Local Security Policy (secpol.msc)</b> →  
+<b>Security Settings</b> →  
+<b>Account Policies</b> →  
+<b>Account Lockout Policy</b>.
+</p>
+
+<div class="guide-image-container">
+    <img src="images/hinh117.jpg">
+    <div class="image-caption">Hình 1 — Giao diện Account Lockout Policy</div>
+</div>
+
+<h3>➡️ Cấu hình Ngưỡng Khóa</h3>
+<p>Đặt <b>Account lockout threshold</b> = <b>3 invalid logon attempts</b>.</p>
+
+<h3>➡️ Cấu hình Thời gian Khóa</h3>
+<p>Thiết lập các giá trị sau:</p>
+<ul>
+    <li><b>Account lockout duration:</b> 15 minutes</li>
+    <li><b>Reset account lockout counter after:</b> 15 minutes</li>
+</ul>
+
+<h3>➡️ Áp dụng chính sách</h3>
+
+<div class="code-block">gpupdate /force</div>
+
+<div class="guide-image-container">
+    <img src="images/hinh118.jpg">
+    <div class="image-caption">Hình 2 — Cập nhật Group Policy bằng lệnh gpupdate /force</div>
+</div>
+
+<!-- ========================== -->
+<!-- 3. AUDIT LOGON EVENTS -->
+<!-- ========================== -->
+
+<h2 id="audit">📌 3. Bật Audit Logon Events</h2>
+
+<p>
+Để chức năng khóa tài khoản hoạt động, hệ thống phải ghi lại các lần đăng nhập thất bại.
+</p>
+
+<p>Mở Run → nhập <b>secpol.msc</b>.</p>
+<p>
+Điều hướng đến:  
+<b>Security Settings → Local Policies → Audit Policy</b>
+</p>
+
+<p>Nhấp đúp chọn <b>Audit logon events</b> và bật:</p>
+
+<ul>
+    <li><b>Success</b></li>
+    <li><b>Failure</b></li>
+</ul>
+
+<div class="guide-image-container">
+    <img src="images/hinh119.jpg">
+    <div class="image-caption">Hình 3 — Bật Success & Failure trong Audit logon events</div>
+</div>
+
+<p>Nhấn OK để hoàn tất.</p>
+
+<!-- ========================== -->
+<!-- QUIZ -->
+<!-- ========================== -->
+
+<h2 id="quiz">📝 4. Quiz kiểm tra kiến thức</h2>
+
+<div class="quiz-container">
+
+    <div id="completion-message" style="display:none;padding:20px;background:#27ae60;color:white;border-radius:8px;font-size:18px;font-weight:700;">
+        ✔ Chúc mừng! Bạn đã hoàn thành bài phòng thủ Brute Force!
+    </div>
+
+    <!-- Q1 -->
+    <div id="question-1">
+        <h3>1. Account lockout threshold nên đặt là bao nhiêu?</h3>
+        <div class="input-group">
+            <input id="answer-1" class="quiz-input">
+            <button class="quiz-button" onclick="checkAnswer(1)">Check</button>
+        </div>
+        <p id="feedback-1"></p>
+    </div>
+
+    <!-- Q2 -->
+    <div id="question-2" style="display:none;">
+        <h3>2. Thời gian khóa tài khoản đề xuất là bao lâu?</h3>
+        <div class="input-group">
+            <input id="answer-2" class="quiz-input">
+            <button class="quiz-button" onclick="checkAnswer(2)">Check</button>
+        </div>
+        <p id="feedback-2"></p>
+    </div>
+
+    <!-- Q3 -->
+    <div id="question-3" style="display:none;">
+        <h3>3. Lệnh nào dùng để cập nhật chính sách?</h3>
+        <div class="input-group">
+            <input id="answer-3" class="quiz-input">
+            <button class="quiz-button" onclick="checkAnswer(3)">Check</button>
+        </div>
+        <p id="feedback-3"></p>
+    </div>
+
+    <!-- Q4 -->
+    <div id="question-4" style="display:none;">
+        <h3>4. Audit logon events cần bật Success, Failure hay cả hai?</h3>
+        <div class="input-group">
+            <input id="answer-4" class="quiz-input">
+            <button class="quiz-button" onclick="checkAnswer(4)">Check</button>
+        </div>
+        <p id="feedback-4"></p>
+    </div>
+
+    <!-- Q5 -->
+    <div id="question-5" style="display:none;">
+        <h3>5. Mục tiêu của Account Lockout Policy là gì?</h3>
+        <div class="input-group">
+            <input id="answer-5" class="quiz-input">
+            <button class="quiz-button" onclick="checkAnswer(5)">Check</button>
+        </div>
+        <p id="feedback-5"></p>
+    </div>
+
+</div>
+
+</section>
+
+<footer style="text-align:center; padding:30px; color:var(--muted);">
+    © 2025 Cyber Ranges Platform
+</footer>
+
+</main>
+</div>
+<script>
+    // 1. CẤU HÌNH ĐÁP ÁN (có thể đổi nội dung cho phù hợp lab DHCP)
+    const correctAnswers = {
+        1: ["..."],
+        2: ["..."],
+        3: ["..."],
+        4: ["..."],
+        5: ["..."]
+    };
+    //--- HÀM GỬI TIẾN ĐỘ (NHẬN SỐ PHẦN TRĂM) ---
+    async function submitProgress(percent) {
+        const username = localStorage.getItem("cyber_current_user");
+        
+        if (!username) {
+            console.log("Chưa đăng nhập, không lưu được.");
+            return;
+        }
+
+        try {
+            console.log(`Đang gửi tiến độ ${percent}% về Server...`);
+            
+            // 👇 CHỈ ĐỔI labId Ở ĐÂY
+            const response = await fetch('/api/submit-quiz', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ 
+                    username: username, 
+                    labId: 'phongthu_brf',   // <-- tên lab DHCP
+                    progress: percent 
+                })
+            });
+            const data = await response.json();
+            console.log("Server đã lưu:", data);
+
+        } catch (error) {
+            console.error("Lỗi kết nối Server:", error);
+        }
+    }
+
+    // 2. HÀM CHUẨN HÓA ĐÁP ÁN
+    function normalizeAnswer(answer) {
+        return answer.toLowerCase().trim()
+            .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"")
+            .replace(/\s{2,}/g," ");
+    }
+
+    // 3. HÀM CHECK ĐÁP ÁN
+    function checkAnswer(questionNumber) {
+        const inputId = 'answer-' + questionNumber;
+        const feedbackId = 'feedback-' + questionNumber;
+        const currentQuestionId = 'question-' + questionNumber;
+        
+        const userInput = document.getElementById(inputId).value;
+        const feedbackElement = document.getElementById(feedbackId);
+        const currentQuestionElement = document.getElementById(currentQuestionId);
+        
+        const normalizedInput = normalizeAnswer(userInput);
+        const validAnswers = correctAnswers[questionNumber];
+        let isCorrect = false;
+
+        for (const valid of validAnswers) {
+            if (normalizedInput.includes(normalizeAnswer(valid))) {
+                isCorrect = true;
+                break;
+            }
+        }
+
+        if (isCorrect) {
+            feedbackElement.style.color = '#2ecc71';
+            feedbackElement.innerHTML = '<i class="fas fa-check"></i> Chính xác!';
+            
+            document.getElementById(inputId).disabled = true;
+            currentQuestionElement.querySelector('.quiz-button').disabled = true;
+
+            const currentPercent = questionNumber * 20;
+            submitProgress(currentPercent); 
+
+            setTimeout(() => {
+                currentQuestionElement.style.display = 'none';
+
+                if (questionNumber < 5) {
+                    const nextQuestionId = 'question-' + (questionNumber + 1);
+                    const nextQuestionElement = document.getElementById(nextQuestionId);
+                    if (nextQuestionElement) {
+                        nextQuestionElement.style.display = 'block';
+                        document.getElementById('feedback-' + (questionNumber + 1)).innerHTML = '';
+                    }
+                } else {
+                    document.getElementById('completion-message').style.display = 'block';
+                    document.getElementById('quiz').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }, 500);
+
+        } else {
+            feedbackElement.style.color = '#e74c3c';
+            feedbackElement.innerHTML = '<i class="fas fa-times"></i> Chưa chính xác. Vui lòng thử lại!';
+        }
+    }
+
+    // 4. KHỞI TẠO
+    document.addEventListener('DOMContentLoaded', () => {
+        const allQuestions = document.querySelectorAll('.question-block');
+        allQuestions.forEach(q => { q.style.display = 'none'; });
+        const firstQuestion = document.getElementById('question-1');
+        if (firstQuestion) { firstQuestion.style.display = 'block'; }
+    });
+</script>
+

@@ -68,20 +68,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // --- PHẦN 2: HÀM ĐĂNG XUẤT (NẰM RIÊNG Ở NGOÀI CÙNG) ---
 // Đặt ở đây đảm bảo nút bấm luôn gọi được, bất chấp lỗi ở trên
-window.xuLyDangXuat = function() {
-  console.log("Đã bấm nút đăng xuất!"); 
+// --- PHẦN 2: HÀM ĐĂNG XUẤT (MỚI - ĐẸP KHÔNG DÙNG CONFIRM) ---
+window.xuLyDangXuat = function () {
+    const modal = document.getElementById("logout-modal");
+    modal.classList.add("show");
 
-  if (confirm("Bạn có chắc chắn muốn đăng xuất không?")) {
-      // 1. Xóa thông tin user
-      localStorage.removeItem("cyber_current_user");
+    // Nút đồng ý đăng xuất
+    document.getElementById("logout-confirm").onclick = () => {
+        localStorage.removeItem("cyber_current_user");
 
-      // 2. Thông báo
-      alert("Đã đăng xuất thành công!");
+        // toast đẹp
+        showToast("Đã đăng xuất thành công!", "success");
 
-      // 3. Chuyển về trang đăng nhập
-      window.location.href = "index.html"; 
-  }
+        modal.classList.remove("show");
+
+        setTimeout(() => {
+            window.location.href = "index.html";
+        }, 1000);
+    };
+
+    // Nút hủy
+    document.getElementById("logout-cancel").onclick = () => {
+        modal.classList.remove("show");
+    };
 };
+
 
 async function loadUserProgress() {
   const username = localStorage.getItem("cyber_current_user");
@@ -136,7 +147,7 @@ async function loadUserProgress() {
       if(chiemText) chiemText.innerText = chiemPercent + "%";
 
       //soc
-      const SOCPercent = progress["soc_en"] || 0;
+      const SOCPercent = progress["zphisher_fb"] || 0;
       const socBar = document.getElementById("soc_en-bar");
       const socText = document.getElementById("soc_en-text")
       if(socBar) socBar.style.width = SOCPercent + "%";
@@ -151,30 +162,71 @@ async function loadUserProgress() {
       if(ptarpBar) ptarpBar.style.width = ptARPPercent + "%";
       if(ptarpText) ptarpText.innerText = ptARPPercent + "%";
 
-    /// ting tong
-    const allValues = Object.values(progress)
-            .map(v => Number(v) || 0)
-            // nếu muốn chỉ tính những lab đã làm ( > 0 ) thì lọc như dưới:
-            .filter(v => v > 0);
+    //DHCP
+    const ptDHCPPercent = progress["phongthu_dhcp"] || 0;
+    const ptdhcpBar = document.getElementById("phongthu_dhcp-bar");
+    const ptdhcpText = document.getElementById("phongthu_dhcp-text")
+    if(ptdhcpBar) ptdhcpBar.style.width = ptDHCPPercent + "%";
+    if(ptdhcpText) ptdhcpText.innerText = ptDHCPPercent + "%";
+    //DNS
+    const ptDNSPercent = progress["phongthu_dns"] || 0;
+    const ptdnsBar = document.getElementById("phongthu_dns-bar");
+    const ptdnsText = document.getElementById("phongthu_dns-text")
+    if(ptdnsBar) ptdnsBar.style.width = ptDNSPercent + "%";
+    if(ptdnsText) ptdnsText.innerText = ptDNSPercent + "%";
+    //BRF
+    const ptBRFPercent = progress["phongthu_brf"] || 0;
+    const ptbrfBar = document.getElementById("phongthu_brf-bar");
+    const ptbrfText = document.getElementById("phongthu_brf-text")
+    if(ptbrfBar) ptbrfBar.style.width = ptBRFPercent + "%";
+    if(ptbrfText) ptbrfText.innerText = ptBRFPercent + "%";
 
-        let avg = 0;
-        if (allValues.length > 0) {
-            const sum = allValues.reduce((a, b) => a + b, 0);
-            avg = Math.round(sum / allValues.length);   // làm tròn
-        }
+
+    /// ting tong
+   /// ting tong  (tính tổng tiến độ 9 lab cố định)
+        const TOTAL_LABS = 12;   // số lab cố định
+
+        // Lấy toàn bộ giá trị progress, lab nào chưa có thì coi như 0
+        const allValues = Object.values(progress || {});
+
+        // Tính tổng %
+        const sum = allValues.reduce((acc, v) => acc + (Number(v) || 0), 0);
+
+        // % trung bình trên 9 lab (0–100%)
+        const avg = Math.round(sum / TOTAL_LABS);   // ví dụ: [100,80,0,60,0] => 240/5 = 48%
+
 
         // Cập nhật thanh tổng
-        const overallBar  = document.getElementById("overall-progress-bar");
-        const overallText = document.getElementById("overall-progress-text");
-        if (overallBar)  overallBar.style.width = avg + "%";
-        if (overallText) overallText.innerText  = avg + "%";
+        //const overallBar  = document.getElementById("overall-progress-bar");
+       // const overallText = document.getElementById("overall-progress-text");
+        //if (overallBar)  overallBar.style.width = avg + "%";
+       // if (overallText) overallText.innerText  = avg + "%";
 
-        // Cập nhật thanh mini góc phải
+        // Cập nhật thanh mini góc phải 
         const miniFill   = document.getElementById("global-mini-fill");
         const miniText   = document.getElementById("global-mini-percent");
         if (miniFill) miniFill.style.width = avg + "%";
         if (miniText) miniText.innerText   = avg + "%";
 
+      // ===== HIỆN NÚT XUẤT CHỨNG CHỈ KHI ĐẠT >= 80% =====
+        const btnCert = document.getElementById("btn-certificate");
+
+        if (btnCert) {
+            if (avg >= 20) {
+                btnCert.style.display = "block";
+            } else {
+                btnCert.style.display = "none";
+            }
+
+            btnCert.onclick = () => {
+                const username = localStorage.getItem("cyber_current_user") || "Học viên";
+
+                window.open(
+                    `/certificate.html?name=${encodeURIComponent(username)}&score=${avg}`,
+                    "_blank"
+                );
+            };
+        }
 
   } catch (err) {
       console.error("Lỗi load progress:", err);
@@ -183,4 +235,4 @@ async function loadUserProgress() {
 
 document.addEventListener("DOMContentLoaded", loadUserProgress);
 
-document.addEventListener("DOMContentLoaded", loadUserProgress);
+

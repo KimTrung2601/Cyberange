@@ -5,7 +5,12 @@
     "email": "kimtrung@gmail.com",
     "progress": {
       "arp_spoofing": 80,
-      "dhcp_attack": 20
+      "dhcp_attack": 20,
+      "zphisher_fb": 33,
+      "phongthu_dhcp": 20,
+      "phongthu_arp": 20,
+      "phongthu_dns": 20,
+      "phongthu_brf": 20
     }
   },
   {
@@ -16,10 +21,22 @@
       "dhcp_attack": 100,
       "brute_force_ssh": 20,
       "dns_psn": 20,
-      "chiem_q": 20,
+      "chiem_q": 60,
       "soc_en": 20,
       "phongthu_arp": 20,
       "arp_spoofing": 20
     }
+  },
+  {
+    "username": "kimtrunggg",
+    "password": "123",
+    "email": "trynt@gmail.com",
+    "progress": {}
+  },
+  {
+    "username": "kimtru",
+    "password": "123",
+    "email": "trynt221@gmail.com",
+    "progress": {}
   }
 ]

@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hướng dẫn: SETOOLKIT - Fake Facebook Login</title>
+    <title>Hướng dẫn: ZPHISHER - Facebook Phishing Attack</title>
 
     <link rel="stylesheet" href="css/dashboard.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
     <style>
+        /* GIỮ NGUYÊN CSS CŨ CỦA BẠN */
         :root {
             --bg-dark: #0f1624;
             --bg-card: #1a2332;
@@ -103,7 +104,7 @@
             box-shadow: 0 0 10px rgba(0,0,0,0.4);
         }
 
-        .guide-image-container img { width: 100%; }
+        .guide-image-container img { width: 100%; display: block; }
         .image-caption {
             padding: 10px;
             background: #1e2a38;
@@ -177,10 +178,10 @@
 
     <aside class="sidebar">
         <header class="sidebar-logo">
-            <i class="fas fa-shield-alt"></i>
+            <i class="fas fa-user-secret"></i>
             <span>CYBER<br>RANGES</span>
         </header>
-  <strong id="sidebar-username">My Account</strong>
+        <strong id="sidebar-username">My Account</strong>
         <small>My Account</small>
 
         <nav class="sidebar-nav">
@@ -189,9 +190,9 @@
             </a>
             <h3 style="padding-left:14px;">Mục lục</h3>
             <a href="#tong-quan" class="nav-item">1. Tổng quan</a>
-            <a href="#cau-hinh-ban-dau" class="nav-item">I. Cấu hình ban đầu</a>
+            <a href="#cau-hinh-ban-dau" class="nav-item">I. Cấu hình công cụ</a>
             <a href="#thuc-hien-tan-cong" class="nav-item">II. Thực hiện tấn công</a>
-            <a href="#kiem-tra-ket-qua" class="nav-item">III. Kiểm tra kết quả</a>
+            <a href="#kiem-tra-ket-qua" class="nav-item">III. Kết quả</a>
             <a href="#quiz" class="nav-item">IV. Quiz</a>
         </nav>
     </aside>
@@ -200,8 +201,8 @@
 
         <header class="main-topbar">
             <h1 style="color:white; margin:0;">
-                <i class="fas fa-satellite-dish" style="color:var(--red); margin-right:10px;"></i>
-                SETOOLKIT – Fake Facebook Login
+                <i class="fas fa-fish" style="color:var(--red); margin-right:10px;"></i>
+                ZPHISHER – Facebook Phishing Attack
             </h1>
         </header>
 
@@ -210,97 +211,97 @@
             <h2 id="tong-quan">📖 1. Tổng quan kịch bản</h2>
 
             <div class="video-embed">
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/H1LJOC3VKgc?si=FWTvJfUdtacvVfQM" 
-            title="YouTube video player" frameborder="0" 
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-</div>
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/XXXXXX" title="Demo Video" frameborder="0" allowfullscreen></iframe>
+            </div>
 
-            <p>Sử dụng SETOOLKIT để tạo trang đăng nhập Facebook giả và thu thập Username & Password.</p>
+            <p>Sử dụng công cụ <strong>Zphisher</strong> trên Kali Linux để tạo trang đăng nhập Facebook giả mạo, sử dụng Cloudflared để public server ra Internet và thực hiện gửi Email lừa đảo (Social Engineering).</p>
 
             <div class="info-box">
-                <p><strong>Kali Linux:</strong> Máy tấn công chạy SETOOLKIT</p>
-                <p><strong>Windows 10:</strong> Máy nạn nhân truy cập trang giả mạo</p>
+                <p><strong>Attacker (Kẻ tấn công):</strong> Kali Linux chạy Zphisher.</p>
+                <p><strong>Victim (Nạn nhân):</strong> Windows 10 truy cập qua Email.</p>
+                <p><strong>Công cụ hỗ trợ:</strong> Cloudflared (Tunneling), Gmail (Gửi cảnh báo giả).</p>
             </div>
 
             <div class="guide-image-container">
-                <img src="images/hinh69.jpg">
-                <div class="image-caption">Hình 69. Giao diện SETOOLKIT</div>
+                <img src="images/hinh69.jpg" alt="Giao diện Zphisher">
+                <div class="image-caption">Hình 1. Giao diện chính của công cụ Zphisher</div>
             </div>
 
-            <h2 id="cau-hinh-ban-dau">I. Cấu hình ban đầu</h2>
+            <h2 id="cau-hinh-ban-dau">I. Cấu hình công cụ Zphisher</h2>
 
-            <p>Trong SET, chọn lần lượt: <strong>1 → 2 → 3</strong></p>
+            <p>Mở Terminal trên Kali Linux và chạy quyền root. Tại thư mục Zphisher, thực thi lệnh: <code>sudo ./zphisher.sh</code></p>
+
+            <h3>Bước 1: Chọn mục tiêu tấn công</h3>
+            <p>Chọn <strong>Option 1</strong> để tấn công Facebook.</p>
 
             <div class="guide-image-container">
-                <img src="images/hinh70.jpg">
-                <div class="image-caption">Hình 70. Chọn Social Engineering Attacks</div>
+                <img src="images/hinh70.jpg" alt="Chọn Facebook">
+                <div class="image-caption">Hình 2. Chọn mục tiêu số 1: Facebook</div>
             </div>
 
+            <h3>Bước 2: Chọn mẫu giao diện (Template)</h3>
+            <p>Chọn <strong>Option 1 - Traditional Login Page</strong> để tạo trang đăng nhập giống bản gốc nhất.</p>
+
             <div class="guide-image-container">
-                <img src="images/hinh71.jpg">
-                <div class="image-caption">Hình 71. Credential Harvester Attack Method</div>
+                <img src="images/hinh71.jpg" alt="Chọn Traditional Page">
+                <div class="image-caption">Hình 3. Chọn giao diện đăng nhập truyền thống</div>
             </div>
 
-            <h3>Nhập IP máy tấn công</h3>
+            <h3>Bước 3: Cấu hình Port Forwarding</h3>
+            <p>Chọn <strong>Option 2 - Cloudflared</strong> để tạo đường hầm kết nối ra Internet.</p>
+            <p>Nhập port muốn lắng nghe (ví dụ: <strong>8080</strong>).</p>
 
             <div class="guide-image-container">
-                <img src="images/hinh72.jpg">
-                <div class="image-caption">Hình 72. Nhập IP máy tấn công</div>
-            </div>
-
-            <h3>Chuẩn bị giao diện Facebook thật</h3>
-
-            <div class="guide-image-container">
-                <img src="images/hinh73.jpg">
-                <div class="image-caption">Hình 73. Nhập URL Facebook thật</div>
-            </div>
-
-            <div class="guide-image-container">
-                <img src="images/hinh74.jpg">
-                <div class="image-caption">Hình 74. Giao diện Facebook được sao chép</div>
+                <img src="images/hinh72.jpg" alt="Cấu hình Cloudflared">
+                <div class="image-caption">Hình 4. Chọn dịch vụ Cloudflared và thiết lập Port 8080</div>
             </div>
 
             <h2 id="thuc-hien-tan-cong">II. Thực hiện tấn công</h2>
 
             <div class="attack-step">
-                <h3>Nạn nhân truy cập IP máy tấn công</h3>
+                <h3>1. Tạo URL giả mạo (Mask URL)</h3>
+                <p>Để tăng độ tin cậy, ta cấu hình <strong>Mask URL</strong> hiển thị là <code>https://facebook...</code> thay vì đường dẫn lạ.</p>
 
                 <div class="guide-image-container">
-                    <img src="images/hinh77.jpg">
-                    <div class="image-caption">Hình 77. Nạn nhân truy cập trang giả</div>
-                </div>
-
-                <div class="guide-image-container">
-                    <img src="images/hinh78.jpg">
-                    <div class="image-caption">Hình 78. Giao diện đăng nhập Facebook giả</div>
+                    <img src="images/hinh73.jpg" alt="Mask URL">
+                    <div class="image-caption">Hình 5. Cấu hình che giấu đường dẫn (Mask URL)</div>
                 </div>
             </div>
 
             <div class="attack-step">
-                <h3>Nạn nhân nhập Username & Password</h3>
+                <h3>2. Gửi Email lừa đảo (Social Engineering)</h3>
+                <p>Kẻ tấn công soạn Email với tiêu đề <strong>"Cảnh báo bảo mật"</strong>, nội dung yêu cầu nạn nhân xác minh tài khoản tại đường link vừa tạo.</p>
 
                 <div class="guide-image-container">
-                    <img src="images/hinh79.jpg">
-                    <div class="image-caption">Hình 79. Nạn nhân nhập thông tin</div>
+                    <img src="images/hinh74.jpg" alt="Soạn Mail">
+                    <div class="image-caption">Hình 6. Soạn Email giả danh cảnh báo bảo mật</div>
                 </div>
-
-                <div class="guide-image-container">
-                    <img src="images/hinh80.jpg">
-                    <div class="image-caption">Hình 80. SET thu thập thông tin</div>
+                 <div class="guide-image-container">
+                    <img src="images/hinh75.jpg" alt="Nạn nhân nhận mail">
+                    <div class="image-caption">Hình 7. Nạn nhân nhận được Email cảnh báo</div>
                 </div>
             </div>
 
-            <h2 id="kiem-tra-ket-qua">III. Kiểm tra kết quả</h2>
+            <div class="attack-step">
+                <h3>3. Nạn nhân đăng nhập</h3>
+                <p>Nạn nhân click vào link "TẠI ĐÂY", trang web giả mạo hiện ra. Nạn nhân nhập User: <code>trungkim123</code> và Mật khẩu.</p>
 
-            <p>Kết quả sẽ hiển thị trên terminal của Kali Linux khi người dùng nhập thông tin.</p>
+                <div class="guide-image-container">
+                    <img src="images/hinh77.jpg" alt="Giao diện Fake">
+                    <div class="image-caption">Hình 8. Nạn nhân nhập thông tin vào trang giả mạo</div>
+                </div>
+            </div>
+
+            <h2 id="kiem-tra-ket-qua">III. Kết quả thu thập</h2>
+
+            <p>Ngay sau khi nạn nhân bấm "Log In", thông tin tài khoản và IP sẽ hiện ngay trên màn hình Terminal của Attacker.</p>
 
             <div class="guide-image-container">
-                <img src="images/hinh80.jpg">
-                <div class="image-caption">Thu thập Username & Password thành công</div>
+                <img src="images/hinh78.jpg" alt="Kết quả">
+                <div class="image-caption">Hình 9. Zphisher thu thập thành công Account: trungkim123</div>
             </div>
         </section>
-        <!-- QUIZ -->
+
         <section id="quiz" class="guide-container quiz-container" 
             style="background: var(--bg-card); margin-top:40px; border-radius:12px; 
                    border:1px solid var(--border-light); padding:35px;">
@@ -310,52 +311,51 @@
             <div id="completion-message" 
                 style="display:none; background:#27ae60; padding:20px; color:white; 
                        font-weight:bold; border-radius:10px; text-align:center;">
-                🎉 CHÚC MỪNG! Bạn đã hoàn thành bài lab!
+                🎉 CHÚC MỪNG! Bạn đã hoàn thành bài lab Phishing với Zphisher!
             </div>
 
             <div id="question-1" class="question-block">
-                <h3>1. SETOOLKIT dùng để làm gì?</h3>
+                <h3>1. Công cụ chính được sử dụng trong bài Lab này là gì?</h3>
                 <div class="input-group">
-                    <input id="answer-1" class="quiz-input" placeholder="Nhập câu trả lời...">
+                    <input id="answer-1" class="quiz-input" placeholder="Nhập tên công cụ...">
                     <button class="quiz-button" onclick="checkAnswer(1)">Check</button>
                 </div>
                 <p id="feedback-1"></p>
             </div>
 
             <div id="question-2" class="question-block" style="display:none;">
-                <h3>2. Fake Facebook Login thuộc kỹ thuật nào?</h3>
+                <h3>2. Dịch vụ nào được chọn để tạo đường hầm (Tunnel) ra Internet?</h3>
                 <div class="input-group">
-                    <input id="answer-2" class="quiz-input">
+                    <input id="answer-2" class="quiz-input" placeholder="Gợi ý: Cloud...">
                     <button class="quiz-button" onclick="checkAnswer(2)">Check</button>
                 </div>
                 <p id="feedback-2"></p>
             </div>
 
             <div id="question-3" class="question-block" style="display:none;">
-                <h3>3. Khi nạn nhân nhập thông tin SETOOLKIT sẽ?</h3>
+                <h3>3. Username của nạn nhân bị thu thập là gì?</h3>
                 <div class="input-group">
-                    <input id="answer-3" class="quiz-input">
+                    <input id="answer-3" class="quiz-input" placeholder="Nhập tên tài khoản...">
                     <button class="quiz-button" onclick="checkAnswer(3)">Check</button>
                 </div>
                 <p id="feedback-3"></p>
             </div>
 
         </section>
-                    <div style="margin-top: 50px; border-top: 1px solid var(--border-light); padding-top: 20px; font-size: 14px; text-align: center; color: var(--muted);">
-                    &copy; 2025 Cyber Ranges Platform. All rights reserved.
-                </div>
+        
+        <div style="margin-top: 50px; border-top: 1px solid var(--border-light); padding-top: 20px; font-size: 14px; text-align: center; color: var(--muted);">
+            &copy; 2025 Cyber Ranges Platform. All rights reserved.
+        </div>
     </main>
 </div>
 
 
 <script>
-    // 1. CẤU HÌNH ĐÁP ÁN (có thể đổi nội dung cho phù hợp lab DHCP)
+    // 1. CẤU HÌNH ĐÁP ÁN (Đã cập nhật theo bài Lab Zphisher)
     const correctAnswers = {
-        1: ["..."],
-        2: ["..."],
-        3: ["..."],
-        4: ["..."],
-        5: ["..."]
+        1: ["zphisher", "zphisher.sh"],
+        2: ["cloudflared", "cloudflare"],
+        3: ["trungkim123"]
     };
 
     // --- HÀM GỬI TIẾN ĐỘ (NHẬN SỐ PHẦN TRĂM) ---
@@ -370,13 +370,13 @@
         try {
             console.log(`Đang gửi tiến độ ${percent}% về Server...`);
             
-            // 👇 CHỈ ĐỔI labId Ở ĐÂY
+            // 👇 Đã đổi labId thành zphisher_fb
             const response = await fetch('/api/submit-quiz', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ 
                     username: username, 
-                    labId: 'soc_en',   // <-- tên lab DHCP
+                    labId: 'zphisher_fb',   
                     progress: percent 
                 })
             });
@@ -424,13 +424,14 @@
             document.getElementById(inputId).disabled = true;
             currentQuestionElement.querySelector('.quiz-button').disabled = true;
 
-            const currentPercent = questionNumber * 20;
+            // Lab này có 3 câu, mỗi câu ~33%
+            const currentPercent = Math.round(questionNumber * 33.33);
             submitProgress(currentPercent); 
 
             setTimeout(() => {
                 currentQuestionElement.style.display = 'none';
 
-                if (questionNumber < 5) {
+                if (questionNumber < 3) {
                     const nextQuestionId = 'question-' + (questionNumber + 1);
                     const nextQuestionElement = document.getElementById(nextQuestionId);
                     if (nextQuestionElement) {
@@ -440,8 +441,9 @@
                 } else {
                     document.getElementById('completion-message').style.display = 'block';
                     document.getElementById('quiz').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    submitProgress(100); // Hoàn thành 100%
                 }
-            }, 500);
+            }, 1000);
 
         } else {
             feedbackElement.style.color = '#e74c3c';

@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phòng thủ DHCP – Giải pháp DHCP Snooping</title>
+
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        /* GIỮ NGUYÊN CSS CỦA BẠN */
+        :root {
+            --bg-dark: #0f1624;
+            --bg-card: #1a2332;
+            --blue: #3fa9f5;
+            --text: #e6eef7;
+            --muted: #98a6b8;
+            --orange: #f5b041;
+            --red: #e74c3c;
+            --border-light: #2c3a4d;
+        }
+
+        body {
+            background: var(--bg-dark);
+            margin: 0;
+            font-family: "Segoe UI", sans-serif;
+        }
+
+        .app { display: flex; min-height: 100vh; }
+
+        .sidebar {
+            min-width: 280px;
+            background: #131b29;
+            border-right: 1px solid #243044;
+            padding: 24px;
+            height: 100vh;
+            position: sticky;
+            top: 0;
+            overflow-y: auto;
+        }
+
+        .nav-item {
+            padding: 10px 14px;
+            display: block;
+            border-radius: 6px;
+            color: var(--muted);
+            text-decoration: none;
+            transition: 0.2s;
+        }
+        .nav-item:hover { background: #1f2a3b; color: white; }
+
+        .main { flex-grow: 1; }
+
+        .main-topbar {
+            background: #10141a;
+            padding: 15px 30px;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .guide-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 25px;
+            color: var(--text);
+        }
+
+        h2 {
+            margin-top: 35px;
+            font-size: 24px;
+            color: var(--blue);
+            border-bottom: 2px solid var(--border-light);
+            padding-bottom: 8px;
+        }
+
+        h3 {
+            margin-top: 20px;
+            font-size: 19px;
+            color: var(--text);
+            font-weight: 700;
+        }
+
+        p, ul {
+            font-size: 16px;
+            line-height: 1.7;
+            color: var(--muted);
+        }
+        ul { padding-left: 22px; }
+
+        .guide-image-container {
+            border: 1px solid var(--border-light);
+            border-radius: 10px;
+            margin: 25px 0;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0,0,0,0.4);
+        }
+        .guide-image-container img { width:100%; display:block; }
+        .image-caption {
+            padding: 10px;
+            background: #1e2a3b;
+            color: #cfe1ff;
+            font-style: italic;
+            font-size: 14px;
+        }
+
+        .code-block {
+            background:#131c27;
+            border-left:5px solid var(--orange);
+            padding:18px 20px;
+            border-radius:10px;
+            margin:25px 0;
+            box-shadow:0 0 12px rgba(0,0,0,0.6);
+            font-family:Consolas, monospace;
+            color:#f6d76c;
+            font-size:15px;
+            white-space:pre-wrap;
+        }
+
+        .log-block {
+            background:#1a2332;
+            border-left:5px solid var(--red);
+            padding:18px 20px;
+            border-radius:10px;
+            margin:25px 0;
+            box-shadow:0 0 12px rgba(231,76,60,0.4);
+            font-family:Consolas, monospace;
+            color:#ffb3b3;
+            font-size:15px;
+            white-space:pre-wrap;
+        }
+
+        /* Quiz */
+        .quiz-container {
+            background: var(--bg-card);
+            padding: 25px;
+            border-radius: 12px;
+            margin-top: 40px;
+            border: 1px solid var(--border-light);
+        }
+
+        .input-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .quiz-input {
+            flex-grow: 1;
+            padding: 10px;
+            background: #0f1624;
+            border: 1px solid var(--border-light);
+            color: var(--text);
+            border-radius: 6px;
+        }
+
+        .quiz-button {
+            padding: 10px 20px;
+            background: #27ae60;
+            color: white;
+            border-radius: 6px;
+            cursor: pointer;
+            border: none;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="app">
+
+    <aside class="sidebar">
+        <header class="sidebar-logo">
+            <i class="fas fa-shield-alt"></i>
+            <span>CYBER<br>RANGES</span>
+        </header>
+
+        <div class="sidebar-user">
+            <strong id="sidebar-username">My Account</strong>
+            <small>My Account</small>
+        </div>
+
+        <nav class="sidebar-nav">
+            <a href="#" onclick="history.back(); return false;" class="nav-item active">
+                <i class="fas fa-arrow-left"></i> Back to Playlists
+            </a>
+
+
+            <h3 style="color:white; margin-top:20px;">Mục lục</h3>
+            <a class="nav-item" href="#tong-quan">1. Mục tiêu & Mô hình</a>
+            <a class="nav-item" href="#cau-hinh">2. Cấu hình DHCP Snooping</a>
+            <a class="nav-item" href="#kiem-tra">3. Kết quả & Đánh giá</a>
+            <a class="nav-item" href="#quiz">4. Quiz</a>
+        </nav>
+    </aside>
+
+    <main class="main">
+
+        <header class="main-topbar">
+            <h1 style="color:white; margin:0;font-size:26px;">
+                <i class="fas fa-shield-alt" style="color:var(--blue); margin-right:10px;"></i>
+                Phòng thủ DHCP – Giải pháp DHCP Snooping
+            </h1>
+        </header>
+
+        <section class="guide-container">
+
+
+            <h2 id="tong-quan">📌 1. Mục tiêu và Mô hình thực nghiệm</h2>
+                <div class="video-embed" style="margin-bottom:35px; position:relative; padding-bottom:56.25%; height:0;">
+    <iframe style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;"
+            src="https://www.youtube.com/embed/K6MKrEn5uGc?si=bSPaQ197tIDVasem"
+            allowfullscreen></iframe>
+</div>
+            <p>
+                Giải pháp được thực hiện trên nền tảng giả lập **GNS3** tích hợp với máy ảo **VMware** để khắc phục hạn chế bảo mật trên Switch ảo.
+            </p>
+
+            <p>
+                **DHCP Snooping** phân loại cổng mạng thành hai nhóm:
+            </p>
+
+            <ul>
+                <li><strong>Cổng Tin cậy (Trusted):</strong> Chỉ cho phép gói DHCP phản hồi (**OFFER, ACK**) từ Server hợp lệ đi qua.</li>
+                <li><strong>Cổng Không tin cậy (Untrusted):</strong> Chặn gói DHCP phản hồi từ nguồn không xác định và giới hạn tốc độ gói tin để ngăn chặn tấn công làm cạn kiệt (**Starvation**).</li>
+            </ul>
+
+            <h3>Mô hình thực nghiệm:</h3>
+            <ul>
+                <li><strong>Switch trung tâm (Cisco IOSvL2):</strong> Thiết bị chuyển mạch lớp 2 có khả năng quản lý.</li>
+                <li><strong>Windows Server 2019:</strong> DHCP Server hợp lệ (Trusted Server).</li>
+                <li><strong>Kali Linux:</strong> Kẻ tấn công (Rogue Server).</li>
+                <li><strong>Windows 10:</strong> Nạn nhân (DHCP Client).</li>
+            </ul>
+            
+            <div class="guide-image-container">
+                <img src="images/hinh98.jpg">
+                <div class="image-caption">Hình 4. 18. Mô hình mạng GNS3</div>
+            </div>
+
+            <h2 id="cau-hinh">⚙️ 2. Cấu hình trên Switch Cisco (GNS3)</h2>
+
+            <p>Cấu hình được thực hiện trực tiếp trên giao diện dòng lệnh (CLI) của Switch Cisco.</p>
+            
+            <h3>Bước 1: Vào chế độ cấu hình</h3>
+            <div class="code-block">
+enable
+configure terminal
+            </div>
+
+            <h3>Bước 2: Bật tính năng DHCP Snooping</h3>
+            <p>Kích hoạt tính năng DHCP Snooping trên VLAN 1 và tắt Option 82.</p>
+            <div class="code-block">
+ip dhcp snooping
+ip dhcp snooping vlan 1
+Tắt tính năng chèn option 82 nếu DHCP Server không hỗ trợ
+no ip dhcp snooping information option
+            </div>
+            <div class="guide-image-container">
+                <img src="images/hinh99.jpg">
+                <div class="image-caption">Hình Bật tính năng DHCP Snooping.</div>
+            </div>
+
+            <h3>Bước 3: Cấu hình cổng tin cậy (Trusted) - GigabitEthernet0/0</h3>
+            <p>Đây là bước quan trọng nhất để server thật có thể cấp IP.</p>
+            <div class="code-block">
+interface GigabitEthernet0/0
+Đặt mô tả: 
+description NOI_VOI_WINSERVER
+ip dhcp snooping trust
+Exit
+            </div>
+            <div class="guide-image-container">
+                <img src="images/hinh100.jpg">
+                <div class="image-caption">Hình cấu hình cổng tin cậy.</div>
+            </div>
+            
+            <h3>Bước 4: Cấu hình cổng không tin cậy (Untrusted) - GigabitEthernet0/1, 0/2</h3>
+            <p>Giới hạn tốc độ: chỉ cho phép tối đa **10 gói DHCP mỗi giây**, nếu Kali spam quá nhanh, cổng này sẽ tự động bị khóa.</p>
+            <div class="code-block">
+interface range GigabitEthernet0/1 , GigabitEthernet0/2
+description CONG_UNTUDO
+no ip dhcp snooping trust
+ip dhcp snooping limit rate 10
+End
+            </div>
+            <div class="guide-image-container">
+                <img src="images/hinh101.jpg">
+                <div class="image-caption">Hình cấu hình cổng không tin cậy.</div>
+            </div>
+
+            <h3>Bước 5: Lưu cấu hình và kiểm tra</h3>
+            <div class="code-block">
+Write memory
+Show ip dhcp snooping
+            </div>
+            
+            <div class="guide-image-container">
+                <img src="images/hinh102.jpg">
+                <div class="image-caption">Hình 4. 19. Lưu cấu hình và kiểm tra</div>
+            </div>
+            <div class="guide-image-container">
+                <img src="images/hinh103.jpg">
+                <div class="image-caption">Hình 4. 20. show ip switch</div>
+            </div>
+
+
+            <h2 id="kiem-tra">🔍 3. Kết quả thực nghiệm và Đánh giá</h2>
+
+            <p>
+                Sau khi áp dụng cấu hình, thực hiện lại kịch bản tấn công để kiểm chứng hiệu quả.
+            </p>
+
+            <h3>Kết quả trên Switch:</h3>
+            
+            <p>
+                Hệ thống ngăn chặn thành công các gói tin DHCP giả mạo. Lệnh `show ip dhcp snooping statistics` cho thấy số lượng gói bị loại bỏ (**Packets Dropped**) tăng lên.
+            </p>
+            
+            <p>
+                Khi vượt quá ngưỡng giới hạn, Switch tự động đưa cổng kẻ tấn công vào trạng thái lỗi (**Err-Disable**) để cô lập.
+            </p>
+
+            <div class="guide-image-container">
+                <img src="images/hinh104.jpg">
+                <div class="image-caption">Hình 4. 21. Hệ thống ghi nhận và ngăn chặn thành công các gói tin DHCP giả mạo</div>
+            </div>
+
+            <h3>Kết quả trên máy Nạn nhân (Windows 10):</h3>
+            
+            <p>
+                Máy nạn nhân chỉ nhận được địa chỉ IP từ máy chủ hợp lệ (Windows Server 2019). Các gói tin giả mạo từ Rogue Server đã bị Switch loại bỏ hoàn toàn.
+            </p>
+
+            <p class="intro-section highlight" style="
+                background: #1a2332;
+                border: 1px solid #3fa9f5;
+                padding: 15px;
+                border-radius: 8px;
+                margin-top: 30px;
+                color: var(--text);
+            ">
+                ✅ **Đánh giá:** Giải pháp DHCP Snooping đã được triển khai thành công, ngăn chặn triệt để **DHCP Starvation** và **Rogue DHCP Server**, đảm bảo tính toàn vẹn dịch vụ cấp phát IP.
+            </p>
+
+
+            <h2 id="quiz">📝 4. Quiz kiểm tra kiến thức</h2>
+
+            <div class="quiz-container" style="
+                background: var(--bg-card);
+                padding: 30px;
+                border-radius: 12px;
+                margin-top: 25px;
+                border: 1px solid var(--border-light);
+                box-shadow: 0 0 12px rgba(63,169,245,0.25);
+            " id="quiz-anchor">
+
+                <div id="completion-message" style="
+                    display:none;
+                    padding:20px;
+                    background:#27ae60;
+                    color:white;
+                    border-radius:8px;
+                    text-align:center;
+                    font-size:18px;
+                    font-weight:700;
+                    box-shadow:0 0 10px rgba(0,0,0,0.3);
+                ">
+                    <i class="fas fa-check-circle"></i> CHÚC MỪNG! BẠN ĐÃ HOÀN THÀNH BÀI LAB PHÒNG THỦ!
+                </div>
+
+                <div id="question-1" class="question-block">
+                    <h3>1. Khi kích hoạt DHCP Snooping, loại cổng nào chỉ cho phép gói DHCP OFFER/ACK đi qua?</h3>
+                    <p>Nhập tên loại cổng (tiếng Việt hoặc tiếng Anh).</p>
+
+                    <div class="input-group">
+                        <input type="text" id="answer-1" class="quiz-input" placeholder="Nhập tên loại cổng..." />
+                        <button class="quiz-button" onclick="checkAnswer(1)">Check</button>
+                    </div>
+
+                    <p id="feedback-1" class="quiz-feedback"></p>
+                </div>
+
+                <div id="question-2" class="question-block" style="display:none;">
+                    <h3>2. Lệnh nào được dùng để giới hạn số lượng gói DHCP trên cổng không tin cậy?</h3>
+                    <p>Nhập tên đầy đủ hoặc một phần quan trọng của lệnh.</p>
+
+                    <div class="input-group">
+                        <input type="text" id="answer-2" class="quiz-input" placeholder="Nhập tên lệnh..." />
+                        <button class="quiz-button" onclick="checkAnswer(2)">Check</button>
+                    </div>
+
+                    <p id="feedback-2" class="quiz-feedback"></p>
+                </div>
+
+                <div id="question-3" class="question-block" style="display:none;">
+                    <h3>3. Chức năng giới hạn tốc độ gói DHCP giúp ngăn chặn hình thức tấn công nào?</h3>
+                    <p>Trả lời bằng tên đầy đủ hoặc viết tắt.</p>
+
+                    <div class="input-group">
+                        <input type="text" id="answer-3" class="quiz-input" placeholder="Nhập tên tấn công..." />
+                        <button class="quiz-button" onclick="checkAnswer(3)">Check</button>
+                    </div>
+
+                    <p id="feedback-3" class="quiz-feedback"></p>
+                </div>
+
+                <div id="question-4" class="question-block" style="display:none;">
+                    <h3>4. Tên gọi cho máy chủ DHCP bất hợp pháp trong mạng là gì?</h3>
+
+                    <div class="input-group">
+                        <input type="text" id="answer-4" class="quiz-input" placeholder="Nhập tên gọi (tiếng Anh)..." />
+                        <button class="quiz-button" onclick="checkAnswer(4)">Check</button>
+                    </div>
+
+                    <p id="feedback-4" class="quiz-feedback"></p>
+                </div>
+
+                <div id="question-5" class="question-block" style="display:none;">
+                    <h3>5. Khi số lượng gói DHCP trên cổng không tin cậy vượt quá ngưỡng, Switch sẽ đưa cổng đó vào trạng thái nào?</h3>
+
+                    <div class="input-group">
+                        <input type="text" id="answer-5" class="quiz-input" placeholder="Nhập trạng thái (tiếng Anh)..." />
+                        <button class="quiz-button" onclick="checkAnswer(5)">Check</button>
+                    </div>
+
+                    <p id="feedback-5" class="quiz-feedback"></p>
+                </div>
+
+            </div>
+
+
+            <div style="margin-top:60px; border-top:1px solid var(--border-light); padding-top:20px; text-align:center; color:var(--muted);">
+                © 2025 Cyber Ranges Platform
+            </div>
+
+
+            <script>
+                // 1. CẤU HÌNH ĐÁP ÁN (có thể đổi nội dung cho phù hợp lab DHCP)
+                const correctAnswers = {
+                    1: ["..."],
+                    2: ["..."],
+                    3: ["..."],
+                    4: ["..."],
+                    5: ["..."]
+                };
+            
+                // --- HÀM GỬI TIẾN ĐỘ (NHẬN SỐ PHẦN TRĂM) ---
+                async function submitProgress(percent) {
+                    const username = localStorage.getItem("cyber_current_user");
+                    
+                    if (!username) {
+                        console.log("Chưa đăng nhập, không lưu được.");
+                        return;
+                    }
+            
+                    try {
+                        console.log(`Đang gửi tiến độ ${percent}% về Server...`);
+                        
+                        // 👇 CHỈ ĐỔI labId Ở ĐÂY
+                        const response = await fetch('/api/submit-quiz', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ 
+                                username: username, 
+                                labId: 'phongthu_arp',   // <-- tên lab DHCP
+                                progress: percent 
+                            })
+                        });
+            
+                        const data = await response.json();
+                        console.log("Server đã lưu:", data);
+            
+                    } catch (error) {
+                        console.error("Lỗi kết nối Server:", error);
+                    }
+                }
+            
+                // 2. HÀM CHUẨN HÓA ĐÁP ÁN
+                function normalizeAnswer(answer) {
+                    return answer.toLowerCase().trim()
+                        .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"")
+                        .replace(/\s{2,}/g," ");
+                }
+            
+                // 3. HÀM CHECK ĐÁP ÁN
+                function checkAnswer(questionNumber) {
+                    const inputId = 'answer-' + questionNumber;
+                    const feedbackId = 'feedback-' + questionNumber;
+                    const currentQuestionId = 'question-' + questionNumber;
+                    
+                    const userInput = document.getElementById(inputId).value;
+                    const feedbackElement = document.getElementById(feedbackId);
+                    const currentQuestionElement = document.getElementById(currentQuestionId);
+                    
+                    const normalizedInput = normalizeAnswer(userInput);
+                    const validAnswers = correctAnswers[questionNumber];
+                    let isCorrect = false;
+            
+                    for (const valid of validAnswers) {
+                        if (normalizedInput.includes(normalizeAnswer(valid))) {
+                            isCorrect = true;
+                            break;
+                        }
+                    }
+            
+                    if (isCorrect) {
+                        feedbackElement.style.color = '#2ecc71';
+                        feedbackElement.innerHTML = '<i class="fas fa-check"></i> Chính xác!';
+                        
+                        document.getElementById(inputId).disabled = true;
+                        currentQuestionElement.querySelector('.quiz-button').disabled = true;
+            
+                        const currentPercent = questionNumber * 20;
+                        submitProgress(currentPercent); 
+            
+                        setTimeout(() => {
+                            currentQuestionElement.style.display = 'none';
+            
+                            if (questionNumber < 5) {
+                                const nextQuestionId = 'question-' + (questionNumber + 1);
+                                const nextQuestionElement = document.getElementById(nextQuestionId);
+                                if (nextQuestionElement) {
+                                    nextQuestionElement.style.display = 'block';
+                                    document.getElementById('feedback-' + (questionNumber + 1)).innerHTML = '';
+                                }
+                            } else {
+                                document.getElementById('completion-message').style.display = 'block';
+                                document.getElementById('quiz').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                            }
+                        }, 500);
+            
+                    } else {
+                        feedbackElement.style.color = '#e74c3c';
+                        feedbackElement.innerHTML = '<i class="fas fa-times"></i> Chưa chính xác. Vui lòng thử lại!';
+                    }
+                }
+            
+                // 4. KHỞI TẠO
+                document.addEventListener('DOMContentLoaded', () => {
+                    const allQuestions = document.querySelectorAll('.question-block');
+                    allQuestions.forEach(q => { q.style.display = 'none'; });
+                    const firstQuestion = document.getElementById('question-1');
+                    if (firstQuestion) { firstQuestion.style.display = 'block'; }
+                });
+            </script>
+            
+            

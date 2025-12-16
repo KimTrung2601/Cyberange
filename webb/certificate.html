@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Chứng chỉ</title>
+  <style>
+    body{margin:0;font-family:Segoe UI,Arial;background:#111;color:#111}
+    .wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
+    .cert{
+      width: 980px; max-width: 100%;
+      background:#f7f7f7;
+      border: 14px solid #0ea5a4;
+      border-radius: 18px;
+      padding: 50px 56px;
+      position: relative;
+    }
+    .brand{display:flex;gap:10px;align-items:center;color:#0f172a}
+    .brand b{font-size:20px}
+    h1{margin:20px 0 10px;font-size:46px;color:#0f172a;letter-spacing:1px}
+    .sub{font-size:18px;color:#334155}
+    .name{margin:18px 0;font-size:38px;font-weight:800;color:#0ea5a4}
+    .row{margin-top:18px;display:flex;gap:24px;justify-content:space-between;color:#334155}
+    .btns{margin-top:28px;display:flex;gap:10px;justify-content:flex-end}
+    button{padding:10px 14px;border-radius:10px;border:1px solid #0ea5a4;background:#0ea5a4;color:#fff;cursor:pointer}
+    .ghost{background:transparent;color:#0ea5a4}
+    @media print {.btns{display:none} body{background:#fff}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="cert" id="cert">
+      <div class="brand">🛡️ <b>CYBER RANGES</b></div>
+
+      <h1>CHỨNG CHỈ HOÀN THÀNH</h1>
+      <div class="sub">Chứng nhận học viên đã hoàn thành chương trình huấn luyện</div>
+
+      <div class="name" id="certName">...</div>
+
+      <div class="sub">
+        Với kết quả tiến độ tổng: <b id="certScore">0%</b> (đạt điều kiện cấp chứng chỉ).
+      </div>
+
+      <div class="row">
+        <div>
+          <div><b>Chương trình:</b> Cyber Range Training</div>
+          <div><b>Ngày cấp:</b> <span id="certDate"></span></div>
+        </div>
+        <div style="text-align:right">
+          <div><b>Đại diện</b></div>
+          <div style="margin-top:36px"><b>Cyber Range Team</b></div>
+        </div>
+      </div>
+
+      <div class="btns">
+        <button class="ghost" onclick="window.close()">Đóng</button>
+        <button onclick="window.print()">In / Lưu PDF</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(location.search);
+    const name = params.get("name") || "Học viên";
+    const score = params.get("score") || "0";
+    document.getElementById("certName").innerText = name;
+    document.getElementById("certScore").innerText = score + "%";
+    document.getElementById("certDate").innerText = new Date().toLocaleDateString("vi-VN");
+  </script>
+</body>
+</html>
