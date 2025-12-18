@@ -178,7 +178,7 @@
     <main class="main">
 
         <header class="main-topbar">
-            <h1 style="color:white;"><i class="fas fa-user-secret" style="color:var(--red);"></i> Brute-force SMB Attack với Hydra</h1>
+            <h1 style="color:white;"><i class="fas fa-user-secret" style="color:var(--red);"></i> Tấn công Brute-Force </h1>
         </header>
 
         <section class="guide-container">
@@ -186,18 +186,19 @@
             <!-- TỔNG QUAN -->
             <h2 id="tong-quan">📘 1. Tổng quan kịch bản</h2>
 
-            <p>Trong bài lab này, bạn sẽ thực hiện tấn công <strong>Brute-force</strong> vào dịch vụ <strong>SMB (cổng 445)</strong> của máy Windows 10 đích.</p>
+            <p>Kịch bản mô phỏng việc dùng công cụ tự động dò quét mật khẩu để xâm nhập hệ thống. Quy trình bắt đầu bằng bước dùng Nmap quét cổng dịch vụ (như SMB), sau đó sử dụng Hydra kết hợp bộ từ điển để thử liên tục các tổ hợp tài khoản/mật khẩu cho đến khi chiếm quyền quản trị.</p>
             <div class="video-embed">
                 <iframe width="560" height="315" src="https://www.youtube.com/embed/a1uQzCgwbNU?si=QC9cqAvPCSDrhRZR" 
                     title="YouTube video player" frameborder="0" 
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
                     referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
             </div>
-
-            <ul>
-                <li><strong>Máy tấn công (Kali):</strong> 192.168.247.135</li>
-                <li><strong>Máy nạn nhân (Win10):</strong> 192.168.247.138</li>
+            <div class="code-block"><ul>
+                <strong>Máy tấn công (Kali):</strong> 192.168.247.135 <br>
+               <strong>Máy nạn nhân (Win10):</strong> 192.168.247.138
             </ul>
+            </div>
+            
 
          
 
@@ -210,7 +211,7 @@
 
             <div class="guide-image-container">
                 <img src="images/hinh1.jpg">
-                <div class="image-caption">Kết quả quét port bằng Nmap</div>
+                <div class="image-caption">Hình - Kết quả quét port bằng Nmap</div>
             </div>
 
             <p>Các port như SMB (445), msrpc/netbios (135/139), WinRM (5985)… đang mở → đây là bề mặt tấn công rõ ràng.</p>
@@ -224,7 +225,7 @@
 
             <div class="guide-image-container">
                 <img src="images/hinh2.jpg">
-                <div class="image-caption">Tạo danh sách user</div>
+                <div class="image-caption">Hình - Tạo danh sách user</div>
             </div>
 
             <!-- PASSLIST -->
@@ -234,7 +235,7 @@
 
             <div class="guide-image-container">
                 <img src="images/hinh3.jpg">
-                <div class="image-caption">Tạo danh sách mật khẩu</div>
+                <div class="image-caption">Hình - Tạo danh sách mật khẩu</div>
             </div>
 
             <!-- HYDRA -->
@@ -248,15 +249,15 @@ hydra -L user.txt -P custom_pass.txt 192.168.247.138 smb
 
             <div class="guide-image-container">
                 <img src="images/hinh4.jpg">
-                <div class="image-caption">Hydra brute-force SMB thành công</div>
+                <div class="image-caption">Hình - Hydra brute-force SMB thành công</div>
             </div>
-
-            <p>Kết quả thu được:</p>
-            <ul>
-                <li><strong>User:</strong> Administrator</li>
-                <li><strong>Password:</strong> Cd@152004</li>
-                <li><strong>Server:</strong> 192.168.247.138</li>
-            </ul>
+            <div class="code-block"><p>Kết quả thu được:</p>
+            
+                <strong>User:</strong> Administrator <br>
+                <strong>Password:</strong> Cd@152004 <br>
+                <strong>Server:</strong> 192.168.247.138
+            </div>
+            
 
             <!-- QUIZ -->
             <h2 id="quiz">📝 V. Quiz kiểm tra kiến thức</h2>

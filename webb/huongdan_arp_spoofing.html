@@ -250,33 +250,45 @@
                 <a href="#cau-hinh-ban-dau" class="nav-item" style="font-size:14px; color:var(--muted); font-weight:400;">I. Cấu hình ban đầu</a>
                 <a href="#thuc-hien-tan-cong" class="nav-item" style="font-size:14px; color:var(--muted); font-weight:400;">II. Thực hiện tấn công</a>
                 <a href="#kiem-tra-ket-qua" class="nav-item" style="font-size:14px; color:var(--muted); font-weight:400;">III. Kiểm tra kết quả</a>
-                <a href="#phong-chong" class="nav-item" style="font-size:14px; color:var(--muted); font-weight:400;">IV. Phòng chống & DAI</a>
-                <a href="#quiz" class="nav-item" style="font-size:14px; color:var(--muted); font-weight:400;">V. Quiz</a>
+                <a href="#quiz" class="nav-item" style="font-size:14px; color:var(--muted); font-weight:400;">IV. Quiz</a>
             </nav>
         </aside>
 
         <main class="main">
             <header class="main-topbar">
-                <h1 style="color:#fff; margin:0; font-size:28px;"><i class="fas fa-satellite-dish" style="color:var(--red); margin-right:10px;"></i> Hướng dẫn: Tấn công ARP Spoofing & Phòng chống</h1>
+                <h1 style="color:#fff; margin:0; font-size:28px;"><i class="fas fa-satellite-dish" style="color:var(--red); margin-right:10px;"></i> Hướng dẫn: Tấn công ARP Spoofing </h1>
             </header>
 
             <section class="guide-container">
 
-                <h2 id="tong-quan">📖 1. Tổng quan kịch bản</h2>
-                <p>
-                    Kịch bản mô phỏng tấn công **ARP Spoofing** và cơ chế phòng chống (DHCP Snooping, Dynamic ARP Inspection) trong mô hình mạng gồm các thành phần:
-                </p>
+                <h2 id="tong-quan">📖 1. Tổng quan kịch bản và yêu cầu</h2>
+               
+                <p style="color:var(--orange); font-weight: bold;"> Kịch bản mô phỏng tấn công ARP Spoofing và cơ chế phòng chống (DHCP Snooping, Dynamic ARP Inspection) trong mô hình mạng gồm các thành phần:</p>
+                <ul>
+                    <li>
+                        <strong>Máy tấn công (Kali Linux):</strong> Chặn Telnet.
+                    </li>
+                
+                    <li>
+                        <strong>Máy nạn nhân (Windows 10):</strong> Thực hiện Telnet đến Router.
+                    </li>
+                
+                    <li>
+                        <strong>Router:</strong> Đóng vai trò DHCP Server cấp phát địa chỉ IP cho các máy trong mạng.
+                    </li>
+                
+                    <li>
+                        <strong>Switch:</strong> Được cấu hình <strong>DHCP Snooping</strong> và <strong>Dynamic ARP Inspection (DAI)</strong> để phòng chống <strong>Rogue DHCP</strong> và <strong>ARP Spoofing</strong>.
+                    </li>
+                </ul>
+                <p style="color:var(--orange); font-weight: bold;"> Yêu cầu: </p>
+                <ul>
+                    <li>Học viên cần chủ động tìm hiểu trước về phần mềm mô phỏng GNS3; nắm vững cách import/cài đặt Image cho Switch, Router và thực hiện kết nối (integrate) máy ảo từ VMware vào môi trường GNS3</li>
+                </ul>
                 <div class="video-embed">
                     <iframe width="560" height="315" src="https://www.youtube.com/embed/snRzr5eN3ek?si=Goqh53s93OfG6QLj" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                 </div>
-
-                
-                <ul>
-                    <li>**Máy tấn công (Kali Linux):** Nghe lén Telnet.</li>
-                    <li>**Máy nạn nhân (Windows 10):** Thực hiện Telnet đến Router.</li>
-                    <li>**Router & Switch:** Switch đóng vai trò DHCP Server, đồng thời được cấu hình **DHCP Snooping** và **Dynamic ARP Inspection (DAI)** cho mục đích phòng chống.</li>
-                </ul>
-
+               
                 <div class="guide-image-container">
                     <img src="images/hinh57.jpg" alt="Mô hình bài thực hành ARP Spoofing gồm Router, Switch, Windows 10, và Kali Linux">
                     <div class="image-caption">Hình 57. Mô hình thực hiện demo</div>
@@ -287,27 +299,64 @@
                 <h2 id="cau-hinh-ban-dau">I. Cấu hình ban đầu & Thu thập thông tin</h2>
 
                 <h3><i class="fas fa-info-circle" style="color:var(--blue); margin-right:8px;"></i> Tóm tắt Thông số Mạng</h3>
-                <p>Các thiết bị nhận thông số từ DHCP (Switch) như sau:</p>
                 <div style="background: var(--bg-card); padding: 15px; border-radius: 8px; margin: 15px 0;">
                     <p style="color:var(--orange); font-weight: bold;">Router (Gateway):</p>
                     <ul>
-                        <li>IP: **192.168.1.1/24**</li>
-                        <li>MAC: **CA:01:05:C8:00:00**</li>
+                        <li>IP:192.168.1.1/24</li>
+                        <li>MAC:CA:01:05:C8:00:00</li>
                     </ul>
                     <p style="color:var(--orange); font-weight: bold;">Windows 10 (Nạn nhân):</p>
                     <ul>
-                        <li>IP: **192.168.1.6/24**</li>
-                        <li>MAC: **00:0C:29:61:A8:10**</li>
+                        <li>IP:192.168.1.6/24</li>
+                        <li>MAC:00:0C:29:61:A8:10</li>
                     </ul>
                     <p style="color:var(--orange); font-weight: bold;">Kali Linux (Tấn công):</p>
                     <ul>
-                        <li>IP: **192.168.1.7/24**</li>
-                        <li>MAC: **00:0C:29:5B:CC:F0**</li>
+                        <li>IP:192.168.1.7/24</li>
+                        <li>MAC:00:0C:29:5B:CC:F0</li>
                     </ul>
                 </div>
                 
                 <p>Kiểm tra IP và cấu hình DHCP trên Router (192.168.1.1):</p>
                 <div class="guide-image-container">
+                <div style="background: var(--bg-card); padding: 15px; border-radius: 8px; margin: 15px 0;">
+                    <p style="color:var(--orange); font-weight: bold;">Lệnh cấu hình DHCP trên Router:</p>
+                    <ul>
+                        <li><code>configure terminal</code></li>
+                    
+                        <li>
+                            <code>ip dhcp excluded-address 192.168.1.1 192.168.1.5</code>  
+                            – Không cấp dải IP từ <strong>192.168.1.1 → 192.168.1.5</strong> cho client
+                        </li>
+                    
+                        <li>
+                            <code>ip dhcp pool DHCP_ARP</code>  
+                            – Tạo pool DHCP tên <strong>DHCP_ARP</strong>
+                        </li>
+                    
+                        <li>
+                            <code>network 192.168.1.0 255.255.255.0</code>  
+                            – Khai báo dải mạng dùng để cấp phát IP
+                        </li>
+                    
+                        <li>
+                            <code>default-router 192.168.1.1</code>  
+                            – Chỉ định Default Gateway cho client
+                        </li>
+                    
+                        <li>
+                            <code>dns-server 8.8.8.8 1.1.1.1</code>  
+                            – Cấu hình DNS Server
+                        </li>
+                    
+                        <li><code>end</code></li>
+                    
+                        <li>
+                            <code>show running-config | section dhcp</code>  
+                            – Kiểm tra cấu hình DHCP đã hoạt động hay chưa
+                        </li>
+                    </ul>
+                </div>
                     <img src="images/hinh58.jpg" alt="IP Router">
                     <div class="image-caption">Hình 58. IP router</div>
                 </div>
@@ -317,30 +366,36 @@
                 </div>
 
                 <h3><i class="fas fa-table" style="color:var(--blue); margin-right:8px;"></i> Kiểm tra ARP Cache Table ban đầu</h3>
-                <p>Trên máy Kali Linux, khi nhận được IP DHCP là **192.168.1.7** với địa chỉ MAC là **00:0C:29:5B:CC:F0**.</p>
+                <div style="background: var(--bg-card); padding: 15px; border-radius: 8px; margin: 15px 0;">
+                    <p style="color:var(--orange); font-weight: bold;">Trên máy Kali Linux, khi nhận được IP DHCP là 192.168.1.7 với địa chỉ MAC là 00:0C:29:5B:CC:F0:</p>
+                
+                </div>
+               
                 <div class="guide-image-container">
                     <img src="images/hinh60.jpg" alt="IP và MAC trên máy tấn công (Kali Linux)">
                     <div class="image-caption">Hình 60. IP và MAC trên máy tấn công (Kali Linux)</div>
                 </div>
-                <p>Trên máy Windows 10 sẽ nhận IP là **192.168.1.6** với MAC là **00:0C:29:61:A8:10**.</p>
+                <p style="color:var(--orange); font-weight: bold;">Trên máy Windows 10 sẽ nhận IP là 192.168.1.6 với MAC là 00:0C:29:61:A8:10</p>
                 <div class="guide-image-container">
                     <img src="images/hinh61.jpg" alt="IP và MAC trên máy nạn nhân (Windows 10)">
                     <div class="image-caption">Hình 61. IP và MAC trên máy nạn nhân (Windows 10)</div>
                 </div>
-
-                <p>Kiểm tra ARP Cache Table trên Windows, có 192.168.1.1 là IP của Router, 192.168.1.7 là IP của máy Kali Linux, lúc chưa bị tấn công thì ta vẫn thấy địa chỉ MAC của Router và Kali Linux vẫn khác nhau.</p>
+                <p style="color:var(--orange); font-weight: bold;">Kiểm tra ARP Cache Table trên Windows, có 192.168.1.1 là IP của Router, 192.168.1.7 là IP của máy Kali Linux, lúc chưa bị tấn công thì ta vẫn thấy địa chỉ MAC của Router và Kali Linux vẫn khác nhau.</p>
                 <div class="guide-image-container">
                     <img src="images/hinh62.jpg" alt="Bảng arp trên máy nạn nhân (Windows 10) ban đầu">
                     <div class="image-caption">Hình 62. Bảng arp trên máy nạn nhân (Windows 10) ban đầu</div>
                 </div>
-                <p>Tương tự ARP Cache Table trên Kali Linux thấy 192.168.1.1 là IP của Router, 192.168.1.6 là IP của máy Windows 10.</p>
+                <p style="color:var(--orange); font-weight: bold;">Tương tự ARP Cache Table trên Kali Linux thấy 192.168.1.1 là IP của Router, 192.168.1.6 là IP của máy Windows 10.</p>
                 <div class="guide-image-container">
                     <img src="images/hinh63.jpg" alt="Bảng arp trên máy tấn công (Kali Linux)">
                     <div class="image-caption">Hình 63. Bảng arp trên máy tấn công (Kali Linux)</div>
                 </div>
-
-                ---
-
+                <p style="color:var(--orange); font-weight: bold;">Trước khi máy windows10 bị tấn công thì vẫn telnet được tới router.</p>
+                <div class="code-block">telnet 192.168.1.1</div>
+                <div class="guide-image-container">
+                    <img src="images/telnet.png" alt="Bảng arp trên máy tấn công (Kali Linux)">
+                    <div class="image-caption">Hình 63. windows10 telnet tới router</div>
+                </div>
                 <h2 id="thuc-hien-tan-cong">II. Thực hiện tấn công ARP Spoofing</h2>
                 
                 <div class="attack-step">
@@ -352,35 +407,93 @@
                         <div class="image-caption">Hình 64. Lệnh để chuyển tiếp dữ liệu về lại máy nạn nhân</div>
                     </div>
                 </div>
-
                 <div class="attack-step">
-                    <h3><i class="fas fa-search" style="color:var(--red); margin-right:8px;"></i> Bước 2: Quét host và xác định mục tiêu</h3>
-                    <p>Sử dụng công cụ **Nmap** để quét các host còn hoạt động trong mạng LAN 192.168.1.0/24 để tìm ra các đối tượng. Sau khi quét xong ta thấy **192.168.1.1** là Router mục tiêu, và **192.168.1.6** là nạn nhân. Trong demo này, nhóm tiến hành tấn công bằng cách chen giữa vào Router (192.168.1.1) và Nạn nhân (192.168.1.6).</p>
+                    <h3>
+                        <i class="fas fa-search" style="color:var(--red); margin-right:8px;"></i>
+                        Bước 2: Quét host và xác định mục tiêu
+                    </h3>
+                
+                    <p>
+                        Sử dụng công cụ <strong>Nmap</strong> để quét các host còn hoạt động trong mạng LAN
+                        <strong>192.168.1.0/24</strong>. Mục đích là xác định Router và máy nạn nhân
+                        để chuẩn bị cho quá trình tấn công Man-in-the-Middle.
+                    </p>
+                
+                    <!-- LỆNH NMAP -->
+                    <div class="code-block">
+                        nmap -sn 192.168.1.0/24
+                    </div>
+                    <p>
+                        Kết quả quét cho thấy:
+                        <ul>
+                            <li><strong>192.168.1.1</strong> – Router mục tiêu</li>
+                            <li><strong>192.168.1.6</strong> – Máy nạn nhân (Windows 10)</li>
+                        </ul>
+                        Trong demo này, máy Kali Linux sẽ chen giữa Router và máy nạn nhân để thực hiện tấn công.
+                    </p>
+                
                     <div class="guide-image-container">
                         <img src="images/hinh65.jpg" alt="Dùng Nmap để quét các host trong mạng">
-                        <div class="image-caption">Hình 65. Dùng Nmap để quét các host trong mạng</div>
+                        <div class="image-caption">
+                            Hình 65. Dùng Nmap để quét các host trong mạng LAN
+                        </div>
                     </div>
                 </div>
-
                 <div class="attack-step">
-                    <h3><i class="fas fa-mask" style="color:var(--red); margin-right:8px;"></i> Bước 3: Thực hiện Đầu độc ARP bằng ArpSpoof</h3>
-                    <p>Sau khi xác định được mục tiêu để tấn công, ta sử dụng công cụ **ArpSpoof** để tấn công với mode `-i` để chỉ định card mạng, `-t` chỉ định IP target/nạn nhân, và `-r` để chỉ định IP router.</p>
-                    <p>Khi chạy, ta có thể thấy các gói tin ARP Reply được gửi đến nạn nhân bảo rằng địa chỉ **192.168.1.1 (IP router)** có MAC là **00:0C:29:5B:CC:F0 (MAC của máy tấn công)** và gửi đến router bảo rằng địa chỉ **192.168.1.6 (IP của nạn nhân)** cũng có địa chỉ MAC là **MAC của máy tấn công**.</p>
+                    <h3>
+                        <i class="fas fa-mask" style="color:var(--red); margin-right:8px;"></i>
+                        Bước 3: Thực hiện đầu độc ARP bằng ArpSpoof
+                    </h3>
+                
+                    <p>
+                        Sau khi đã xác định được Router và máy nạn nhân, ta sử dụng công cụ 
+                        <strong>ArpSpoof</strong> để thực hiện tấn công <strong>ARP Spoofing (MITM)</strong>.
+                        Mục tiêu là đánh lừa bảng ARP của Router và máy nạn nhân, khiến toàn bộ lưu lượng
+                        mạng phải đi qua máy Kali Linux.
+                    </p>
+                
+                    <p>
+                        Trong lệnh dưới đây:
+                    </p>
+                    <ul>
+                        <li><code>-i eth0</code>: chỉ định card mạng đang sử dụng</li>
+                        <li><code>-t 192.168.1.6</code>: địa chỉ IP của máy nạn nhân</li>
+                        <li><code>-r 192.168.1.1</code>: địa chỉ IP của Router</li>
+                    </ul>
+                
+                    <div class="code-block">
+                        sudo arpspoof -i eth0 -t 192.168.1.6 -r 192.168.1.1
+                    </div>
+                
+                    <p>
+                        Khi lệnh được thực thi, máy tấn công sẽ liên tục gửi các gói 
+                        <strong>ARP Reply giả mạo</strong>:
+                    </p>
+                    <ul>
+                        <li>Gửi tới máy nạn nhân rằng IP <strong>192.168.1.1 (Router)</strong> có MAC là MAC của máy Kali</li>
+                        <li>Gửi tới Router rằng IP <strong>192.168.1.6 (Nạn nhân)</strong> cũng có MAC là MAC của máy Kali</li>
+                    </ul>
+                
+                    <p>
+                        Kết quả là máy Kali Linux trở thành trung gian (Man-in-the-Middle),
+                        có thể theo dõi, chặn hoặc chỉnh sửa lưu lượng mạng giữa Router và máy nạn nhân.
+                    </p>
+                
                     <div class="guide-image-container">
-                        <img src="images/hinh66.jpg" alt="Dùng ArpSpoof để thực hiện tấn công">
-                        <div class="image-caption">Hình 66. Dùng ArpSpoof để thực hiện tấn công</div>
+                        <img src="images/hinh66.jpg" alt="Thực hiện ARP Spoofing bằng ArpSpoof">
+                        <div class="image-caption">
+                            Hình 66. Thực hiện tấn công ARP Spoofing bằng công cụ ArpSpoof
+                        </div>
                     </div>
                 </div>
 
-                ---
-
-                <h2 id="kiem-tra-ket-qua">III. Kiểm tra kết quả & Nghe lén</h2>
+                <h2 id="kiem-tra-ket-qua">III. Kiểm tra kết quả & Chặn telnet</h2>
 
                 <div class="attack-step" style="border-left: 5px solid var(--orange);">
                     <h3><i class="fas fa-check-circle" style="color:var(--orange); margin-right:8px;"></i> Kiểm tra Bảng ARP sau tấn công</h3>
-                    <p>Tiến hành kiểm tra ARP Cache Table trên máy Windows 10 (Nạn nhân) bằng lệnh `arp -a`. Ta có thể thấy địa chỉ **192.168.1.1 (router)** và **192.168.1.7 (máy tấn công)** bị trùng địa chỉ MAC (MAC của Kali Linux).</p>
-                    <p style="color:var(--red); font-weight: 600;">Lúc này nghĩa là máy nạn nhân đã bị **đầu độc ARP**.</p>
-                    <p>Khi đã bị đầu độc, nạn nhân **không thể telnet được tới router** do gói tin đã bị chuyển hướng và có thể bị chặn/chuyển tiếp bởi máy tấn công.</p>
+                    <p>Tiến hành kiểm tra ARP Cache Table trên máy Windows 10 (Nạn nhân) bằng lệnh `arp -a`. Ta có thể thấy địa chỉ 192.168.1.1 (router) và 192.168.1.7 (máy tấn công) bị trùng địa chỉ MAC (MAC của Kali Linux).</p>
+                    <p style="color:var(--red); font-weight: 600;">Lúc này nghĩa là máy nạn nhân đã bị "đầu độc ARP".</p>
+                    <p>Khi đã bị đầu độc, nạn nhân "không thể telnet được tới router" do gói tin đã bị chuyển hướng và có thể bị chặn/chuyển tiếp bởi máy tấn công.</p>
                     <div class="guide-image-container">
                         <img src="images/hinh67.jpg" alt="Bảng arp của máy nạn nhân (Windows 10) khi bị tấn công">
                         <div class="image-caption">Hình 67. Bảng arp của máy nạn nhân (Windows 10) khi bị tấn công</div>
@@ -388,32 +501,35 @@
                 </div>
                 
                 <div class="attack-step" style="border-left: 5px solid var(--orange);">
-                    <h3><i class="fas fa-eye" style="color:var(--orange); margin-right:8px;"></i> Nghe lén Nội dung Telnet</h3>
-                    <p>Sử dụng công cụ phân tích gói tin mạng (ví dụ: **Wireshark**) trên máy Kali Linux. Yêu cầu Nạn nhân thực hiện kết nối **Telnet** đến Router. Do Telnet là giao thức không mã hóa, Kali có thể thu thập và trích xuất thông tin đăng nhập và mật khẩu từ lưu lượng mạng đi qua nó.</p>
-                </div>
-                
-                ---
-                
-                <h2 id="phong-chong">IV. Cơ chế Phòng chống (DHCP Snooping & DAI)</h2>
+    <h3>
+        <i class="fas fa-ban" style="color:var(--orange); margin-right:8px;"></i>
+        Chặn kết nối Telnet
+    </h3>
 
-                <div class="attack-step" style="border-left: 5px solid var(--blue);">
-                    <h3><i class="fas fa-shield-alt" style="color:var(--blue); margin-right:8px;"></i> Cơ chế Phòng chống</h3>
-                    <p>Trong mô hình này, **Switch** được cấu hình hai cơ chế bảo mật liên quan đến ARP:</p>
-                    <ul>
-                        <li>**DHCP Snooping:** Theo dõi và xác thực các gói tin DHCP. Nó xây dựng **Binding Table** (bảng ánh xạ IP-MAC-Port-VLAN) dựa trên các gói DHCP Reply hợp lệ. Bảng này là cơ sở dữ liệu đáng tin cậy.</li>
-                        <li>**Dynamic ARP Inspection (DAI):** Kiểm tra các gói tin ARP (cả Request và Reply) gửi đến. DAI sẽ so sánh thông tin IP/MAC/Port trong gói ARP với **Binding Table** của DHCP Snooping.</li>
-                    </ul>
-                    <p>Khi kẻ tấn công gửi gói tin ARP giả mạo, **DAI** sẽ kiểm tra MAC Address giả mạo và **chặn** gói tin đó nếu nó không khớp với thông tin đã được ghi nhận trong Binding Table (MAC thật của Router hoặc Nạn nhân). Nhờ đó, cuộc tấn công ARP Spoofing bị vô hiệu hóa.</p>
+    <p>
+        Sau khi thực hiện tấn công ARP Spoofing, máy Kali Linux đã đứng ở vị trí trung gian giữa
+        <strong>Router</strong> và <strong>máy nạn nhân (Windows 10)</strong>.
+        Lúc này, kẻ tấn công tiến hành <strong>chặn kết nối Telnet</strong> từ máy nạn nhân đến Router.
+    </p>
 
-                    <div class="guide-image-container">
-                        <img src="images/hinh68.jpg" alt="Bảng ánh xạ IP-MAC của DHCP Snooping">
-                        <div class="image-caption">Hình 68. Bảng ánh xạ IP-MAC của DHCP Snooping</div>
-                    </div>
-                </div>
+    <p>
+        Do Telnet là giao thức <strong>không mã hóa</strong> và dễ bị can thiệp trong môi trường MITM,
+        kẻ tấn công có thể <strong>ngăn cản hoặc làm gián đoạn phiên Telnet</strong>,
+        khiến nạn nhân không thể truy cập Router thông qua Telnet.
+    </p>
 
-                ---
+    <div class="guide-image-container">
+        <img src="images/untelnet.png" alt="Chặn kết nối Telnet">
+        <div class="image-caption">
+            Hình minh họa: Kết nối Telnet từ máy nạn nhân bị chặn trong quá trình tấn công MITM
+        </div>
+    </div>
+</div>
+
                 
-               <h2 id="quiz">📝 V. Quiz kiểm tra kiến thức</h2>
+            
+                
+               <h2 id="quiz">📝 IV. Quiz kiểm tra kiến thức</h2>
 
 <div class="quiz-container" style="background: var(--bg-card); padding: 30px; border-radius: 10px; margin-top: 25px; border: 1px solid var(--border-light);">
 
@@ -556,7 +672,8 @@
 <div style="margin-top: 50px; border-top: 1px solid var(--border-light); padding-top: 20px; font-size: 14px; text-align: center; color: var(--muted);">
     &copy; 2025 Cyber Ranges Platform. All rights reserved.
 </div>
-
+            </div>
+     
 </section>
 </main>
 </div>

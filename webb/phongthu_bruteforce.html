@@ -1,9 +1,9 @@
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Phòng thủ Brute Force – Account Lockout Policy</title>
+    <title>Phòng thủ Brute Force </title>
 
     <link rel="stylesheet" href="css/dashboard.css">
     <link rel="stylesheet"
@@ -243,17 +243,15 @@
 <!-- ========================== -->
 
 <h2 id="tong-quan">📌 1. Tổng quan</h2>
-
+<p>
+Brute forcing là kỹ thuật kẻ tấn công thử nhiều mật khẩu liên tục cho đến khi đăng nhập thành công.  
+Chính sách <b>Account Lockout Policy</b> giúp tự động khóa tài khoản sau nhiều lần đăng nhập thất bại.
+</p>
 <div class="video-embed" style="margin-bottom:35px; position:relative; padding-bottom:56.25%; height:0;">
     <iframe style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;"
             src="https://www.youtube.com/embed/K6MKrEn5uGc?si=bSPaQ197tIDVasem"
             allowfullscreen></iframe>
 </div>
-
-<p>
-Brute forcing là kỹ thuật kẻ tấn công thử nhiều mật khẩu liên tục cho đến khi đăng nhập thành công.  
-Chính sách <b>Account Lockout Policy</b> giúp tự động khóa tài khoản sau nhiều lần đăng nhập thất bại.
-</p>
 
 <!-- ========================== -->
 <!-- 2. ACCOUNT LOCKOUT POLICY -->
@@ -262,35 +260,39 @@ Chính sách <b>Account Lockout Policy</b> giúp tự động khóa tài khoản
 <h2 id="lockout">🛡️ 2. Thiết lập Account Lockout Policy</h2>
 
 <h3>➡️ Truy cập Chính sách</h3>
-<p>
+<div class="code-block"><p>
 Mở <b>Local Security Policy (secpol.msc)</b> →  
 <b>Security Settings</b> →  
 <b>Account Policies</b> →  
 <b>Account Lockout Policy</b>.
-</p>
+</p></div>
+
+
 
 <div class="guide-image-container">
-    <img src="images/hinh117.jpg">
-    <div class="image-caption">Hình 1 — Giao diện Account Lockout Policy</div>
+    <img src="images/hinh105.jpg">
+    <div class="image-caption">Hình — Giao diện Account Lockout Policy</div>
 </div>
 
 <h3>➡️ Cấu hình Ngưỡng Khóa</h3>
-<p>Đặt <b>Account lockout threshold</b> = <b>3 invalid logon attempts</b>.</p>
+<div class="code-block"><p>Đặt <b>Account lockout threshold</b> = <b>3 invalid logon attempts</b>.</p></div>
+
 
 <h3>➡️ Cấu hình Thời gian Khóa</h3>
 <p>Thiết lập các giá trị sau:</p>
-<ul>
-    <li><b>Account lockout duration:</b> 15 minutes</li>
-    <li><b>Reset account lockout counter after:</b> 15 minutes</li>
-</ul>
+<div class="code-block"><ul>
+    <b>Account lockout duration:</b> 15 minutes <br>
+    <b>Reset account lockout counter after:</b> 15 minutes
+</ul></div>
+
 
 <h3>➡️ Áp dụng chính sách</h3>
 
 <div class="code-block">gpupdate /force</div>
 
 <div class="guide-image-container">
-    <img src="images/hinh118.jpg">
-    <div class="image-caption">Hình 2 — Cập nhật Group Policy bằng lệnh gpupdate /force</div>
+    <img src="images/hinh106.jpg">
+    <div class="image-caption">Hình — Cập nhật Group Policy bằng lệnh gpupdate /force</div>
 </div>
 
 <!-- ========================== -->
@@ -310,15 +312,13 @@ Mở <b>Local Security Policy (secpol.msc)</b> →
 </p>
 
 <p>Nhấp đúp chọn <b>Audit logon events</b> và bật:</p>
+<div class="code-block"><p><b>Success</b> <br>
+    <b>Failure</b></div>
 
-<ul>
-    <li><b>Success</b></li>
-    <li><b>Failure</b></li>
-</ul>
 
 <div class="guide-image-container">
-    <img src="images/hinh119.jpg">
-    <div class="image-caption">Hình 3 — Bật Success & Failure trong Audit logon events</div>
+    <img src="images/hinh107.jpg">
+    <div class="image-caption">Hình — Bật Success & Failure trong Audit logon events</div>
 </div>
 
 <p>Nhấn OK để hoàn tất.</p>

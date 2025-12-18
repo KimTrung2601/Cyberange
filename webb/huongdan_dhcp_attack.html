@@ -216,9 +216,9 @@
 
                 <!-- ⭐ ĐÃ THÊM class="nav-item" -->
                 <a href="#tong-quan" class="nav-item">1. Tổng quan</a>
-                <a href="#starvation" class="nav-item">I. DHCP Starvation</a>
-                <a href="#rogue" class="nav-item">II. Rogue DHCP Server</a>
-                <a href="#quiz" class="nav-item">III. Quiz</a>
+                <a href="#starvation" class="nav-item">2. DHCP Starvation</a>
+                <a href="#rogue" class="nav-item">3. Rogue DHCP Server</a>
+                <a href="#quiz" class="nav-item">4. Quiz</a>
             </nav>
         </aside>
 
@@ -256,13 +256,13 @@
                 <!-- 2. DHCP STARVATION -->
                 <!-- =============================== -->
 
-                <h2 id="starvation">I. Tấn công DHCP Starvation</h2>
+                <h2 id="starvation">2. Tấn công DHCP Starvation</h2>
 
-                <h3>1. Cài đặt DHCP Server trên Windows Server 2019</h3>
+                <h3>2.1. Cài đặt DHCP Server trên Windows Server 2019</h3>
 
                 <div class="guide-image-container">
                     <img src="images/hinh21.jpg">
-                    <div class="image-caption">Hình 4.1 – Đặt IP tĩnh cho Windows Server</div>
+                    <div class="image-caption">Hình – Đặt IP tĩnh cho Windows Server</div>
                 </div>
 
                 <p>Server được đặt IP tĩnh:</p>
@@ -273,26 +273,26 @@
 
                 <div class="guide-image-container">
                     <img src="images/hinh22.jpg">
-                    <div class="image-caption">Hình 4.2 – Tạo Scope DHCP</div>
+                    <div class="image-caption">Hình – Tạo Scope DHCP</div>
                 </div>
 
                 <div class="guide-image-container">
                     <img src="images/hinh23.jpg">
-                    <div class="image-caption">Hình 4.3 – Dải IP cho DHCP Scope</div>
+                    <div class="image-caption">Hình – Dải IP cho DHCP Scope</div>
                 </div>
 
                 <div class="guide-image-container">
                     <img src="images/hinh24.jpg">
-                    <div class="image-caption">Hình 4.4 – Kích hoạt Scope</div>
+                    <div class="image-caption">Hình – Kích hoạt Scope</div>
                 </div>
 
-                <h3>2. Bắt đầu tấn công DHCP Starvation</h3>
+                <h3>2.2. Bắt đầu tấn công DHCP Starvation</h3>
 
                 <div class="attack-step">
                     <h3>Bước 1: Mở Yersinia</h3>
                     <div class="guide-image-container">
                         <img src="images/hinh25.jpg">
-                        <div class="image-caption">Hình 4.5 – Giao diện Yersinia</div>
+                        <div class="image-caption">Hình – Giao diện Yersinia</div>
                     </div>
                 </div>
 
@@ -300,62 +300,56 @@
                     <h3>Bước 2: Xem danh sách lệnh</h3>
                     <div class="guide-image-container">
                         <img src="images/hinh26.jpg">
-                        <div class="image-caption">Hình 4.6 – Các lệnh Yersinia</div>
+                        <div class="image-caption">Hình – Các lệnh Yersinia</div>
                     </div>
                 </div>
 
                 <div class="attack-step">
-                    <h3>Bước 3: Bật Interface</h3>
+                    <h3>Bước 3: Chọn i để bật Interface</h3>
                     <div class="guide-image-container">
                         <img src="images/hinh27.jpg">
-                        <div class="image-caption">Hình 4.7 – Interface eth0 được bật</div>
+                        <div class="image-caption">Hình – Interface eth0 được bật</div>
                     </div>
                 </div>
 
                 <div class="attack-step">
-                    <h3>Bước 4: Thực hiện DHCP Flood</h3>
+                    <h3>Bước 4: Thực hiện DHCP Flood - Chọn 1</h3>
 
                     <div class="guide-image-container">
                         <img src="images/hinh28.jpg">
-                        <div class="image-caption">Hình 4.8 – Gửi lệnh tấn công</div>
+                        <div class="image-caption">Hình – Gửi lệnh tấn công</div>
                     </div>
 
                     <div class="guide-image-container">
                         <img src="images/hinh29.jpg">
-                        <div class="image-caption">Hình 4.9 – Hàng loạt yêu cầu DISCOVER</div>
+                        <div class="image-caption">Hình – Hàng loạt yêu cầu DISCOVER</div>
                     </div>
                 </div>
 
-                <h3>3. Quan sát bằng Wireshark</h3>
+                <h3>2.3. Quan sát bằng Wireshark</h3>
 
                 <div class="guide-image-container">
                     <img src="images/hinh30.jpg">
-                    <div class="image-caption">Hình 4.10 – Hàng ngàn gói DHCP từ MAC giả mạo</div>
+                    <div class="image-caption">Hình – Hàng ngàn gói DHCP từ MAC giả mạo</div>
                 </div>
 
-                <h3>4. DHCP Server bị vô hiệu hóa</h3>
+                <h3>2.4. DHCP Server bị vô hiệu hóa</h3>
 
                 <div class="guide-image-container">
                     <img src="images/hinh31.jpg">
-                    <div class="image-caption">Hình 4.11 – DHCP Server không thể cấp IP</div>
+                    <div class="image-caption">Hình – DHCP Server không thể cấp IP</div>
                 </div>
 
                 <!-- =============================== -->
                 <!-- 3. ROGUE DHCP SERVER -->
                 <!-- =============================== -->
 
-                <h2 id="rogue">II. Tấn công Rogue DHCP Server</h2>
+                <h2 id="rogue">3. Tấn công Rogue DHCP Server</h2>
 
-                <h3>1. Dừng DHCP Starvation</h3>
-                <div class="guide-image-container">
-                    <img src="images/hinh32.jpg">
-                    <div class="image-caption">Hình 4.12 – Dừng attack cũ</div>
-                </div>
-
-                <h3>2. Tạo DHCP Giả</h3>
+                <h3>3.1. Chọn 2 để tạo DHCP giả</h3>
                 <div class="guide-image-container">
                     <img src="images/hinh33.jpg">
-                    <div class="image-caption">Hình 4.13 – Điền cấu hình DHCP Rogue</div>
+                    <div class="image-caption">Hình – Bảng chọn tấn công</div>
                 </div>
 
                 <p>Các thông số:</p>
@@ -369,26 +363,26 @@
 
                 <div class="guide-image-container">
                     <img src="images/hinh34.jpg">
-                    <div class="image-caption">Hình 4.14 – DHCP OFFER / ACK từ Kali</div>
+                    <div class="image-caption">Hình – Bảng điền các thông số</div>
                 </div>
 
-                <h3>3. Kiểm tra Client Windows</h3>
+                <h3>3.2. Kiểm tra Client Windows</h3>
 
                 <div class="guide-image-container">
                     <img src="images/hinh35.jpg">
-                    <div class="image-caption">Hình 4.15 – Client nhận IP từ Rogue DHCP</div>
+                    <div class="image-caption">Hình – Client nhận IP từ Rogue DHCP</div>
                 </div>
 
                 <div class="guide-image-container">
                     <img src="images/hinh36.jpg">
-                    <div class="image-caption">Hình 4.16 – Client sử dụng Gateway giả</div>
+                    <div class="image-caption">Hình – Client sử dụng Gateway giả</div>
                 </div>
 
                 <!-- =============================== -->
                 <!-- 4. QUIZ -->
                 <!-- =============================== -->
 
-                <h2 id="quiz">📝 III. Quiz kiểm tra kiến thức</h2>
+                <h2 id="quiz">📝 4. Quiz kiểm tra kiến thức</h2>
 
 <div class="quiz-container" style="background:#1a2332;padding:30px;border-radius:10px;">
 
@@ -417,13 +411,13 @@
 
   <!-- CÂU 1 -->
   <div id="question-1" class="question-block">
-    <h3>1. Khi cấu hình DHCP Snooping trên Switch Cisco, cổng kết nối với máy chủ DHCP thật (Windows Server) cần được cấu hình như thế nào?</h3>
+    <h3>1. Bản chất kỹ thuật của cuộc tấn công DHCP Starvation (Cạn kiệt IP) là gì?</h3>
 
     <div class="option-group">
-      <label class="option-item"><input type="radio" name="q1" value="A">A. ip dhcp snooping trust (Cổng tin cậy)</label>
-      <label class="option-item"><input type="radio" name="q1" value="B">B. no ip dhcp snooping trust (Cổng không tin cậy)</label>
-      <label class="option-item"><input type="radio" name="q1" value="C">C. ip dhcp snooping limit rate 10 (Giới hạn tốc độ)</label>
-      <label class="option-item"><input type="radio" name="q1" value="D">D. shutdown (Tắt cổng)</label>
+      <label class="option-item"><input type="radio" name="q1" value="A">A. Kẻ tấn công gửi liên tục các gói tin Ping đến máy chủ.</label>
+      <label class="option-item"><input type="radio" name="q1" value="B">B. Kẻ tấn công liên tục thay đổi địa chỉ MAC nguồn trong các gói tin DHCP DISCOVER để giả mạo hàng ngàn client mới.</label>
+      <label class="option-item"><input type="radio" name="q1" value="C">C. Kẻ tấn công cắt đứt dây cáp mạng của máy chủ.</label>
+      <label class="option-item"><input type="radio" name="q1" value="D">D. Kẻ tấn công mã hóa dữ liệu trên máy chủ DHCP.</label>
     </div>
 
     <button class="quiz-button" onclick="checkAnswer(1)">Check</button>
@@ -494,7 +488,7 @@
 
 <script>
   const correctAnswers = {
-    1: "A",
+    1: "B",
     2: "C",
     3: "C",
     4: "C",

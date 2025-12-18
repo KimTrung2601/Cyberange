@@ -185,7 +185,7 @@
     <!-- MAIN CONTENT -->
     <main class="main">
         <header class="main-topbar">
-            <h1 style="color:white;"><i class="fas fa-globe" style="color:var(--red);"></i> DNS Spoofing Attack</h1>
+            <h1 style="color:white;"><i class="fas fa-globe" style="color:var(--red);"></i> Tấn công DNS Poisoning</h1>
         </header>
 
         <section class="guide-container">
@@ -201,11 +201,11 @@
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
                         referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
             </div>
-            
-            <ul>
-                <li><strong>Máy tấn công (Kali Linux):</strong> 192.168.247.135</li>
-                <li><strong>Máy nạn nhân (Windows 10):</strong> 192.168.247.134</li>
-            </ul>
+            <div class="code-block"> <ul>
+                <strong>Máy tấn công (Kali Linux):</strong> 192.168.247.135 <br>
+                <strong>Máy nạn nhân (Windows 10):</strong> 192.168.247.134
+            </ul></div>
+           
 
        
 
@@ -221,7 +221,7 @@
 
                 <div class="guide-image-container">
                     <img src="images/hinh13.jpg">
-                    <div class="image-caption">Chỉnh sửa nội dung trang phishing</div>
+                    <div class="image-caption">Hình - Chỉnh sửa nội dung trang phishing</div>
                 </div>
 
                 <p>Sau khi chỉnh sửa → khởi động lại Apache để cập nhật:</p>
@@ -240,7 +240,7 @@
 
                 <div class="guide-image-container">
                     <img src="images/hinh14.jpg">
-                    <div class="image-caption">Thêm record DNS giả mạo vào etter.dns</div>
+                    <div class="image-caption">Hình - Thêm record DNS giả mạo vào etter.dns</div>
                 </div>
 
                 <p>Thêm cấu hình chuyển hướng:</p>
@@ -261,7 +261,7 @@ facebook.com A 192.168.247.135
 
                 <div class="guide-image-container">
                     <img src="images/hinh15.jpg">
-                    <div class="image-caption">Scan host – tìm máy nạn nhân</div>
+                    <div class="image-caption">Hình - Scan host – tìm máy nạn nhân</div>
                 </div>
             </div>
 
@@ -271,7 +271,7 @@ facebook.com A 192.168.247.135
                 <div class="guide-image-container">
                     <img src="images/hinh16.jpg">
                     <img src="images/hinh17.jpg">
-                    <div class="image-caption">Tiến hành ARP Poisoning</div>
+                    <div class="image-caption">Hình - Tiến hành ARP Poisoning</div>
                 </div>
             </div>
 
@@ -280,24 +280,24 @@ facebook.com A 192.168.247.135
 
                 <div class="guide-image-container">
                     <img src="images/hinh18.jpg">
-                    <div class="image-caption">DNS Spoof plugin bắt đầu hoạt động</div>
+                    <div class="image-caption">Hình - DNS Spoof plugin bắt đầu hoạt động</div>
                 </div>
             </div>
             
             <!-- ================= KIỂM TRA ================= -->
             <h2 id="kiem-tra">IV. Kiểm tra kết quả</h2>
-
-            <p>Nạn nhân truy cập:</p>
+<div class="code-block">  <p>Nạn nhân truy cập:</p>
             <ul>
-                <li>google.com</li>
-                <li>facebook.com</li>
+                google.com <br>
+                facebook.com <br>
             </ul>
 
-            <p>→ Họ sẽ bị chuyển hướng đến Web giả mạo được cấu hình ở bước đầu.</p>
+            <p>→ Họ sẽ bị chuyển hướng đến Web giả mạo được cấu hình ở bước đầu.</p></div>
+           
 
             <div class="guide-image-container">
                 <img src="images/hinh19.jpg">
-                <div class="image-caption">Nạn nhân bị chuyển hướng sang website giả</div>
+                <div class="image-caption">Hình - Nạn nhân bị chuyển hướng sang website giả</div>
             </div>
 
             <!-- ================= QUIZ ================= -->

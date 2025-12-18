@@ -174,7 +174,7 @@
         <header class="main-topbar">
             <h1 style="color:white; margin:0;">
                 <i class="fas fa-shield-alt" style="color:var(--blue);"></i>
-                Phòng thủ DNS Spoofing – Secure DNS & Hardening
+                Phòng thủ DNS Poisoning
             </h1>
         </header>
 
@@ -185,6 +185,9 @@
             <!-- ========================= -->
 
             <h2 id="tong-quan">📌 1. Tổng quan</h2>
+             <p>
+                Kịch bản này được thiết kế để bảo vệ người dùng trước kỹ thuật "đầu độc" bản ghi DNS, ngăn chặn việc bị điều hướng từ các trang web hợp lệ sang các trang web giả mạo do kẻ tấn công kiểm soát.
+            </p>
        <div class="video-embed" style="margin-bottom:35px; position:relative; padding-bottom:56.25%; height:0;">
     <iframe style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;"
             src="https://www.youtube.com/embed/K6MKrEn5uGc?si=bSPaQ197tIDVasem"
@@ -194,12 +197,11 @@
                 DNS Spoofing xảy ra khi kẻ tấn công giả mạo bản ghi DNS để chuyển hướng người dùng đến trang web giả mạo.
                 Để phòng thủ, ta sẽ thực hiện:
             </p>
-
-            <ul>
-                <li>Bật DNS an toàn (Secure DNS)</li>
-                <li>Khóa ARP Gateway để chống MITM</li>
-                <li>Xoá DNS cache độc hại</li>
-            </ul>
+ <div class="code-block">Bật DNS an toàn (Secure DNS) <br>
+                Khóa ARP Gateway để chống MITM<br>
+                Xoá DNS cache độc hại
+</div>
+            
 
             <!-- ========================= -->
             <!-- 2. SECURE DNS -->
@@ -208,25 +210,27 @@
             <h2 id="secure-dns">🛡️ 2. Thiết lập DNS An toàn</h2>
 
             <p><b>→ Truy cập Cài đặt Bảo mật Trình duyệt:</b></p>
+            <div class="code-block"> <p>Mở Microsoft Edge → Settings → Privacy, search, and services.</p>
+</div>
 
-            <p>Mở Microsoft Edge → Settings → Privacy, search, and services.</p>
-
+           
             <!-- Hình 1 -->
             <div class="guide-image-container">
                 <img src="images/hinh108.jpg">
-                <div class="image-caption">Hình 1 — Truy cập Privacy, search and services</div>
+                <div class="image-caption">Hình — Truy cập Privacy, search and services</div>
             </div>
 
             <p><b>Thiết lập DNS An toàn:</b></p>
-
-            <p>
+<div class="code-block"><p>
                 Cuộn xuống phần <b>Security</b> và tìm tùy chọn <b>Use secure DNS</b>.
             </p>
+</div>
+            
 
             <!-- Hình 2 -->
             <div class="guide-image-container">
                 <img src="images/hinh109.jpg">
-                <div class="image-caption">Hình 2 — Bật Secure DNS và chọn nhà cung cấp DoH</div>
+                <div class="image-caption">Hình— Bật Secure DNS và chọn nhà cung cấp DoH</div>
             </div>
 
             <p>Bật công tắc và chọn “Choose a service provider”. Nhập DoH:</p>
@@ -244,23 +248,24 @@ https://dns.google/dns-query{?dns}
             <p><b>Mở Command Prompt với quyền Quản trị viên.</b></p>
 
             <p>Dùng lệnh bên dưới để thêm mục ARP tĩnh:</p>
+            
+            <div class="code-block">
+netsh interface ipv4 add neighbors "Ethernet0" "192.168.247.2" "00-50-56-f4-7f-44" store=persistent
+            </div>
 
             <!-- Hình 3 -->
             <div class="guide-image-container">
                 <img src="images/hinh110.jpg">
-                <div class="image-caption">Hình 3 — Thêm ARP tĩnh cho Gateway</div>
+                <div class="image-caption">Hình — Thêm ARP tĩnh cho Gateway</div>
             </div>
 
-            <div class="code-block">
-netsh interface ipv4 add neighbors "Ethernet0" "192.168.247.2" "00-50-56-f4-7f-44" store=persistent
-            </div>
 
             <h3>Kiểm tra Trạng thái ARP:</h3>
 
             <!-- Hình 4 -->
             <div class="guide-image-container">
                 <img src="images/hinh111.jpg">
-                <div class="image-caption">Hình 4 — IP Gateway ở trạng thái static</div>
+                <div class="image-caption">Hình — IP Gateway ở trạng thái static</div>
             </div>
 
             <!-- ========================= -->
@@ -270,16 +275,16 @@ netsh interface ipv4 add neighbors "Ethernet0" "192.168.247.2" "00-50-56-f4-7f-4
             <h2 id="flushdns">🧹 4. Thực hiện Flush DNS</h2>
 
             <p>Mở Command Prompt (Admin) và chạy lệnh:</p>
-
+<div class="code-block">
+ipconfig /flushdns
+            </div>
             <!-- Hình 5 -->
             <div class="guide-image-container">
                 <img src="images/hinh112.jpg">
-                <div class="image-caption">Hình 5 — Lệnh xóa DNS Cache</div>
+                <div class="image-caption">Hình — Lệnh xóa DNS Cache</div>
             </div>
 
-            <div class="code-block">
-ipconfig /flushdns
-            </div>
+            
 
             <div class="log-block">
 Successfully flushed the DNS Resolver Cache.
@@ -290,7 +295,7 @@ Successfully flushed the DNS Resolver Cache.
             <!-- Hình 6 -->
             <div class="guide-image-container">
                 <img src="images/hinh113.jpg">
-                <div class="image-caption">Hình 6 — Truy cập Google qua HTTPS</div>
+                <div class="image-caption">Hình — Truy cập Google qua HTTPS</div>
             </div>
 
             <!-- ========================= -->

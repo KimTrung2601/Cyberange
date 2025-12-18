@@ -214,7 +214,7 @@
             allowfullscreen></iframe>
 </div>
             <p>
-                Giải pháp được thực hiện trên nền tảng giả lập **GNS3** tích hợp với máy ảo **VMware** để khắc phục hạn chế bảo mật trên Switch ảo.
+                Giải pháp được thực hiện trên nền tảng giả lập GNS3 tích hợp với máy ảo VMware để khắc phục hạn chế bảo mật trên Switch ảo.
             </p>
 
             <p>
@@ -222,7 +222,7 @@
             </p>
 
             <ul>
-                <li><strong>Cổng Tin cậy (Trusted):</strong> Chỉ cho phép gói DHCP phản hồi (**OFFER, ACK**) từ Server hợp lệ đi qua.</li>
+                <li><strong>Cổng Tin cậy (Trusted):</strong> Chỉ cho phép gói DHCP phản hồi (OFFER, ACK) từ Server hợp lệ đi qua.</li>
                 <li><strong>Cổng Không tin cậy (Untrusted):</strong> Chặn gói DHCP phản hồi từ nguồn không xác định và giới hạn tốc độ gói tin để ngăn chặn tấn công làm cạn kiệt (**Starvation**).</li>
             </ul>
 
@@ -236,7 +236,7 @@
             
             <div class="guide-image-container">
                 <img src="images/hinh98.jpg">
-                <div class="image-caption">Hình 4. 18. Mô hình mạng GNS3</div>
+                <div class="image-caption">Hình - Mô hình mạng GNS3</div>
             </div>
 
             <h2 id="cau-hinh">⚙️ 2. Cấu hình trên Switch Cisco (GNS3)</h2>
@@ -254,26 +254,26 @@ configure terminal
             <div class="code-block">
 ip dhcp snooping
 ip dhcp snooping vlan 1
-Tắt tính năng chèn option 82 nếu DHCP Server không hỗ trợ
+#Tắt tính năng chèn option 82 nếu DHCP Server không hỗ trợ
 no ip dhcp snooping information option
             </div>
             <div class="guide-image-container">
                 <img src="images/hinh99.jpg">
-                <div class="image-caption">Hình Bật tính năng DHCP Snooping.</div>
+                <div class="image-caption">Hình - Bật tính năng DHCP Snooping.</div>
             </div>
 
             <h3>Bước 3: Cấu hình cổng tin cậy (Trusted) - GigabitEthernet0/0</h3>
             <p>Đây là bước quan trọng nhất để server thật có thể cấp IP.</p>
             <div class="code-block">
 interface GigabitEthernet0/0
-Đặt mô tả: 
+#Đặt mô tả: 
 description NOI_VOI_WINSERVER
 ip dhcp snooping trust
 Exit
             </div>
             <div class="guide-image-container">
                 <img src="images/hinh100.jpg">
-                <div class="image-caption">Hình cấu hình cổng tin cậy.</div>
+                <div class="image-caption">Hình - Cấu hình cổng tin cậy.</div>
             </div>
             
             <h3>Bước 4: Cấu hình cổng không tin cậy (Untrusted) - GigabitEthernet0/1, 0/2</h3>
@@ -287,7 +287,7 @@ End
             </div>
             <div class="guide-image-container">
                 <img src="images/hinh101.jpg">
-                <div class="image-caption">Hình cấu hình cổng không tin cậy.</div>
+                <div class="image-caption">Hình - Cấu hình cổng không tin cậy.</div>
             </div>
 
             <h3>Bước 5: Lưu cấu hình và kiểm tra</h3>
@@ -298,11 +298,11 @@ Show ip dhcp snooping
             
             <div class="guide-image-container">
                 <img src="images/hinh102.jpg">
-                <div class="image-caption">Hình 4. 19. Lưu cấu hình và kiểm tra</div>
+                <div class="image-caption">Hình - Lưu cấu hình và kiểm tra</div>
             </div>
             <div class="guide-image-container">
                 <img src="images/hinh103.jpg">
-                <div class="image-caption">Hình 4. 20. show ip switch</div>
+                <div class="image-caption">Hình - show ip switch</div>
             </div>
 
 
@@ -324,7 +324,7 @@ Show ip dhcp snooping
 
             <div class="guide-image-container">
                 <img src="images/hinh104.jpg">
-                <div class="image-caption">Hình 4. 21. Hệ thống ghi nhận và ngăn chặn thành công các gói tin DHCP giả mạo</div>
+                <div class="image-caption">Hình - Hệ thống ghi nhận và ngăn chặn thành công các gói tin DHCP giả mạo</div>
             </div>
 
             <h3>Kết quả trên máy Nạn nhân (Windows 10):</h3>

@@ -223,7 +223,7 @@ async function loadUserProgress() {
         const btnCert = document.getElementById("btn-certificate");
 
         if (btnCert) {
-            if (avg >= 20) {
+            if (avg >= 80) {
                 btnCert.style.display = "block";
             } else {
                 btnCert.style.display = "none";
