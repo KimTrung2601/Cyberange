@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phòng thủ Social Engineering – Cyber Range</title>
+
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-dark: #0f1624;
+            --bg-card: #1a2332;
+            --blue: #3fa9f5;
+            --text: #e6eef7;
+            --muted: #98a6b8;
+            --orange: #f5b041;
+            --red: #e74c3c;
+            --border-light: #2c3a4d;
+        }
+
+        body {
+            background: var(--bg-dark);
+            margin: 0;
+            font-family: "Segoe UI", sans-serif;
+        }
+
+        .app { display: flex; min-height: 100vh; }
+
+        .sidebar {
+            min-width: 280px;
+            background: #131b29;
+            border-right: 1px solid #243044;
+            padding: 24px;
+            height: 100vh;
+            position: sticky;
+            top: 0;
+            overflow-y: auto;
+        }
+
+        .sidebar-logo { display: flex; align-items: center; gap: 10px; color: white; font-size: 20px; font-weight: bold; margin-bottom: 30px; }
+        .sidebar-user { background: #1a2332; padding: 15px; border-radius: 8px; margin-bottom: 20px; border: 1px solid var(--border-light); }
+
+        .nav-item {
+            padding: 10px 14px;
+            display: block;
+            border-radius: 6px;
+            color: var(--muted);
+            text-decoration: none;
+            transition: 0.2s;
+        }
+        .nav-item:hover { background: #1f2a3b; color: white; }
+        .nav-item.active { background: #1f2a3b; color: var(--blue); }
+
+        .main { flex-grow: 1; }
+
+        .main-topbar {
+            background: #10141a;
+            padding: 15px 30px;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .guide-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 25px;
+            color: var(--text);
+        }
+
+        h2 {
+            margin-top: 35px;
+            font-size: 24px;
+            color: var(--blue);
+            border-bottom: 2px solid var(--border-light);
+            padding-bottom: 8px;
+        }
+
+        h3 {
+            margin-top: 20px;
+            font-size: 19px;
+            color: var(--text);
+            font-weight: 700;
+        }
+
+        p, ul {
+            font-size: 16px;
+            line-height: 1.8;
+            color: var(--muted);
+            text-align: justify;
+        }
+        ul { padding-left: 22px; }
+
+        .code-block {
+            background:#131c27;
+            border-left:5px solid var(--orange);
+            padding:18px 20px;
+            border-radius:10px;
+            margin:25px 0;
+            box-shadow:0 0 12px rgba(0,0,0,0.6);
+            font-family:Consolas, monospace;
+            color:#f6d76c;
+            font-size:15px;
+            white-space:pre-wrap;
+        }
+
+        .log-block {
+            background:#1a2332;
+            border-left:5px solid var(--red);
+            padding:18px 20px;
+            border-radius:10px;
+            margin:25px 0;
+            box-shadow:0 0 12px rgba(231,76,60,0.4);
+            font-family:Consolas, monospace;
+            color:#ffb3b3;
+            font-size:15px;
+            white-space:pre-wrap;
+        }
+
+        .quiz-container {
+            background: var(--bg-card);
+            padding: 30px;
+            border-radius: 12px;
+            margin-top: 25px;
+            border: 1px solid var(--border-light);
+            box-shadow: 0 0 12px rgba(63,169,245,0.25);
+        }
+
+        .option-group { margin-top: 12px; }
+        .option-item {
+            display:block;
+            margin:10px 0;
+            line-height:1.6;
+            cursor:pointer;
+            color: var(--muted);
+        }
+        .option-item input {
+            margin-right:10px;
+        }
+
+        .quiz-button {
+            margin-top:12px;
+            padding: 10px 20px;
+            background: #27ae60;
+            color: white;
+            border-radius: 6px;
+            cursor: pointer;
+            border: none;
+            font-weight: bold;
+        }
+        .quiz-feedback { margin-top:10px; font-weight:600; }
+    </style>
+</head>
+
+<body>
+
+<div class="app">
+
+    <aside class="sidebar">
+       <header class="sidebar-logo">
+            <i class="fas fa-shield-alt"></i>
+            <span>CYBER<br>RANGES</span>
+        </header>
+
+        <nav class="sidebar-nav">
+            <a href="#" onclick="history.back(); return false;" class="nav-item active">
+                <i class="fas fa-arrow-left"></i> Back to Playlists
+            </a>
+
+            <h3 style="color:white; margin-top:20px;">Nội dung bài học</h3>
+            <a class="nav-item" href="#tong-quan">1. Tổng quan kỹ thuật</a>
+            <a class="nav-item" href="#phong-thu-phishing">2. Chống lừa đảo (Phishing)</a>
+            <a class="nav-item" href="#phong-thu-malware">3. Chặn đứng Malware</a>
+            <a class="nav-item" href="#quiz">4. Đánh giá kết quả</a>
+        </nav>
+    </aside>
+
+    <main class="main">
+
+        <header class="main-topbar">
+            <h1 style="color:white; margin:0;font-size:26px;">
+                <i class="fas fa-shield-alt" style="color:var(--blue); margin-right:10px;"></i>
+                Hướng dẫn lý thuyết: Phòng thủ Social Engineering
+            </h1>
+        </header>
+
+        <section class="guide-container">
+
+            <h2 id="tong-quan">📌 1. Tổng quan chiến lược phòng thủ</h2>
+            <p>
+                Tấn công người dùng (Social Engineering) khai thác yếu tố tâm lý để vượt qua các rào cản công nghệ. Một hệ thống phòng thủ vững chắc phải bao gồm sự kết hợp giữa kiến thức nhận diện của con người và các cấu hình kỹ thuật nghiêm ngặt nhằm mục tiêu: Ngăn chặn đánh cắp thông tin và vô hiệu hóa các kết nối điều khiển trái phép.
+            </p>
+
+            <h2 id="phong-thu-phishing">🛡️ 2. Phòng thủ tấn công lừa đảo (Phishing Defense)</h2>
+            <p>
+                Hacker thường sử dụng công cụ (như SET) để sao chép giao diện các trang web nổi tiếng. Người dùng cần áp dụng các cơ chế xác thực và kiểm tra đa tầng.
+            </p>
+
+            <h3>2.1. Xác thực đa yếu tố (MFA)</h3>
+            <p>
+                MFA là chốt chặn quan trọng nhất. Ngay cả khi mật khẩu bị lộ qua các trang đăng nhập giả mạo, hacker vẫn không thể truy cập tài khoản nếu không có yếu tố xác thực thứ hai (mã OTP, SMS, hoặc Token bảo mật). Điều này làm giảm 99% rủi ro từ các cuộc tấn công chiếm quyền tài khoản.
+            </p>
+            
+
+            <h3>2.2. Nhận diện dấu hiệu trang giả mạo</h3>
+            <ul>
+                <li><strong style="color:var(--blue);">Kiểm tra URL:</strong> Luôn quan sát thanh địa chỉ. Hacker thường dùng IP trực tiếp hoặc các tên miền có ký tự gây nhầm lẫn (ví dụ: g00gle.com thay vì google.com).</li>
+                <li><strong style="color:var(--blue);">Trình trạng HTTPS:</strong> Các trang lừa đảo thường thiếu chứng chỉ bảo mật hoặc bị trình duyệt cảnh báo "Not Secure".</li>
+            </ul>
+
+            <h2 id="phong-thu-malware">⚙️ 3. Ngăn chặn mã độc và Reverse Shell</h2>
+            <p>
+                Khi người dùng lỡ tải và thực thi Payload (tệp độc hại), hacker sẽ cố gắng chiếm quyền điều khiển qua kết nối ngược (Reverse Shell).
+            </p>
+
+            <h3>3.1. Cấu hình Tường lửa Outbound</h3>
+            <p>
+                Hầu hết các mã độc sử dụng cổng không tiêu chuẩn (như 4444, 5555) để gửi tín hiệu về máy hacker. Cấu hình tường lửa chặn các cổng này sẽ làm tê liệt khả năng điều khiển của mã độc.
+            </p>
+
+            <div class="code-block">
+# Quy tắc ngăn chặn chiếm quyền điều khiển:
+- Hành động: DENY (Từ chối)
+- Hướng: Outbound (Kết nối đi ra)
+- Các cổng phổ biến cần chặn: 4444, 8888, 5555
+- Chỉ cho phép các cổng chuẩn: 80, 443 (Web) và 53 (DNS)
+            </div>
+
+            <h3>3.2. Giám sát thiết bị đầu cuối (Endpoint Protection)</h3>
+            <p>
+                Sử dụng các giải pháp như Windows Defender hoặc EDR để quét và phát hiện các tệp tin có chữ ký số lạ hoặc hành vi can thiệp vào bộ nhớ. Hệ thống sẽ ghi nhận log và thực hiện cách ly ngay khi phát hiện mối đe dọa.
+            </p>
+
+            <div class="log-block">
+%SECURITY_ALERT: Detected malicious behavior from 'payload.exe'.
+%FIREWALL_LOG: Connection attempt to 192.168.1.105 on port 4444 was BLOCKED.
+→ Kết nối ngược của hacker đã bị chặn đứng hoàn toàn.
+            </div>
+
+            <h2 id="quiz">📝 4. Quiz kiểm tra kiến thức</h2>
+
+            <div class="quiz-container">
+                <div id="completion-message" style="display:none; padding:20px; background:#27ae60; color:white; border-radius:8px; text-align:center; font-size:18px; font-weight:700;">
+                    <i class="fas fa-check-circle"></i> CHÚC MỪNG! BẠN ĐÃ HOÀN THÀNH BÀI HỌC PHÒNG THỦ!
+                </div>
+
+                <div id="question-1" class="question-block">
+                    <h3>1. Biện pháp nào giúp tài khoản an toàn ngay cả khi mật khẩu đã bị hacker thu thập?</h3>
+                    <div class="option-group">
+                        <label class="option-item"><input type="radio" name="q1" value="A"> A. Đổi mật khẩu định kỳ</label>
+                        <label class="option-item"><input type="radio" name="q1" value="B"> B. Sử dụng Xác thực đa yếu tố (MFA)</label>
+                        <label class="option-item"><input type="radio" name="q1" value="C"> C. Ẩn địa chỉ IP</label>
+                        <label class="option-item"><input type="radio" name="q1" value="D"> D. Tắt thông báo trình duyệt</label>
+                    </div>
+                    <button class="quiz-button" onclick="checkAnswer(1)">Kiểm tra</button>
+                    <p id="feedback-1" class="quiz-feedback"></p>
+                </div>
+
+                <div id="question-2" class="question-block" style="display:none;">
+                    <h3>2. Tại sao cấu hình chặn cổng Outbound (đi ra) lại cực kỳ quan trọng?</h3>
+                    <div class="option-group">
+                        <label class="option-item"><input type="radio" name="q2" value="A"> A. Để máy tính duyệt web nhanh hơn</label>
+                        <label class="option-item"><input type="radio" name="q2" value="B"> B. Để ngăn chặn mã độc thực hiện kết nối ngược (Reverse Shell) về hacker</label>
+                        <label class="option-item"><input type="radio" name="q2" value="C"> C. Để hạn chế người dùng tải phim</label>
+                        <label class="option-item"><input type="radio" name="q2" value="D"> D. Để chặn quảng cáo trên trang web</label>
+                    </div>
+                    <button class="quiz-button" onclick="checkAnswer(2)">Kiểm tra</button>
+                    <p id="feedback-2" class="quiz-feedback"></p>
+                </div>
+
+                <div id="question-3" class="question-block" style="display:none;">
+                    <h3>3. Dấu hiệu nào dễ nhận thấy nhất của một trang Phishing trong thực nghiệm?</h3>
+                    <div class="option-group">
+                        <label class="option-item"><input type="radio" name="q3" value="A"> A. Trang web không có thanh cuộn</label>
+                        <label class="option-item"><input type="radio" name="q3" value="B"> B. URL hiển thị địa chỉ IP lạ và trình duyệt cảnh báo "Not Secure"</label>
+                        <label class="option-item"><input type="radio" name="q3" value="C"> C. Trang web bắt người dùng đăng ký tài khoản</label>
+                        <label class="option-item"><input type="radio" name="q3" value="D"> D. Trang web có quá nhiều hình ảnh</label>
+                    </div>
+                    <button class="quiz-button" onclick="checkAnswer(3)">Kiểm tra</button>
+                    <p id="feedback-3" class="quiz-feedback"></p>
+                </div>
+            </div>
+
+        </section>
+
+        <div style="margin-top:60px; border-top:1px solid var(--border-light); padding-top:20px; text-align:center; color:var(--muted);">
+            © 2025 Cyber Ranges Platform - Đào tạo An toàn thông tin
+        </div>
+    </main>
+
+</div>
+<script>
+    const correctAnswers = { 1:"B", 2:"B", 3:"B", 4:"A", 5:"B" };
+
+    async function submitProgress(percent) {
+        const username = localStorage.getItem("cyber_current_user");
+        if (!username) return;
+
+        try {
+            const response = await fetch('/api/submit-quiz', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    username: username,
+                    labId: 'phongthu_soc',
+                    progress: percent
+                })
+            });
+            await response.json();
+        } catch (e) {
+            console.error("Lỗi kết nối Server:", e);
+        }
+    }
+
+    function getSelectedOption(questionNumber) {
+        const checked = document.querySelector(`input[name="q${questionNumber}"]:checked`);
+        return checked ? checked.value : "";
+    }
+
+    function lockQuestion(questionNumber) {
+        document.querySelectorAll(`input[name="q${questionNumber}"]`).forEach(r => r.disabled = true);
+        const qEl = document.getElementById('question-' + questionNumber);
+        if (qEl) {
+            const btn = qEl.querySelector('.quiz-button');
+            if (btn) btn.disabled = true;
+        }
+    }
+
+    function checkAnswer(questionNumber) {
+        const feedbackEl = document.getElementById('feedback-' + questionNumber);
+        const currentEl = document.getElementById('question-' + questionNumber);
+
+        const userChoice = getSelectedOption(questionNumber);
+        if (!userChoice) {
+            feedbackEl.style.color = '#e67e22';
+            feedbackEl.innerHTML = '⚠️ Bạn hãy chọn A/B/C/D trước khi Check!';
+            return;
+        }
+
+        const isCorrect = (userChoice === correctAnswers[questionNumber]);
+
+        if (isCorrect) {
+            feedbackEl.style.color = '#2ecc71';
+            feedbackEl.innerHTML = '<i class="fas fa-check"></i> Chính xác!';
+            lockQuestion(questionNumber);
+
+            const percent = questionNumber * 20;
+            submitProgress(percent);
+
+            setTimeout(() => {
+                currentEl.style.display = 'none';
+                if (questionNumber < 5) {
+                    const nextEl = document.getElementById('question-' + (questionNumber + 1));
+                    if (nextEl) nextEl.style.display = 'block';
+                } else {
+                    document.getElementById('completion-message').style.display = 'block';
+                    document.getElementById('quiz').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }, 600);
+        } else {
+            feedbackEl.style.color = '#e74c3c';
+            feedbackEl.innerHTML = '<i class="fas fa-times"></i> Chưa chính xác. Vui lòng thử lại!';
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('.question-block').forEach(q => q.style.display = 'none');
+        const first = document.getElementById('question-1');
+        if (first) first.style.display = 'block';
+    });
+</script>

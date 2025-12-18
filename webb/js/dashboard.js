@@ -180,7 +180,18 @@ async function loadUserProgress() {
     const ptbrfText = document.getElementById("phongthu_brf-text")
     if(ptbrfBar) ptbrfBar.style.width = ptBRFPercent + "%";
     if(ptbrfText) ptbrfText.innerText = ptBRFPercent + "%";
-
+//soc
+    const ptSOCPercent = progress["phongthu_soc"] || 0;
+    const ptsocBar = document.getElementById("phongthu_soc-bar");
+    const ptsocText = document.getElementById("phongthu_soc-text")
+    if(ptsocBar) ptsocBar.style.width = ptSOCPercent + "%";
+    if(ptsocText) ptsocText.innerText = ptSOCPercent + "%";
+//nguoidung
+    const ptNGPercent = progress["phongthu_nguoidung"] || 0;
+    const ptngBar = document.getElementById("phongthu_nguoidung-bar");
+    const ptngText = document.getElementById("phongthu_nguoidung-text")
+    if(ptngBar) ptngBar.style.width = ptNGPercent + "%";
+    if(ptngText) ptngText.innerText = ptNGPercent + "%";
 
     /// ting tong
    /// ting tong  (tính tổng tiến độ 9 lab cố định)

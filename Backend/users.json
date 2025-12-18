@@ -9,9 +9,11 @@
       "zphisher_fb": 33,
       "phongthu_dhcp": 20,
       "phongthu_arp": 100,
-      "phongthu_dns": 20,
+      "phongthu_dns": 40,
       "phongthu_brf": 20,
-      "chiem_q": 100
+      "chiem_q": 100,
+      "phongthu_soc": 20,
+      "phongthu_nguoidung": 20
     }
   },
   {

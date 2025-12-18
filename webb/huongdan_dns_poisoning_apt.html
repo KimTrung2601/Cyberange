@@ -303,163 +303,183 @@ facebook.com A 192.168.247.135
             <!-- ================= QUIZ ================= -->
             <h2 id="quiz">📝 V. Quiz kiểm tra kiến thức</h2>
 
-            <div style="background:#1a2332;padding:30px;border-radius:10px;">
+<div class="quiz-container" style="background:#1a2332;padding:30px;border-radius:10px;">
 
-                <div id="completion-message"
-                    style="display:none;padding:20px;background:#27ae60;color:white;text-align:center;border-radius:8px;">
-                    🎉 Bạn đã hoàn thành quiz!
-                </div>
+  <div id="completion-message"
+    style="display:none;padding:20px;background:#27ae60;color:white;text-align:center;border-radius:8px;">
+    🎉 Bạn đã hoàn thành quiz!
+  </div>
 
-                <div id="question-1" class="question-block">
-                    <h3>1. DNS Spoofing nhằm mục đích gì?</h3>
-                    <input id="answer-1" class="quiz-input">
-                    <button class="quiz-button" onclick="checkAnswer(1)">Check</button>
-                    <p id="feedback-1"></p>
-                </div>
+  <!-- Q1 -->
+  <div id="question-1" class="question-block">
+    <h3>1. Mục đích của tấn công DNS Spoofing là gì?</h3>
 
-                <div id="question-2" class="question-block" style="display:none;">
-                    <h3>2. Công cụ nào được sử dụng để tấn công trong lab?</h3>
-                    <input id="answer-2" class="quiz-input">
-                    <button class="quiz-button" onclick="checkAnswer(2)">Check</button>
-                    <p id="feedback-2"></p>
-                </div>
+    <div class="option-group">
+      <label class="option-item"><input type="radio" name="q1" value="A"> A. Làm máy tính nạn nhân bị hỏng phần cứng.</label>
+      <label class="option-item"><input type="radio" name="q1" value="B"> B. Lừa nạn nhân truy cập vào trang web giả mạo thay vì trang web thật.</label>
+      <label class="option-item"><input type="radio" name="q1" value="C"> C. Giúp máy tính của nạn nhân chạy nhanh hơn.</label>
+      <label class="option-item"><input type="radio" name="q1" value="D"> D. Xóa hết dữ liệu trên máy tính nạn nhân.</label>
+    </div>
 
-                <div id="question-3" class="question-block" style="display:none;">
-                    <h3>3. File nào chứa cấu hình record dùng để redirect domain?</h3>
-                    <input id="answer-3" class="quiz-input">
-                    <button class="quiz-button" onclick="checkAnswer(3)">Check</button>
-                    <p id="feedback-3"></p>
-                </div>
+    <button class="quiz-button" onclick="checkAnswer(1)">Check</button>
+    <p id="feedback-1"></p>
+  </div>
 
-                <div id="question-4" class="question-block" style="display:none;">
-                    <h3>4. Kỹ thuật nào được sử dụng để chen ngang luồng DNS?</h3>
-                    <input id="answer-4" class="quiz-input">
-                    <button class="quiz-button" onclick="checkAnswer(4)">Check</button>
-                    <p id="feedback-4"></p>
-                </div>
+  <!-- Q2 -->
+  <div id="question-2" class="question-block" style="display:none;">
+    <h3>2. Trong bài thực hành, bạn dùng máy nào để đi tấn công?</h3>
 
-                <div id="question-5" class="question-block" style="display:none;">
-                    <h3>5. Sau tấn công nạn nhân bị chuyển đến đâu?</h3>
-                    <input id="answer-5" class="quiz-input">
-                    <button class="quiz-button" onclick="checkAnswer(5)">Check</button>
-                    <p id="feedback-5"></p>
-                </div>
-            </div>
+    <div class="option-group">
+      <label class="option-item"><input type="radio" name="q2" value="A"> A. Máy Windows 10.</label>
+      <label class="option-item"><input type="radio" name="q2" value="B"> B. Máy Windows Server 2019.</label>
+      <label class="option-item"><input type="radio" name="q2" value="C"> C. Máy Kali Linux (IP: 192.168.10.2).</label>
+      <label class="option-item"><input type="radio" name="q2" value="D"> D. Máy in trong mạng.</label>
+    </div>
 
-        </section>
-    </main>
+    <button class="quiz-button" onclick="checkAnswer(2)">Check</button>
+    <p id="feedback-2"></p>
+  </div>
+
+  <!-- Q3 -->
+  <div id="question-3" class="question-block" style="display:none;">
+    <h3>3. Để trang web giả mạo xuất hiện, bạn phải “Bật” dịch vụ nào sau đây?</h3>
+
+    <div class="option-group">
+      <label class="option-item"><input type="radio" name="q3" value="A"> A. Bật loa máy tính.</label>
+      <label class="option-item"><input type="radio" name="q3" value="B"> B. Bật dịch vụ Apache2 (Web Server).</label>
+      <label class="option-item"><input type="radio" name="q3" value="C"> C. Bật chế độ máy bay.</label>
+      <label class="option-item"><input type="radio" name="q3" value="D"> D. Bật phần mềm Excel.</label>
+    </div>
+
+    <button class="quiz-button" onclick="checkAnswer(3)">Check</button>
+    <p id="feedback-3"></p>
+  </div>
+
+  <!-- Q4 -->
+  <div id="question-4" class="question-block" style="display:none;">
+    <h3>4. Khi muốn kiểm tra xem mình có bị lừa sang trang web giả không, bạn dùng lệnh nào trên máy Windows?</h3>
+
+    <div class="option-group">
+      <label class="option-item"><input type="radio" name="q4" value="A"> A. exit</label>
+      <label class="option-item"><input type="radio" name="q4" value="B"> B. nslookup (ví dụ: nslookup google.com)</label>
+      <label class="option-item"><input type="radio" name="q4" value="C"> C. shutdown</label>
+      <label class="option-item"><input type="radio" name="q4" value="D"> D. help</label>
+    </div>
+
+    <button class="quiz-button" onclick="checkAnswer(4)">Check</button>
+    <p id="feedback-4"></p>
+  </div>
+
+  <!-- Q5 -->
+  <div id="question-5" class="question-block" style="display:none;">
+    <h3>5. Công cụ chính dùng để “tráo đổi” DNS trong bài là gì?</h3>
+
+    <div class="option-group">
+      <label class="option-item"><input type="radio" name="q5" value="A"> A. Word hoặc Excel.</label>
+      <label class="option-item"><input type="radio" name="q5" value="B"> B. Chrome hoặc Firefox.</label>
+      <label class="option-item"><input type="radio" name="q5" value="C"> C. Ettercap.</label>
+      <label class="option-item"><input type="radio" name="q5" value="D"> D. Photoshop.</label>
+    </div>
+
+    <button class="quiz-button" onclick="checkAnswer(5)">Check</button>
+    <p id="feedback-5"></p>
+  </div>
 </div>
 
 <script>
-    // 1. CẤU HÌNH ĐÁP ÁN (có thể đổi nội dung cho phù hợp lab DHCP)
-    const correctAnswers = {
-        1: ["..."],
-        2: ["..."],
-        3: ["..."],
-        4: ["..."],
-        5: ["..."]
-    };
+  const style = document.createElement('style');
+  style.innerHTML = `
+    .option-group { margin-top: 12px; }
+    .option-item { display:block; margin: 10px 0; line-height: 1.6; cursor:pointer; user-select:none; }
+    .option-item input[type="radio"] { margin-right: 10px; transform: translateY(1px); }
+    .question-block h3 { margin-bottom: 10px; }
+    .quiz-button { margin-top: 12px; }
+    #feedback-1,#feedback-2,#feedback-3,#feedback-4,#feedback-5 { margin-top: 10px; font-weight: 600; }
+  `;
+  document.head.appendChild(style);
 
-    // --- HÀM GỬI TIẾN ĐỘ (NHẬN SỐ PHẦN TRĂM) ---
-    async function submitProgress(percent) {
-        const username = localStorage.getItem("cyber_current_user");
-        
-        if (!username) {
-            console.log("Chưa đăng nhập, không lưu được.");
-            return;
-        }
+  // Đáp án đúng (A/B/C/D)
+  const correctAnswers = { 1:"B", 2:"C", 3:"B", 4:"B", 5:"C" };
 
-        try {
-            console.log(`Đang gửi tiến độ ${percent}% về Server...`);
-            
-            // 👇 CHỈ ĐỔI labId Ở ĐÂY
-            const response = await fetch('/api/submit-quiz', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ 
-                    username: username, 
-                    labId: 'dns_psn',   // <-- tên lab DHCP
-                    progress: percent 
-                })
-            });
+  async function submitProgress(percent) {
+    const username = localStorage.getItem("cyber_current_user");
+    if (!username) { console.log("Chưa đăng nhập, không lưu được."); return; }
 
-            const data = await response.json();
-            console.log("Server đã lưu:", data);
+    try {
+      const response = await fetch('/api/submit-quiz', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          username: username,
+          labId: 'dns_psn',
+          progress: percent
+        })
+      });
+      const data = await response.json();
+      console.log("Server đã lưu:", data);
+    } catch (error) {
+      console.error("Lỗi kết nối Server:", error);
+    }
+  }
 
-        } catch (error) {
-            console.error("Lỗi kết nối Server:", error);
-        }
+  function getSelectedOption(questionNumber) {
+    const checked = document.querySelector(`input[name="q${questionNumber}"]:checked`);
+    return checked ? checked.value : "";
+  }
+
+  function lockQuestion(questionNumber) {
+    document.querySelectorAll(`input[name="q${questionNumber}"]`).forEach(r => r.disabled = true);
+    const qEl = document.getElementById('question-' + questionNumber);
+    const btn = qEl ? qEl.querySelector('.quiz-button') : null;
+    if (btn) btn.disabled = true;
+  }
+
+  function checkAnswer(questionNumber) {
+    const feedbackEl = document.getElementById('feedback-' + questionNumber);
+    const currentQuestionEl = document.getElementById('question-' + questionNumber);
+
+    const userChoice = getSelectedOption(questionNumber);
+    if (!userChoice) {
+      feedbackEl.style.color = '#e67e22';
+      feedbackEl.innerHTML = '⚠️ Bạn hãy chọn A/B/C/D trước khi Check!';
+      return;
     }
 
-    // 2. HÀM CHUẨN HÓA ĐÁP ÁN
-    function normalizeAnswer(answer) {
-        return answer.toLowerCase().trim()
-            .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"")
-            .replace(/\s{2,}/g," ");
-    }
+    const isCorrect = (userChoice === correctAnswers[questionNumber]);
 
-    // 3. HÀM CHECK ĐÁP ÁN
-    function checkAnswer(questionNumber) {
-        const inputId = 'answer-' + questionNumber;
-        const feedbackId = 'feedback-' + questionNumber;
-        const currentQuestionId = 'question-' + questionNumber;
-        
-        const userInput = document.getElementById(inputId).value;
-        const feedbackElement = document.getElementById(feedbackId);
-        const currentQuestionElement = document.getElementById(currentQuestionId);
-        
-        const normalizedInput = normalizeAnswer(userInput);
-        const validAnswers = correctAnswers[questionNumber];
-        let isCorrect = false;
+    if (isCorrect) {
+      feedbackEl.style.color = '#2ecc71';
+      feedbackEl.innerHTML = '<i class="fas fa-check"></i> Chính xác!';
 
-        for (const valid of validAnswers) {
-            if (normalizedInput.includes(normalizeAnswer(valid))) {
-                isCorrect = true;
-                break;
-            }
-        }
+      lockQuestion(questionNumber);
 
-        if (isCorrect) {
-            feedbackElement.style.color = '#2ecc71';
-            feedbackElement.innerHTML = '<i class="fas fa-check"></i> Chính xác!';
-            
-            document.getElementById(inputId).disabled = true;
-            currentQuestionElement.querySelector('.quiz-button').disabled = true;
+      const currentPercent = questionNumber * 20;
+      submitProgress(currentPercent);
 
-            const currentPercent = questionNumber * 20;
-            submitProgress(currentPercent); 
+      setTimeout(() => {
+        currentQuestionEl.style.display = 'none';
 
-            setTimeout(() => {
-                currentQuestionElement.style.display = 'none';
-
-                if (questionNumber < 5) {
-                    const nextQuestionId = 'question-' + (questionNumber + 1);
-                    const nextQuestionElement = document.getElementById(nextQuestionId);
-                    if (nextQuestionElement) {
-                        nextQuestionElement.style.display = 'block';
-                        document.getElementById('feedback-' + (questionNumber + 1)).innerHTML = '';
-                    }
-                } else {
-                    document.getElementById('completion-message').style.display = 'block';
-                    document.getElementById('quiz').scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
-            }, 500);
-
+        if (questionNumber < 5) {
+          const nextEl = document.getElementById('question-' + (questionNumber + 1));
+          if (nextEl) nextEl.style.display = 'block';
         } else {
-            feedbackElement.style.color = '#e74c3c';
-            feedbackElement.innerHTML = '<i class="fas fa-times"></i> Chưa chính xác. Vui lòng thử lại!';
+          document.getElementById('completion-message').style.display = 'block';
+          document.getElementById('quiz').scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
+      }, 600);
+
+    } else {
+      feedbackEl.style.color = '#e74c3c';
+      feedbackEl.innerHTML = '<i class="fas fa-times"></i> Chưa chính xác. Vui lòng thử lại!';
     }
+  }
 
-    // 4. KHỞI TẠO
-    document.addEventListener('DOMContentLoaded', () => {
-        const allQuestions = document.querySelectorAll('.question-block');
-        allQuestions.forEach(q => { q.style.display = 'none'; });
-        const firstQuestion = document.getElementById('question-1');
-        if (firstQuestion) { firstQuestion.style.display = 'block'; }
-    });
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.question-block').forEach(q => q.style.display = 'none');
+    const first = document.getElementById('question-1');
+    if (first) first.style.display = 'block';
+  });
 </script>
-
 
 </body>
 </html>

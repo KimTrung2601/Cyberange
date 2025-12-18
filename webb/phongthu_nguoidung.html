@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phòng thủ Người dùng – Endpoint Protection</title>
+
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-dark: #0f1624;
+            --bg-card: #1a2332;
+            --blue: #3fa9f5;
+            --text: #e6eef7;
+            --muted: #98a6b8;
+            --orange: #f5b041;
+            --red: #e74c3c;
+            --border-light: #2c3a4d;
+        }
+
+        body {
+            background: var(--bg-dark);
+            margin: 0;
+            font-family: "Segoe UI", sans-serif;
+        }
+
+        .app { display: flex; min-height: 100vh; }
+
+        .sidebar {
+            min-width: 280px;
+            background: #131b29;
+            border-right: 1px solid #243044;
+            padding: 24px;
+            height: 100vh;
+            position: sticky;
+            top: 0;
+            overflow-y: auto;
+        }
+
+        .sidebar-logo { display: flex; align-items: center; gap: 10px; color: white; font-size: 20px; font-weight: bold; margin-bottom: 30px; }
+        .sidebar-user { background: #1a2332; padding: 15px; border-radius: 8px; margin-bottom: 20px; border: 1px solid var(--border-light); }
+
+        .nav-item {
+            padding: 10px 14px;
+            display: block;
+            border-radius: 6px;
+            color: var(--muted);
+            text-decoration: none;
+            transition: 0.2s;
+        }
+        .nav-item:hover { background: #1f2a3b; color: white; }
+        .nav-item.active { background: #1f2a3b; color: var(--blue); }
+
+        .main { flex-grow: 1; }
+
+        .main-topbar {
+            background: #10141a;
+            padding: 15px 30px;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .guide-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 25px;
+            color: var(--text);
+        }
+
+        h2 {
+            margin-top: 35px;
+            font-size: 24px;
+            color: var(--blue);
+            border-bottom: 2px solid var(--border-light);
+            padding-bottom: 8px;
+        }
+
+        h3 {
+            margin-top: 20px;
+            font-size: 19px;
+            color: var(--text);
+            font-weight: 700;
+        }
+
+        p, ul {
+            font-size: 16px;
+            line-height: 1.8;
+            color: var(--muted);
+            text-align: justify;
+        }
+        ul { padding-left: 22px; }
+
+        .code-block {
+            background:#131c27;
+            border-left:5px solid var(--orange);
+            padding:18px 20px;
+            border-radius:10px;
+            margin:25px 0;
+            box-shadow:0 0 12px rgba(0,0,0,0.6);
+            font-family:Consolas, monospace;
+            color:#f6d76c;
+            font-size:15px;
+            white-space:pre-wrap;
+        }
+
+        .log-block {
+            background:#1a2332;
+            border-left:5px solid var(--red);
+            padding:18px 20px;
+            border-radius:10px;
+            margin:25px 0;
+            box-shadow:0 0 12px rgba(231,76,60,0.4);
+            font-family:Consolas, monospace;
+            color:#ffb3b3;
+            font-size:15px;
+            white-space:pre-wrap;
+        }
+
+        .quiz-container {
+            background: var(--bg-card);
+            padding: 30px;
+            border-radius: 12px;
+            margin-top: 25px;
+            border: 1px solid var(--border-light);
+            box-shadow: 0 0 12px rgba(63,169,245,0.25);
+        }
+
+        .option-group { margin-top: 12px; }
+        .option-item {
+            display:block;
+            margin:10px 0;
+            line-height:1.6;
+            cursor:pointer;
+            color: var(--muted);
+        }
+        .option-item input { margin-right:10px; }
+
+        .quiz-button {
+            margin-top:12px;
+            padding: 10px 20px;
+            background: #27ae60;
+            color: white;
+            border-radius: 6px;
+            cursor: pointer;
+            border: none;
+            font-weight: bold;
+        }
+        .quiz-feedback { margin-top:10px; font-weight:600; }
+    </style>
+</head>
+
+<body>
+
+<div class="app">
+
+    <aside class="sidebar">
+        <header class="sidebar-logo">
+            <i class="fas fa-shield-alt"></i>
+            <span>CYBER<br>RANGES</span>
+        </header>
+
+        <nav class="sidebar-nav">
+            <a href="#" onclick="history.back(); return false;" class="nav-item active">
+                <i class="fas fa-arrow-left"></i> Back to Playlists
+            </a>
+
+            <h3 style="color:white; margin-top:20px;">Nội dung phòng thủ</h3>
+            <a class="nav-item" href="#endpoint">1. Bảo vệ thiết bị (Endpoint)</a>
+            <a class="nav-item" href="#application">2. Kiểm soát ứng dụng</a>
+            <a class="nav-item" href="#firewall">3. Cấu hình Tường lửa</a>
+            <a class="nav-item" href="#awareness">4. Nâng cao cảnh giác</a>
+            <a class="nav-item" href="#quiz">5. Quiz Đánh giá</a>
+        </nav>
+    </aside>
+
+    <main class="main">
+
+        <header class="main-topbar">
+            <h1 style="color:white; margin:0;font-size:26px;">
+                <i class="fas fa-shield-virus" style="color:var(--blue); margin-right:10px;"></i>
+                Phòng thủ Người dùng: Bảo vệ thiết bị đầu cuối
+            </h1>
+        </header>
+
+        <section class="guide-container">
+
+            <h2 id="endpoint">🛡️ 1. Giải pháp bảo vệ thiết bị đầu cuối</h2>
+            <p>
+                Đây là lớp phòng thủ trực tiếp trên máy tính của người dùng nhằm phát hiện và ngăn chặn mã độc ngay khi chúng xâm nhập.
+            </p>
+            <ul>
+                <li><strong>Thực nghiệm:</strong> Trong quá trình thực hiện kịch bản, Windows Defender trên máy nạn nhân đã phát hiện và đưa ra cảnh báo khi tải xuống hoặc thực thi file <code>payload.exe</code> (như hình ảnh thực tế đã ghi nhận).</li>
+                <li><strong>Cơ chế:</strong> Các phần mềm diệt virus và EDR sử dụng cơ sở dữ liệu mẫu nhận diện để phát hiện các Payload phổ biến tạo bởi Metasploit. Đồng thời, chúng giám sát hành vi để chặn các tiến trình lạ cố gắng kết nối mạng ra bên ngoài hoặc can thiệp vào bộ nhớ hệ thống.</li>
+                <li><strong>Yêu cầu:</strong> Luôn bật tính năng bảo vệ thời gian thực và cập nhật cơ sở dữ liệu mẫu virus thường xuyên.</li>
+            </ul>
+
+            <h2 id="application">⚙️ 2. Kiểm soát ứng dụng (Application Control)</h2>
+            <p>
+                Trong môi trường doanh nghiệp, quản trị viên nên sử dụng các chính sách như <strong>AppLocker</strong> hoặc <strong>Software Restriction Policies</strong> để ngăn chặn người dùng chạy bất kỳ tập tin thực thi (.exe, .bat, .ps1) nào không nằm trong danh sách tin cậy hoặc không có chữ ký số hợp lệ của tổ chức. 
+            </p>
+            <p>
+                Điều này vô hiệu hóa hoàn toàn khả năng thực thi của mã độc ngay cả khi người dùng đã tải nó về máy thông qua các kịch bản lừa đảo.
+            </p>
+
+            <h2 id="firewall">🌐 3. Cấu hình Tường lửa (Firewall Configuration)</h2>
+            <p>
+                Kỹ thuật <strong>Reverse Shell</strong> dựa vào việc máy nạn nhân chủ động kết nối ra ngoài tới máy tấn công.
+            </p>
+            
+            <ul>
+                <li><strong>Giải pháp:</strong> Cấu hình Tường lửa (Network Firewall hoặc Host-based Firewall) để chặn các kết nối đi ra trên các cổng không tiêu chuẩn.</li>
+                <li><strong>Ví dụ kịch bản:</strong> Trong kịch bản tấn công, mã độc kết nối về cổng 4444. Nếu tường lửa doanh nghiệp chỉ cho phép kết nối đi ra trên cổng Web (80, 443) và DNS (53), thì kết nối C2 của kẻ tấn công sẽ bị chặn đứng, và phiên Meterpreter sẽ không thể thiết lập được.</li>
+            </ul>
+
+            <div class="code-block">
+# Quy tắc chặn Reverse Shell trên cổng 4444
+New-NetFirewallRule -DisplayName "Block Outbound 4444" `
+    -Direction Outbound `
+    -LocalPort 4444 `
+    -Protocol TCP `
+    -Action Block
+            </div>
+
+            <h2 id="awareness">🧠 4. Nâng cao cảnh giác người dùng</h2>
+            <p>
+                Người dùng cần được đào tạo để tuyệt đối không mở các tập tin đính kèm trong email từ người lạ hoặc tải xuống phần mềm từ các nguồn không chính thống. Đây là biện pháp ngăn chặn từ gốc các cuộc tấn công Social Engineering.
+            </p>
+
+            <div class="log-block">
+%SECURITY_ALERT: Malware 'payload.exe' was blocked by Windows Defender.
+%FIREWALL_LOG: Connection to 192.168.1.100:4444 was DENIED by Outbound Policy.
+→ Hệ thống phòng thủ đa lớp đã hoạt động hiệu quả.
+            </div>
+
+            <h2 id="quiz">📝 5. Câu hỏi đánh giá lý thuyết</h2>
+
+            <div class="quiz-container">
+                <div id="completion-message" style="display:none; padding:20px; background:#27ae60; color:white; border-radius:8px; text-align:center; font-size:18px; font-weight:700;">
+                    <i class="fas fa-check-circle"></i> CHÚC MỪNG! BẠN ĐÃ NẮM VỮNG CÁC GIẢI PHÁP PHÒNG THỦ!
+                </div>
+
+                <div id="question-1" class="question-block">
+                    <h3>1. Windows Defender đóng vai trò gì khi người dùng thực thi file payload.exe?</h3>
+                    <div class="option-group">
+                        <label class="option-item"><input type="radio" name="q1" value="A"> A. Giúp file chạy nhanh hơn</label>
+                        <label class="option-item"><input type="radio" name="q1" value="B"> B. Phát hiện và cảnh báo dựa trên mẫu nhận diện mã độc (Signature)</label>
+                        <label class="option-item"><input type="radio" name="q1" value="C"> C. Tự động chia sẻ file lên mạng</label>
+                        <label class="option-item"><input type="radio" name="q1" value="D"> D. Tắt kết nối internet của máy</label>
+                    </div>
+                    <button class="quiz-button" onclick="checkAnswer(1)">Kiểm tra</button>
+                    <p id="feedback-1" class="quiz-feedback"></p>
+                </div>
+
+                <div id="question-2" class="question-block" style="display:none;">
+                    <h3>2. AppLocker giúp ích gì trong môi trường doanh nghiệp?</h3>
+                    <div class="option-group">
+                        <label class="option-item"><input type="radio" name="q2" value="A"> A. Khóa bàn phím người dùng</label>
+                        <label class="option-item"><input type="radio" name="q2" value="B"> B. Ngăn chặn chạy các file thực thi không nằm trong danh sách tin cậy</label>
+                        <label class="option-item"><input type="radio" name="q2" value="C"> C. Quản lý thời gian làm việc</label>
+                        <label class="option-item"><input type="radio" name="q2" value="D"> D. Tăng độ sáng màn hình</label>
+                    </div>
+                    <button class="quiz-button" onclick="checkAnswer(2)">Kiểm tra</button>
+                    <p id="feedback-2" class="quiz-feedback"></p>
+                </div>
+
+                <div id="question-3" class="question-block" style="display:none;">
+                    <h3>3. Tại sao cấu hình chặn cổng Outbound (như 4444) lại ngăn được Reverse Shell?</h3>
+                    <div class="option-group">
+                        <label class="option-item"><input type="radio" name="q3" value="A"> A. Vì hacker không biết cổng đó</label>
+                        <label class="option-item"><input type="radio" name="q3" value="B"> B. Vì nó ngăn máy nạn nhân kết nối ngược về máy chủ của kẻ tấn công</label>
+                        <label class="option-item"><input type="radio" name="q3" value="C"> C. Vì cổng 4444 chỉ dùng để gửi mail</label>
+                        <label class="option-item"><input type="radio" name="q3" value="D"> D. Vì cổng này tự động xóa file độc hại</label>
+                    </div>
+                    <button class="quiz-button" onclick="checkAnswer(3)">Kiểm tra</button>
+                    <p id="feedback-3" class="quiz-feedback"></p>
+                </div>
+
+                <div id="question-4" class="question-block" style="display:none;">
+                    <h3>4. Hành động nào sau đây là an toàn nhất đối với email từ người lạ?</h3>
+                    <div class="option-group">
+                        <label class="option-item"><input type="radio" name="q4" value="A"> A. Tuyệt đối không mở các tập tin đính kèm</label>
+                        <label class="option-item"><input type="radio" name="q4" value="B"> B. Mở thử để xem bên trong có gì</label>
+                        <label class="option-item"><input type="radio" name="q4" value="C"> C. Chuyển tiếp email cho người khác</label>
+                        <label class="option-item"><input type="radio" name="q4" value="D"> D. Tải file về và quét virus sau</label>
+                    </div>
+                    <button class="quiz-button" onclick="checkAnswer(4)">Kiểm tra</button>
+                    <p id="feedback-4" class="quiz-feedback"></p>
+                </div>
+
+                <div id="question-5" class="question-block" style="display:none;">
+                    <h3>5. Kết quả của việc cấu hình Tường lửa đúng cách trong kịch bản này là gì?</h3>
+                    <div class="option-group">
+                        <label class="option-item"><input type="radio" name="q5" value="A"> A. Máy tính không bị nhiễm virus</label>
+                        <label class="option-item"><input type="radio" name="q5" value="B"> B. Phiên Meterpreter của hacker không thể thiết lập thành công</label>
+                        <label class="option-item"><input type="radio" name="q5" value="C"> C. Hacker sẽ bị mất kết nối internet</label>
+                        <label class="option-item"><input type="radio" name="q5" value="D"> D. Tự động đổi mật khẩu máy tính</label>
+                    </div>
+                    <button class="quiz-button" onclick="checkAnswer(5)">Kiểm tra</button>
+                    <p id="feedback-5" class="quiz-feedback"></p>
+                </div>
+            </div>
+
+        </section>
+
+        <div style="margin-top:60px; border-top:1px solid var(--border-light); padding-top:20px; text-align:center; color:var(--muted);">
+            © 2025 Cyber Ranges Platform - Defense Theory Section
+        </div>
+    </main>
+
+</div>
+
+<script>
+    const correctAnswers = { 1:"B", 2:"B", 3:"B", 4:"A", 5:"B" };
+
+    async function submitProgress(percent) {
+        const username = localStorage.getItem("cyber_current_user");
+        if (!username) return;
+
+        try {
+            const response = await fetch('/api/submit-quiz', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    username: username,
+                    labId: 'phongthu_nguoidung',
+                    progress: percent
+                })
+            });
+            await response.json();
+        } catch (e) {
+            console.error("Lỗi kết nối Server:", e);
+        }
+    }
+
+    function getSelectedOption(questionNumber) {
+        const checked = document.querySelector(`input[name="q${questionNumber}"]:checked`);
+        return checked ? checked.value : "";
+    }
+
+    function lockQuestion(questionNumber) {
+        document.querySelectorAll(`input[name="q${questionNumber}"]`).forEach(r => r.disabled = true);
+        const qEl = document.getElementById('question-' + questionNumber);
+        if (qEl) {
+            const btn = qEl.querySelector('.quiz-button');
+            if (btn) btn.disabled = true;
+        }
+    }
+
+    function checkAnswer(questionNumber) {
+        const feedbackEl = document.getElementById('feedback-' + questionNumber);
+        const currentEl = document.getElementById('question-' + questionNumber);
+
+        const userChoice = getSelectedOption(questionNumber);
+        if (!userChoice) {
+            feedbackEl.style.color = '#e67e22';
+            feedbackEl.innerHTML = '⚠️ Bạn hãy chọn A/B/C/D trước khi Check!';
+            return;
+        }
+
+        const isCorrect = (userChoice === correctAnswers[questionNumber]);
+
+        if (isCorrect) {
+            feedbackEl.style.color = '#2ecc71';
+            feedbackEl.innerHTML = '<i class="fas fa-check"></i> Chính xác!';
+            lockQuestion(questionNumber);
+
+            const percent = questionNumber * 20;
+            submitProgress(percent);
+
+            setTimeout(() => {
+                currentEl.style.display = 'none';
+                if (questionNumber < 5) {
+                    const nextEl = document.getElementById('question-' + (questionNumber + 1));
+                    if (nextEl) nextEl.style.display = 'block';
+                } else {
+                    document.getElementById('completion-message').style.display = 'block';
+                    document.getElementById('quiz').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }, 600);
+        } else {
+            feedbackEl.style.color = '#e74c3c';
+            feedbackEl.innerHTML = '<i class="fas fa-times"></i> Chưa chính xác. Vui lòng thử lại!';
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('.question-block').forEach(q => q.style.display = 'none');
+        const first = document.getElementById('question-1');
+        if (first) first.style.display = 'block';
+    });
+</script>
+
+</body>
+</html>

@@ -213,7 +213,7 @@
 
             <!-- Hình 1 -->
             <div class="guide-image-container">
-                <img src="images/hinh111.jpg">
+                <img src="images/hinh108.jpg">
                 <div class="image-caption">Hình 1 — Truy cập Privacy, search and services</div>
             </div>
 
@@ -225,7 +225,7 @@
 
             <!-- Hình 2 -->
             <div class="guide-image-container">
-                <img src="images/hinh112.jpg">
+                <img src="images/hinh109.jpg">
                 <div class="image-caption">Hình 2 — Bật Secure DNS và chọn nhà cung cấp DoH</div>
             </div>
 
@@ -247,7 +247,7 @@ https://dns.google/dns-query{?dns}
 
             <!-- Hình 3 -->
             <div class="guide-image-container">
-                <img src="images/hinh113.jpg">
+                <img src="images/hinh110.jpg">
                 <div class="image-caption">Hình 3 — Thêm ARP tĩnh cho Gateway</div>
             </div>
 
@@ -259,7 +259,7 @@ netsh interface ipv4 add neighbors "Ethernet0" "192.168.247.2" "00-50-56-f4-7f-4
 
             <!-- Hình 4 -->
             <div class="guide-image-container">
-                <img src="images/hinh114.jpg">
+                <img src="images/hinh111.jpg">
                 <div class="image-caption">Hình 4 — IP Gateway ở trạng thái static</div>
             </div>
 
@@ -273,7 +273,7 @@ netsh interface ipv4 add neighbors "Ethernet0" "192.168.247.2" "00-50-56-f4-7f-4
 
             <!-- Hình 5 -->
             <div class="guide-image-container">
-                <img src="images/hinh115.jpg">
+                <img src="images/hinh112.jpg">
                 <div class="image-caption">Hình 5 — Lệnh xóa DNS Cache</div>
             </div>
 
@@ -289,7 +289,7 @@ Successfully flushed the DNS Resolver Cache.
 
             <!-- Hình 6 -->
             <div class="guide-image-container">
-                <img src="images/hinh116.jpg">
+                <img src="images/hinh113.jpg">
                 <div class="image-caption">Hình 6 — Truy cập Google qua HTTPS</div>
             </div>
 
@@ -299,180 +299,204 @@ Successfully flushed the DNS Resolver Cache.
 
             <h2 id="quiz">📝 5. Quiz kiểm tra kiến thức</h2>
 
+            <style>
+            /* ===== QUIZ STYLE ===== */
+            .quiz-container {
+                background: var(--bg-card);
+                padding: 30px;
+                border-radius: 12px;
+                border: 1px solid var(--border-light);
+            }
+            
+            .question-block {
+                margin-bottom: 30px;
+            }
+            
+            .option-group {
+                margin-top: 15px;
+            }
+            
+            .option-item {
+                display: block;              /* 👈 xuống dòng từng đáp án */
+                padding: 10px 14px;
+                margin-bottom: 10px;
+                border: 1px solid var(--border-light);
+                border-radius: 8px;
+                cursor: pointer;
+                background: #121a26;
+            }
+            
+            .option-item input {
+                margin-right: 10px;
+            }
+            
+            .option-item:hover {
+                background: #1f2a3a;
+            }
+            
+            .quiz-button {
+                margin-top: 15px;
+            }
+            
+            .quiz-feedback {
+                margin-top: 10px;
+                font-weight: 600;
+            }
+            </style>
+            
             <div class="quiz-container">
-
+            
                 <div id="completion-message" style="
                     display:none; padding:20px; background:#27ae60;
-                    color:white; font-size:18px; font-weight:700; border-radius:8px;">
+                    color:white; font-size:18px; font-weight:700; border-radius:8px;
+                    text-align:center;">
                     ✔ CHÚC MỪNG! Bạn đã hoàn thành phòng thủ DNS!
                 </div>
-
-                <!-- Q1 -->
-                <div id="question-1">
-                    <h3>1. Secure DNS giúp ngăn loại tấn công nào?</h3>
-                    <div class="input-group">
-                        <input id="answer-1" class="quiz-input">
-                        <button class="quiz-button" onclick="checkAnswer(1)">Check</button>
+            
+                <!-- CÂU 1 -->
+                <div id="question-1" class="question-block">
+                    <h3>1. Giải pháp kỹ thuật chính để xác thực bản ghi DNS và chống giả mạo là gì?</h3>
+            
+                    <div class="option-group">
+                        <label class="option-item"><input type="radio" name="q1" value="A"> A. Firewall</label>
+                        <label class="option-item"><input type="radio" name="q1" value="B"> B. DNSSEC</label>
+                        <label class="option-item"><input type="radio" name="q1" value="C"> C. Antivirus</label>
+                        <label class="option-item"><input type="radio" name="q1" value="D"> D. VPN</label>
                     </div>
-                    <p id="feedback-1"></p>
+            
+                    <button class="quiz-button" onclick="checkAnswer(1)">Check</button>
+                    <p id="feedback-1" class="quiz-feedback"></p>
                 </div>
-
-                <!-- Q2 -->
-                <div id="question-2" style="display:none;">
-                    <h3>2. Lệnh dùng để xóa DNS Cache?</h3>
-                    <div class="input-group">
-                        <input id="answer-2" class="quiz-input">
-                        <button class="quiz-button" onclick="checkAnswer(2)">Check</button>
+            
+                <!-- CÂU 2 -->
+                <div id="question-2" class="question-block" style="display:none;">
+                    <h3>2. Lệnh nào giúp kiểm tra bảng IP–MAC trên máy Client?</h3>
+            
+                    <div class="option-group">
+                        <label class="option-item"><input type="radio" name="q2" value="A"> A. ping</label>
+                        <label class="option-item"><input type="radio" name="q2" value="B"> B. ipconfig</label>
+                        <label class="option-item"><input type="radio" name="q2" value="C"> C. arp -a</label>
+                        <label class="option-item"><input type="radio" name="q2" value="D"> D. nslookup</label>
                     </div>
-                    <p id="feedback-2"></p>
+            
+                    <button class="quiz-button" onclick="checkAnswer(2)">Check</button>
+                    <p id="feedback-2" class="quiz-feedback"></p>
                 </div>
-
-                <!-- Q3 -->
-                <div id="question-3" style="display:none;">
-                    <h3>3. ARP Static chống lại kiểu tấn công nào?</h3>
-                    <div class="input-group">
-                        <input id="answer-3" class="quiz-input">
-                        <button class="quiz-button" onclick="checkAnswer(3)">Check</button>
+            
+                <!-- CÂU 3 -->
+                <div id="question-3" class="question-block" style="display:none;">
+                    <h3>3. Tính năng nào trên Switch giúp ngăn DHCP giả mạo?</h3>
+            
+                    <div class="option-group">
+                        <label class="option-item"><input type="radio" name="q3" value="A"> A. DHCP Snooping</label>
+                        <label class="option-item"><input type="radio" name="q3" value="B"> B. Port Forwarding</label>
+                        <label class="option-item"><input type="radio" name="q3" value="C"> C. VLAN</label>
+                        <label class="option-item"><input type="radio" name="q3" value="D"> D. Wi-Fi Guest</label>
                     </div>
-                    <p id="feedback-3"></p>
+            
+                    <button class="quiz-button" onclick="checkAnswer(3)">Check</button>
+                    <p id="feedback-3" class="quiz-feedback"></p>
                 </div>
-
-                <!-- Q4 -->
-                <div id="question-4" style="display:none;">
-                    <h3>4. Giao thức DNS an toàn là gì?</h3>
-                    <div class="input-group">
-                        <input id="answer-4" class="quiz-input">
-                        <button class="quiz-button" onclick="checkAnswer(4)">Check</button>
+            
+                <!-- CÂU 4 -->
+                <div id="question-4" class="question-block" style="display:none;">
+                    <h3>4. Dấu hiệu nào cho thấy website đang dùng kết nối an toàn?</h3>
+            
+                    <div class="option-group">
+                        <label class="option-item"><input type="radio" name="q4" value="A"> A. Web có màu xanh</label>
+                        <label class="option-item"><input type="radio" name="q4" value="B"> B. Web có quảng cáo</label>
+                        <label class="option-item"><input type="radio" name="q4" value="C"> C. Biểu tượng khóa HTTPS</label>
+                        <label class="option-item"><input type="radio" name="q4" value="D"> D. Web tải nhanh</label>
                     </div>
-                    <p id="feedback-4"></p>
+            
+                    <button class="quiz-button" onclick="checkAnswer(4)">Check</button>
+                    <p id="feedback-4" class="quiz-feedback"></p>
                 </div>
-
-                <!-- Q5 -->
-                <div id="question-5" style="display:none;">
-                    <h3>5. Vì sao cần DNS qua HTTPS?</h3>
-                    <div class="input-group">
-                        <input id="answer-5" class="quiz-input">
-                        <button class="quiz-button" onclick="checkAnswer(5)">Check</button>
+            
+                <!-- CÂU 5 -->
+                <div id="question-5" class="question-block" style="display:none;">
+                    <h3>5. Cách nào giúp cố định Gateway để chống Ettercap?</h3>
+            
+                    <div class="option-group">
+                        <label class="option-item"><input type="radio" name="q5" value="A"> A. Cài lại máy</label>
+                        <label class="option-item"><input type="radio" name="q5" value="B"> B. Thiết lập ARP tĩnh</label>
+                        <label class="option-item"><input type="radio" name="q5" value="C"> C. Đổi mật khẩu</label>
+                        <label class="option-item"><input type="radio" name="q5" value="D"> D. Tắt máy</label>
                     </div>
-                    <p id="feedback-5"></p>
+            
+                    <button class="quiz-button" onclick="checkAnswer(5)">Check</button>
+                    <p id="feedback-5" class="quiz-feedback"></p>
                 </div>
-
+            
             </div>
-        </section>
-
-        <footer style="text-align:center; padding:30px; color:var(--muted);">
-            © 2025 Cyber Ranges Platform
-        </footer>
-
-    </main>
-</div>
-
             <script>
-                // 1. CẤU HÌNH ĐÁP ÁN (có thể đổi nội dung cho phù hợp lab DHCP)
                 const correctAnswers = {
-                    1: ["..."],
-                    2: ["..."],
-                    3: ["..."],
-                    4: ["..."],
-                    5: ["..."]
+                    1: "B",
+                    2: "C",
+                    3: "A",
+                    4: "C",
+                    5: "B"
                 };
-                //--- HÀM GỬI TIẾN ĐỘ (NHẬN SỐ PHẦN TRĂM) ---
+                
                 async function submitProgress(percent) {
                     const username = localStorage.getItem("cyber_current_user");
-                    
-                    if (!username) {
-                        console.log("Chưa đăng nhập, không lưu được.");
+                    if (!username) return;
+                
+                    await fetch('/api/submit-quiz', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            username,
+                            labId: 'phongthu_dns',
+                            progress: percent
+                        })
+                    });
+                }
+                
+                function getChoice(q) {
+                    const c = document.querySelector(`input[name="q${q}"]:checked`);
+                    return c ? c.value : "";
+                }
+                
+                function lockQuestion(q) {
+                    document.querySelectorAll(`input[name="q${q}"]`).forEach(i => i.disabled = true);
+                    document.querySelector(`#question-${q} .quiz-button`).disabled = true;
+                }
+                
+                function checkAnswer(q) {
+                    const fb = document.getElementById(`feedback-${q}`);
+                    const choice = getChoice(q);
+                
+                    if (!choice) {
+                        fb.style.color = "#f1c40f";
+                        fb.innerHTML = "⚠️ Hãy chọn đáp án!";
                         return;
                     }
-            
-                    try {
-                        console.log(`Đang gửi tiến độ ${percent}% về Server...`);
-                        
-                        // 👇 CHỈ ĐỔI labId Ở ĐÂY
-                        const response = await fetch('/api/submit-quiz', {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({ 
-                                username: username, 
-                                labId: 'phongthu_dns',   // <-- tên lab DHCP
-                                progress: percent 
-                            })
-                        });
-                        const data = await response.json();
-                        console.log("Server đã lưu:", data);
-            
-                    } catch (error) {
-                        console.error("Lỗi kết nối Server:", error);
-                    }
-                }
-            
-                // 2. HÀM CHUẨN HÓA ĐÁP ÁN
-                function normalizeAnswer(answer) {
-                    return answer.toLowerCase().trim()
-                        .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"")
-                        .replace(/\s{2,}/g," ");
-                }
-            
-                // 3. HÀM CHECK ĐÁP ÁN
-                function checkAnswer(questionNumber) {
-                    const inputId = 'answer-' + questionNumber;
-                    const feedbackId = 'feedback-' + questionNumber;
-                    const currentQuestionId = 'question-' + questionNumber;
-                    
-                    const userInput = document.getElementById(inputId).value;
-                    const feedbackElement = document.getElementById(feedbackId);
-                    const currentQuestionElement = document.getElementById(currentQuestionId);
-                    
-                    const normalizedInput = normalizeAnswer(userInput);
-                    const validAnswers = correctAnswers[questionNumber];
-                    let isCorrect = false;
-            
-                    for (const valid of validAnswers) {
-                        if (normalizedInput.includes(normalizeAnswer(valid))) {
-                            isCorrect = true;
-                            break;
-                        }
-                    }
-            
-                    if (isCorrect) {
-                        feedbackElement.style.color = '#2ecc71';
-                        feedbackElement.innerHTML = '<i class="fas fa-check"></i> Chính xác!';
-                        
-                        document.getElementById(inputId).disabled = true;
-                        currentQuestionElement.querySelector('.quiz-button').disabled = true;
-            
-                        const currentPercent = questionNumber * 20;
-                        submitProgress(currentPercent); 
-            
+                
+                    if (choice === correctAnswers[q]) {
+                        fb.style.color = "#2ecc71";
+                        fb.innerHTML = "✔ Chính xác!";
+                        lockQuestion(q);
+                        submitProgress(q * 20);
+                
                         setTimeout(() => {
-                            currentQuestionElement.style.display = 'none';
-            
-                            if (questionNumber < 5) {
-                                const nextQuestionId = 'question-' + (questionNumber + 1);
-                                const nextQuestionElement = document.getElementById(nextQuestionId);
-                                if (nextQuestionElement) {
-                                    nextQuestionElement.style.display = 'block';
-                                    document.getElementById('feedback-' + (questionNumber + 1)).innerHTML = '';
-                                }
+                            document.getElementById(`question-${q}`).style.display = "none";
+                            if (q < 5) {
+                                document.getElementById(`question-${q+1}`).style.display = "block";
                             } else {
-                                document.getElementById('completion-message').style.display = 'block';
-                                document.getElementById('quiz').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                                document.getElementById("completion-message").style.display = "block";
                             }
-                        }, 500);
-            
+                        }, 600);
                     } else {
-                        feedbackElement.style.color = '#e74c3c';
-                        feedbackElement.innerHTML = '<i class="fas fa-times"></i> Chưa chính xác. Vui lòng thử lại!';
+                        fb.style.color = "#e74c3c";
+                        fb.innerHTML = "✖ Chưa đúng, thử lại!";
                     }
                 }
-            
-                // 4. KHỞI TẠO
-                document.addEventListener('DOMContentLoaded', () => {
-                    const allQuestions = document.querySelectorAll('.question-block');
-                    allQuestions.forEach(q => { q.style.display = 'none'; });
-                    const firstQuestion = document.getElementById('question-1');
-                    if (firstQuestion) { firstQuestion.style.display = 'block'; }
+                
+                document.addEventListener("DOMContentLoaded", () => {
+                    document.querySelectorAll(".question-block").forEach(q => q.style.display = "none");
+                    document.getElementById("question-1").style.display = "block";
                 });
-            </script>
-            
+                </script>
+                            
             

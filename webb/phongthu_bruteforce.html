@@ -169,6 +169,36 @@
             cursor: pointer;
             font-weight: 600;
         }
+        .option-group {
+    margin: 15px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.option-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    border: 1px solid var(--border-light);
+    border-radius: 8px;
+    cursor: pointer;
+    background: #0f172a;
+    transition: 0.2s;
+}
+
+.option-item:hover {
+    background: #1e293b;
+}
+
+.option-item input {
+    transform: scale(1.2);
+}
+
+.quiz-button {
+    margin-top: 10px;
+}
     </style>
 </head>
 
@@ -305,171 +335,183 @@ Mở <b>Local Security Policy (secpol.msc)</b> →
         ✔ Chúc mừng! Bạn đã hoàn thành bài phòng thủ Brute Force!
     </div>
 
-    <!-- Q1 -->
-    <div id="question-1">
-        <h3>1. Account lockout threshold nên đặt là bao nhiêu?</h3>
-        <div class="input-group">
-            <input id="answer-1" class="quiz-input">
-            <button class="quiz-button" onclick="checkAnswer(1)">Check</button>
+    <!-- CÂU 1 -->
+    <div id="question-1" class="question-block">
+        <h3>1. Để chống lại việc dò mật khẩu bằng từ điển, người dùng nên làm gì?</h3>
+
+        <div class="option-group">
+            <label class="option-item">
+                <input type="radio" name="q1" value="A"> A. Đặt mật khẩu ngắn cho dễ nhớ
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q1" value="B"> B. Sử dụng mật khẩu phức tạp (chữ, số, ký tự đặc biệt)
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q1" value="C"> C. Dùng ngày sinh làm mật khẩu
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q1" value="D"> D. Không bao giờ đổi mật khẩu
+            </label>
         </div>
+
+        <button class="quiz-button" onclick="checkAnswer(1)">Check</button>
         <p id="feedback-1"></p>
     </div>
 
-    <!-- Q2 -->
-    <div id="question-2" style="display:none;">
-        <h3>2. Thời gian khóa tài khoản đề xuất là bao lâu?</h3>
-        <div class="input-group">
-            <input id="answer-2" class="quiz-input">
-            <button class="quiz-button" onclick="checkAnswer(2)">Check</button>
+    <!-- CÂU 2 -->
+    <div id="question-2" class="question-block" style="display:none;">
+        <h3>2. Tính năng nào tự động chặn đăng nhập sau nhiều lần nhập sai?</h3>
+
+        <div class="option-group">
+            <label class="option-item">
+                <input type="radio" name="q2" value="A"> A. Tự động đổi tên người dùng
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q2" value="B"> B. Tắt dịch vụ hệ thống
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q2" value="C"> C. Account Lockout
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q2" value="D"> D. Xóa tài khoản
+            </label>
         </div>
+
+        <button class="quiz-button" onclick="checkAnswer(2)">Check</button>
         <p id="feedback-2"></p>
     </div>
 
-    <!-- Q3 -->
-    <div id="question-3" style="display:none;">
-        <h3>3. Lệnh nào dùng để cập nhật chính sách?</h3>
-        <div class="input-group">
-            <input id="answer-3" class="quiz-input">
-            <button class="quiz-button" onclick="checkAnswer(3)">Check</button>
+    <!-- CÂU 3 -->
+    <div id="question-3" class="question-block" style="display:none;">
+        <h3>3. Xác thực đa yếu tố (MFA) yêu cầu thêm yếu tố nào?</h3>
+
+        <div class="option-group">
+            <label class="option-item">
+                <input type="radio" name="q3" value="A"> A. Single Sign-On
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q3" value="B"> B. Mã OTP / thiết bị thứ hai
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q3" value="C"> C. Firewall
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q3" value="D"> D. Antivirus
+            </label>
         </div>
+
+        <button class="quiz-button" onclick="checkAnswer(3)">Check</button>
         <p id="feedback-3"></p>
     </div>
 
-    <!-- Q4 -->
-    <div id="question-4" style="display:none;">
-        <h3>4. Audit logon events cần bật Success, Failure hay cả hai?</h3>
-        <div class="input-group">
-            <input id="answer-4" class="quiz-input">
-            <button class="quiz-button" onclick="checkAnswer(4)">Check</button>
+    <!-- CÂU 4 -->
+    <div id="question-4" class="question-block" style="display:none;">
+        <h3>4. Dấu hiệu nào trong log cho thấy Brute Force?</h3>
+
+        <div class="option-group">
+            <label class="option-item">
+                <input type="radio" name="q4" value="A"> A. Đăng nhập thành công nhiều lần
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q4" value="B"> B. Đăng nhập sai liên tục với nhiều mật khẩu
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q4" value="C"> C. Ổ cứng tăng dung lượng
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q4" value="D"> D. Máy tự update
+            </label>
         </div>
+
+        <button class="quiz-button" onclick="checkAnswer(4)">Check</button>
         <p id="feedback-4"></p>
     </div>
 
-    <!-- Q5 -->
-    <div id="question-5" style="display:none;">
-        <h3>5. Mục tiêu của Account Lockout Policy là gì?</h3>
-        <div class="input-group">
-            <input id="answer-5" class="quiz-input">
-            <button class="quiz-button" onclick="checkAnswer(5)">Check</button>
+    <!-- CÂU 5 -->
+    <div id="question-5" class="question-block" style="display:none;">
+        <h3>5. Cách giảm rủi ro bị quét SSH 22?</h3>
+
+        <div class="option-group">
+            <label class="option-item">
+                <input type="radio" name="q5" value="A"> A. Mở SSH cho mọi IP
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q5" value="B"> B. Đổi port SSH & cấm root login
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q5" value="C"> C. Không đặt mật khẩu
+            </label>
+            <label class="option-item">
+                <input type="radio" name="q5" value="D"> D. Tắt mã hóa
+            </label>
         </div>
+
+        <button class="quiz-button" onclick="checkAnswer(5)">Check</button>
         <p id="feedback-5"></p>
     </div>
-
 </div>
 
-</section>
-
-<footer style="text-align:center; padding:30px; color:var(--muted);">
-    © 2025 Cyber Ranges Platform
-</footer>
-
-</main>
-</div>
 <script>
-    // 1. CẤU HÌNH ĐÁP ÁN (có thể đổi nội dung cho phù hợp lab DHCP)
     const correctAnswers = {
-        1: ["..."],
-        2: ["..."],
-        3: ["..."],
-        4: ["..."],
-        5: ["..."]
+        1: "B",
+        2: "C",
+        3: "B",
+        4: "B",
+        5: "B"
     };
-    //--- HÀM GỬI TIẾN ĐỘ (NHẬN SỐ PHẦN TRĂM) ---
+    
+    function getSelected(questionNumber) {
+        const checked = document.querySelector(`input[name="q${questionNumber}"]:checked`);
+        return checked ? checked.value : "";
+    }
+    
     async function submitProgress(percent) {
         const username = localStorage.getItem("cyber_current_user");
-        
-        if (!username) {
-            console.log("Chưa đăng nhập, không lưu được.");
+        if (!username) return;
+    
+        await fetch('/api/submit-quiz', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                username,
+                labId: 'phongthu_brf',
+                progress: percent
+            })
+        });
+    }
+    
+    function checkAnswer(q) {
+        const feedback = document.getElementById(`feedback-${q}`);
+        const choice = getSelected(q);
+    
+        if (!choice) {
+            feedback.style.color = '#f39c12';
+            feedback.innerHTML = '⚠️ Vui lòng chọn đáp án!';
             return;
         }
-
-        try {
-            console.log(`Đang gửi tiến độ ${percent}% về Server...`);
-            
-            // 👇 CHỈ ĐỔI labId Ở ĐÂY
-            const response = await fetch('/api/submit-quiz', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ 
-                    username: username, 
-                    labId: 'phongthu_brf',   // <-- tên lab DHCP
-                    progress: percent 
-                })
-            });
-            const data = await response.json();
-            console.log("Server đã lưu:", data);
-
-        } catch (error) {
-            console.error("Lỗi kết nối Server:", error);
-        }
-    }
-
-    // 2. HÀM CHUẨN HÓA ĐÁP ÁN
-    function normalizeAnswer(answer) {
-        return answer.toLowerCase().trim()
-            .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"")
-            .replace(/\s{2,}/g," ");
-    }
-
-    // 3. HÀM CHECK ĐÁP ÁN
-    function checkAnswer(questionNumber) {
-        const inputId = 'answer-' + questionNumber;
-        const feedbackId = 'feedback-' + questionNumber;
-        const currentQuestionId = 'question-' + questionNumber;
-        
-        const userInput = document.getElementById(inputId).value;
-        const feedbackElement = document.getElementById(feedbackId);
-        const currentQuestionElement = document.getElementById(currentQuestionId);
-        
-        const normalizedInput = normalizeAnswer(userInput);
-        const validAnswers = correctAnswers[questionNumber];
-        let isCorrect = false;
-
-        for (const valid of validAnswers) {
-            if (normalizedInput.includes(normalizeAnswer(valid))) {
-                isCorrect = true;
-                break;
-            }
-        }
-
-        if (isCorrect) {
-            feedbackElement.style.color = '#2ecc71';
-            feedbackElement.innerHTML = '<i class="fas fa-check"></i> Chính xác!';
-            
-            document.getElementById(inputId).disabled = true;
-            currentQuestionElement.querySelector('.quiz-button').disabled = true;
-
-            const currentPercent = questionNumber * 20;
-            submitProgress(currentPercent); 
-
+    
+        if (choice === correctAnswers[q]) {
+            feedback.style.color = '#2ecc71';
+            feedback.innerHTML = '✔ Chính xác!';
+            submitProgress(q * 20);
+    
             setTimeout(() => {
-                currentQuestionElement.style.display = 'none';
-
-                if (questionNumber < 5) {
-                    const nextQuestionId = 'question-' + (questionNumber + 1);
-                    const nextQuestionElement = document.getElementById(nextQuestionId);
-                    if (nextQuestionElement) {
-                        nextQuestionElement.style.display = 'block';
-                        document.getElementById('feedback-' + (questionNumber + 1)).innerHTML = '';
-                    }
+                document.getElementById(`question-${q}`).style.display = 'none';
+                if (q < 5) {
+                    document.getElementById(`question-${q + 1}`).style.display = 'block';
                 } else {
                     document.getElementById('completion-message').style.display = 'block';
-                    document.getElementById('quiz').scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }
-            }, 500);
-
+            }, 600);
         } else {
-            feedbackElement.style.color = '#e74c3c';
-            feedbackElement.innerHTML = '<i class="fas fa-times"></i> Chưa chính xác. Vui lòng thử lại!';
+            feedback.style.color = '#e74c3c';
+            feedback.innerHTML = '✘ Chưa đúng, thử lại!';
         }
     }
-
-    // 4. KHỞI TẠO
+    
     document.addEventListener('DOMContentLoaded', () => {
-        const allQuestions = document.querySelectorAll('.question-block');
-        allQuestions.forEach(q => { q.style.display = 'none'; });
-        const firstQuestion = document.getElementById('question-1');
-        if (firstQuestion) { firstQuestion.style.display = 'block'; }
+        document.querySelectorAll('.question-block').forEach(q => q.style.display = 'none');
+        document.getElementById('question-1').style.display = 'block';
     });
-</script>
-
+    </script>
+    

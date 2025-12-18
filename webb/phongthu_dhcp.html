@@ -347,15 +347,16 @@ Show ip dhcp snooping
 
             <h2 id="quiz">📝 4. Quiz kiểm tra kiến thức</h2>
 
-            <div class="quiz-container" style="
+            <div class="quiz-container" id="quiz-anchor" style="
                 background: var(--bg-card);
                 padding: 30px;
                 border-radius: 12px;
                 margin-top: 25px;
                 border: 1px solid var(--border-light);
                 box-shadow: 0 0 12px rgba(63,169,245,0.25);
-            " id="quiz-anchor">
-
+            ">
+            
+                <!-- Hoàn thành -->
                 <div id="completion-message" style="
                     display:none;
                     padding:20px;
@@ -365,185 +366,151 @@ Show ip dhcp snooping
                     text-align:center;
                     font-size:18px;
                     font-weight:700;
-                    box-shadow:0 0 10px rgba(0,0,0,0.3);
                 ">
-                    <i class="fas fa-check-circle"></i> CHÚC MỪNG! BẠN ĐÃ HOÀN THÀNH BÀI LAB PHÒNG THỦ!
+                    ✔ CHÚC MỪNG! BẠN ĐÃ HOÀN THÀNH LAB DHCP SNOOPING!
                 </div>
-
+            
+                <!-- ================= CÂU 1 ================= -->
                 <div id="question-1" class="question-block">
-                    <h3>1. Khi kích hoạt DHCP Snooping, loại cổng nào chỉ cho phép gói DHCP OFFER/ACK đi qua?</h3>
-                    <p>Nhập tên loại cổng (tiếng Việt hoặc tiếng Anh).</p>
-
-                    <div class="input-group">
-                        <input type="text" id="answer-1" class="quiz-input" placeholder="Nhập tên loại cổng..." />
-                        <button class="quiz-button" onclick="checkAnswer(1)">Check</button>
+                    <h3>1. Lệnh nào dùng để bật DHCP Snooping cho VLAN 10?</h3>
+            
+                    <div class="option-group">
+                        <label><input type="radio" name="q1" value="A"> A. ip dhcp snooping vlan 10</label><br>
+                        <label><input type="radio" name="q1" value="B"> B. enable dhcp vlan 10</label><br>
+                        <label><input type="radio" name="q1" value="C"> C. service dhcp</label><br>
+                        <label><input type="radio" name="q1" value="D"> D. spanning-tree vlan 10</label>
                     </div>
-
-                    <p id="feedback-1" class="quiz-feedback"></p>
+            
+                    <button class="quiz-button" onclick="checkAnswer(1)">Check</button>
+                    <p id="feedback-1"></p>
                 </div>
-
+            
+                <!-- ================= CÂU 2 ================= -->
                 <div id="question-2" class="question-block" style="display:none;">
-                    <h3>2. Lệnh nào được dùng để giới hạn số lượng gói DHCP trên cổng không tin cậy?</h3>
-                    <p>Nhập tên đầy đủ hoặc một phần quan trọng của lệnh.</p>
-
-                    <div class="input-group">
-                        <input type="text" id="answer-2" class="quiz-input" placeholder="Nhập tên lệnh..." />
-                        <button class="quiz-button" onclick="checkAnswer(2)">Check</button>
+                    <h3>2. Điều gì xảy ra khi cổng Untrusted nhận gói DHCP OFFER?</h3>
+            
+                    <div class="option-group">
+                        <label><input type="radio" name="q2" value="A"> A. Switch chuyển tiếp bình thường</label><br>
+                        <label><input type="radio" name="q2" value="B"> B. Switch ưu tiên gói tin</label><br>
+                        <label><input type="radio" name="q2" value="C"> C. Switch drop gói tin, có thể err-disable</label><br>
+                        <label><input type="radio" name="q2" value="D"> D. Gửi gói tin lên Router</label>
                     </div>
-
-                    <p id="feedback-2" class="quiz-feedback"></p>
+            
+                    <button class="quiz-button" onclick="checkAnswer(2)">Check</button>
+                    <p id="feedback-2"></p>
                 </div>
-
+            
+                <!-- ================= CÂU 3 ================= -->
                 <div id="question-3" class="question-block" style="display:none;">
-                    <h3>3. Chức năng giới hạn tốc độ gói DHCP giúp ngăn chặn hình thức tấn công nào?</h3>
-                    <p>Trả lời bằng tên đầy đủ hoặc viết tắt.</p>
-
-                    <div class="input-group">
-                        <input type="text" id="answer-3" class="quiz-input" placeholder="Nhập tên tấn công..." />
-                        <button class="quiz-button" onclick="checkAnswer(3)">Check</button>
+                    <h3>3. Cổng nào BẮT BUỘC phải cấu hình Trusted?</h3>
+            
+                    <div class="option-group">
+                        <label><input type="radio" name="q3" value="A"> A. Máy người dùng</label><br>
+                        <label><input type="radio" name="q3" value="B"> B. Máy chủ DHCP thật</label><br>
+                        <label><input type="radio" name="q3" value="C"> C. Máy tấn công</label><br>
+                        <label><input type="radio" name="q3" value="D"> D. Máy in mạng</label>
                     </div>
-
-                    <p id="feedback-3" class="quiz-feedback"></p>
+            
+                    <button class="quiz-button" onclick="checkAnswer(3)">Check</button>
+                    <p id="feedback-3"></p>
                 </div>
-
+            
+                <!-- ================= CÂU 4 ================= -->
                 <div id="question-4" class="question-block" style="display:none;">
-                    <h3>4. Tên gọi cho máy chủ DHCP bất hợp pháp trong mạng là gì?</h3>
-
-                    <div class="input-group">
-                        <input type="text" id="answer-4" class="quiz-input" placeholder="Nhập tên gọi (tiếng Anh)..." />
-                        <button class="quiz-button" onclick="checkAnswer(4)">Check</button>
+                    <h3>4. Lệnh ip dhcp snooping limit rate giúp chống lại điều gì?</h3>
+            
+                    <div class="option-group">
+                        <label><input type="radio" name="q4" value="A"> A. Giới hạn băng thông Internet</label><br>
+                        <label><input type="radio" name="q4" value="B"> B. Chống DoS bằng flood DHCP</label><br>
+                        <label><input type="radio" name="q4" value="C"> C. Giới hạn IP được cấp</label><br>
+                        <label><input type="radio" name="q4" value="D"> D. Tăng tốc cấp phát IP</label>
                     </div>
-
-                    <p id="feedback-4" class="quiz-feedback"></p>
+            
+                    <button class="quiz-button" onclick="checkAnswer(4)">Check</button>
+                    <p id="feedback-4"></p>
                 </div>
-
+            
+                <!-- ================= CÂU 5 ================= -->
                 <div id="question-5" class="question-block" style="display:none;">
-                    <h3>5. Khi số lượng gói DHCP trên cổng không tin cậy vượt quá ngưỡng, Switch sẽ đưa cổng đó vào trạng thái nào?</h3>
-
-                    <div class="input-group">
-                        <input type="text" id="answer-5" class="quiz-input" placeholder="Nhập trạng thái (tiếng Anh)..." />
-                        <button class="quiz-button" onclick="checkAnswer(5)">Check</button>
+                    <h3>5. Lệnh nào dùng để kiểm tra trạng thái DHCP Snooping?</h3>
+            
+                    <div class="option-group">
+                        <label><input type="radio" name="q5" value="A"> A. show ip interface brief</label><br>
+                        <label><input type="radio" name="q5" value="B"> B. show running-config</label><br>
+                        <label><input type="radio" name="q5" value="C"> C. show ip dhcp snooping</label><br>
+                        <label><input type="radio" name="q5" value="D"> D. show arp inspection</label>
                     </div>
-
-                    <p id="feedback-5" class="quiz-feedback"></p>
+            
+                    <button class="quiz-button" onclick="checkAnswer(5)">Check</button>
+                    <p id="feedback-5"></p>
                 </div>
-
+            
             </div>
-
-
-            <div style="margin-top:60px; border-top:1px solid var(--border-light); padding-top:20px; text-align:center; color:var(--muted);">
-                © 2025 Cyber Ranges Platform
-            </div>
-
-
+            
             <script>
-                // 1. CẤU HÌNH ĐÁP ÁN (có thể đổi nội dung cho phù hợp lab DHCP)
-                const correctAnswers = {
-                    1: ["..."],
-                    2: ["..."],
-                    3: ["..."],
-                    4: ["..."],
-                    5: ["..."]
-                };
+            /* ===== ĐÁP ÁN ===== */
+            const correctAnswers = {
+                1: "A",
+                2: "C",
+                3: "B",
+                4: "B",
+                5: "C"
+            };
             
-                // --- HÀM GỬI TIẾN ĐỘ (NHẬN SỐ PHẦN TRĂM) ---
-                async function submitProgress(percent) {
-                    const username = localStorage.getItem("cyber_current_user");
-                    
-                    if (!username) {
-                        console.log("Chưa đăng nhập, không lưu được.");
-                        return;
-                    }
+            /* ===== GỬI TIẾN ĐỘ ===== */
+            async function submitProgress(percent) {
+                const username = localStorage.getItem("cyber_current_user");
+                if (!username) return;
             
-                    try {
-                        console.log(`Đang gửi tiến độ ${percent}% về Server...`);
-                        
-                        // 👇 CHỈ ĐỔI labId Ở ĐÂY
-                        const response = await fetch('/api/submit-quiz', {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({ 
-                                username: username, 
-                                labId: 'phongthu_arp',   // <-- tên lab DHCP
-                                progress: percent 
-                            })
-                        });
-            
-                        const data = await response.json();
-                        console.log("Server đã lưu:", data);
-            
-                    } catch (error) {
-                        console.error("Lỗi kết nối Server:", error);
-                    }
-                }
-            
-                // 2. HÀM CHUẨN HÓA ĐÁP ÁN
-                function normalizeAnswer(answer) {
-                    return answer.toLowerCase().trim()
-                        .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"")
-                        .replace(/\s{2,}/g," ");
-                }
-            
-                // 3. HÀM CHECK ĐÁP ÁN
-                function checkAnswer(questionNumber) {
-                    const inputId = 'answer-' + questionNumber;
-                    const feedbackId = 'feedback-' + questionNumber;
-                    const currentQuestionId = 'question-' + questionNumber;
-                    
-                    const userInput = document.getElementById(inputId).value;
-                    const feedbackElement = document.getElementById(feedbackId);
-                    const currentQuestionElement = document.getElementById(currentQuestionId);
-                    
-                    const normalizedInput = normalizeAnswer(userInput);
-                    const validAnswers = correctAnswers[questionNumber];
-                    let isCorrect = false;
-            
-                    for (const valid of validAnswers) {
-                        if (normalizedInput.includes(normalizeAnswer(valid))) {
-                            isCorrect = true;
-                            break;
-                        }
-                    }
-            
-                    if (isCorrect) {
-                        feedbackElement.style.color = '#2ecc71';
-                        feedbackElement.innerHTML = '<i class="fas fa-check"></i> Chính xác!';
-                        
-                        document.getElementById(inputId).disabled = true;
-                        currentQuestionElement.querySelector('.quiz-button').disabled = true;
-            
-                        const currentPercent = questionNumber * 20;
-                        submitProgress(currentPercent); 
-            
-                        setTimeout(() => {
-                            currentQuestionElement.style.display = 'none';
-            
-                            if (questionNumber < 5) {
-                                const nextQuestionId = 'question-' + (questionNumber + 1);
-                                const nextQuestionElement = document.getElementById(nextQuestionId);
-                                if (nextQuestionElement) {
-                                    nextQuestionElement.style.display = 'block';
-                                    document.getElementById('feedback-' + (questionNumber + 1)).innerHTML = '';
-                                }
-                            } else {
-                                document.getElementById('completion-message').style.display = 'block';
-                                document.getElementById('quiz').scrollIntoView({ behavior: 'smooth', block: 'start' });
-                            }
-                        }, 500);
-            
-                    } else {
-                        feedbackElement.style.color = '#e74c3c';
-                        feedbackElement.innerHTML = '<i class="fas fa-times"></i> Chưa chính xác. Vui lòng thử lại!';
-                    }
-                }
-            
-                // 4. KHỞI TẠO
-                document.addEventListener('DOMContentLoaded', () => {
-                    const allQuestions = document.querySelectorAll('.question-block');
-                    allQuestions.forEach(q => { q.style.display = 'none'; });
-                    const firstQuestion = document.getElementById('question-1');
-                    if (firstQuestion) { firstQuestion.style.display = 'block'; }
+                await fetch('/api/submit-quiz', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        username,
+                        labId: 'dhcp_snooping_defense',
+                        progress: percent
+                    })
                 });
-            </script>
+            }
             
+            /* ===== LẤY ĐÁP ÁN ===== */
+            function getChoice(q) {
+                const el = document.querySelector(`input[name="q${q}"]:checked`);
+                return el ? el.value : null;
+            }
+            
+            /* ===== CHECK ===== */
+            function checkAnswer(q) {
+                const feedback = document.getElementById(`feedback-${q}`);
+                const choice = getChoice(q);
+            
+                if (!choice) {
+                    feedback.style.color = '#f1c40f';
+                    feedback.innerHTML = '⚠️ Vui lòng chọn đáp án!';
+                    return;
+                }
+            
+                if (choice === correctAnswers[q]) {
+                    feedback.style.color = '#2ecc71';
+                    feedback.innerHTML = '✔ Chính xác!';
+            
+                    document.querySelectorAll(`input[name="q${q}"]`).forEach(i => i.disabled = true);
+            
+                    submitProgress(q * 20);
+            
+                    setTimeout(() => {
+                        document.getElementById(`question-${q}`).style.display = 'none';
+                        if (q < 5) {
+                            document.getElementById(`question-${q+1}`).style.display = 'block';
+                        } else {
+                            document.getElementById('completion-message').style.display = 'block';
+                            document.getElementById('quiz-anchor').scrollIntoView({behavior:'smooth'});
+                        }
+                    }, 600);
+                } else {
+                    feedback.style.color = '#e74c3c';
+                    feedback.innerHTML = '✖ Chưa đúng, thử lại!';
+                }
+            }
+            </script>
             
