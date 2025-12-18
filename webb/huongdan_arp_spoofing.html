@@ -413,189 +413,266 @@
 
                 ---
                 
-                <h2 id="quiz">📝 V. Quiz kiểm tra kiến thức</h2>
+               <h2 id="quiz">📝 V. Quiz kiểm tra kiến thức</h2>
 
-                <div class="quiz-container" style="background: var(--bg-card); padding: 30px; border-radius: 10px; margin-top: 25px; border: 1px solid var(--border-light);">
-                    
-                    <div id="completion-message" style="display: none; padding: 20px; background: #2ecc71; color: white; border-radius: 8px; text-align: center; font-size: 18px; font-weight: 700;">
-                        <i class="fas fa-check-circle"></i> CHÚC MỪNG! BẠN ĐÃ HOÀN THÀNH BÀI LAB THÀNH CÔNG!
-                    </div>
+<div class="quiz-container" style="background: var(--bg-card); padding: 30px; border-radius: 10px; margin-top: 25px; border: 1px solid var(--border-light);">
 
-                    <div id="question-1" class="question-block">
-                        <h3>1. Tấn công ARP Spoofing</h3>
-                        <p>Địa chỉ MAC của thiết bị nào được sử dụng để đầu độc cả Router và Nạn nhân?</p>
-                        <div class="input-group">
-                            <input type="text" id="answer-1" class="quiz-input" placeholder="Nhập MAC hoặc tên máy...">
-                            <button class="quiz-button" onclick="checkAnswer(1)">Check</button>
-                        </div>
-                        <p id="feedback-1" style="margin-top: 10px; color: #e74c3c; font-weight: 600;"></p>
-                    </div>
-
-                    <div id="question-2" class="question-block" style="display:none;">
-                        <h3>2. Mục tiêu chính</h3>
-                        <p>Mục tiêu chính của cuộc tấn công ARP Spoofing để nghe lén là gì? (Nhập tên kỹ thuật 4 từ)</p>
-                        <div class="input-group">
-                            <input type="text" id="answer-2" class="quiz-input" placeholder="Nhập tên kỹ thuật...">
-                            <button class="quiz-button" onclick="checkAnswer(2)">Check</button>
-                        </div>
-                        <p id="feedback-2" style="margin-top: 10px; color: #e74c3c; font-weight: 600;"></p>
-                    </div>
-
-                    <div id="question-3" class="question-block" style="display:none;">
-                        <h3>3. IP Forwarding</h3>
-                        <p>Lệnh `echo 1 > /proc/sys/net/ipv4/ip_forward` dùng để làm gì?</p>
-                        <div class="input-group">
-                            <input type="text" id="answer-3" class="quiz-input" placeholder="Nhập chức năng...">
-                            <button class="quiz-button" onclick="checkAnswer(3)">Check</button>
-                        </div>
-                        <p id="feedback-3" style="margin-top: 10px; color: #e74c3c; font-weight: 600;"></p>
-                    </div>
-
-                    <div id="question-4" class="question-block" style="display:none;">
-                        <h3>4. Cơ chế Phòng chống</h3>
-                        <p>Tính năng nào trên Switch kiểm tra gói tin ARP bằng cách so sánh với Binding Table?</p>
-                        <div class="input-group">
-                            <input type="text" id="answer-4" class="quiz-input" placeholder="Nhập tên cơ chế (viết tắt hoặc đầy đủ)...">
-                            <button class="quiz-button" onclick="checkAnswer(4)">Check</button>
-                        </div>
-                        <p id="feedback-4" style="margin-top: 10px; color: #e74c3c; font-weight: 600;"></p>
-                    </div>
-
-                    <div id="question-5" class="question-block" style="display:none;">
-                        <h3>5. Cơ sở dữ liệu</h3>
-                        <p>Binding Table được xây dựng bởi tính năng bảo mật nào trên Switch?</p>
-                        <div class="input-group">
-                            <input type="text" id="answer-5" class="quiz-input" placeholder="Nhập tên cơ chế (viết tắt hoặc đầy đủ)...">
-                            <button class="quiz-button" onclick="checkAnswer(5)">Check</button>
-                        </div>
-                        <p id="feedback-5" style="margin-top: 10px; color: #e74c3c; font-weight: 600;"></p>
-                    </div>
-
-                </div>
-                <div style="margin-top: 50px; border-top: 1px solid var(--border-light); padding-top: 20px; font-size: 14px; text-align: center; color: var(--muted);">
-                    &copy; 2025 Cyber Ranges Platform. All rights reserved.
-                </div>
-
-            </section>
-        </main>
+    <div id="completion-message" style="display: none; padding: 20px; background: #2ecc71; color: white; border-radius: 8px; text-align: center; font-size: 18px; font-weight: 700;">
+        <i class="fas fa-check-circle"></i> CHÚC MỪNG! BẠN ĐÃ HOÀN THÀNH BÀI LAB THÀNH CÔNG!
     </div>
 
-    <script>
-        // 1. CẤU HÌNH ĐÁP ÁN
-        const correctAnswers = {
-            1: ["00:0c:29:5b:cc:f0", "mac của kali", "kali linux", "máy tấn công", "attacker"],
-            2: ["man-in-the-middle", "man in the middle", "nghe lén"],
-            3: ["chuyển tiếp gói tin", "ip forwarding", "trạm trung chuyển", "forwarding"],
-            4: ["dynamic arp inspection", "dai", "dai inspection"],
-            5: ["dhcp snooping", "dhcp snooping"]
-        };
-    
-        // --- HÀM GỬI TIẾN ĐỘ (NHẬN SỐ PHẦN TRĂM) ---
-        async function submitProgress(percent) {
-            const username = localStorage.getItem("cyber_current_user");
-            
-            if (!username) {
-                console.log("Chưa đăng nhập, không lưu được.");
-                return;
-            }
-    
-            try {
-                console.log(`Đang gửi tiến độ ${percent}% về Server...`);
-                
-                // Gửi số % cụ thể về Server
-                const response = await fetch('/api/submit-quiz', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ 
-                        username: username, 
-                        labId: 'arp_spoofing', 
-                        progress: percent 
-                    })
-                });
-    
-                const data = await response.json();
-                console.log("Server đã lưu:", data);
-    
-            } catch (error) {
-                console.error("Lỗi kết nối Server:", error);
-            }
+    <!-- CÂU 1 -->
+    <div id="question-1" class="question-block">
+        <h3>1. Tấn công ARP Spoofing</h3>
+        <p>Địa chỉ MAC của thiết bị nào được sử dụng để đầu độc cả Router và Nạn nhân?</p>
+
+        <div class="mcq-group" style="margin-top: 12px;">
+            <label class="mcq-option" style="display:block; margin: 10px 0; cursor:pointer;">
+                <input type="radio" name="q1" value="A"> A. MAC của Router (Gateway)
+            </label>
+            <label class="mcq-option" style="display:block; margin: 10px 0; cursor:pointer;">
+                <input type="radio" name="q1" value="B"> B. MAC của máy Kali (Attacker)
+            </label>
+            <label class="mcq-option" style="display:block; margin: 10px 0; cursor:pointer;">
+                <input type="radio" name="q1" value="C"> C. MAC của máy nạn nhân (Victim)
+            </label>
+            <label class="mcq-option" style="display:block; margin: 10px 0; cursor:pointer;">
+                <input type="radio" name="q1" value="D"> D. MAC của Switch
+            </label>
+        </div>
+
+        <div class="input-group" style="margin-top: 15px;">
+            <button class="quiz-button" onclick="checkAnswer(1)">Check</button>
+        </div>
+        <p id="feedback-1" style="margin-top: 10px; color: #e74c3c; font-weight: 600;"></p>
+    </div>
+
+    <!-- CÂU 2 -->
+    <div id="question-2" class="question-block" style="display:none;">
+        <h3>2. Mục tiêu chính</h3>
+        <p>Mục tiêu chính của cuộc tấn công ARP Spoofing để nghe lén là gì?</p>
+
+        <div class="mcq-group" style="margin-top: 12px;">
+            <label class="mcq-option" style="display:block; margin: 10px 0; cursor:pointer;">
+                <input type="radio" name="q2" value="A"> A. DoS làm sập mạng
+            </label>
+            <label class="mcq-option" style="display:block; margin: 10px 0; cursor:pointer;">
+                <input type="radio" name="q2" value="B"> B. Man-in-the-Middle (MITM) để nghe lén/chiếm luồng
+            </label>
+            <label class="mcq-option" style="display:block; margin: 10px 0; cursor:pointer;">
+                <input type="radio" name="q2" value="C"> C. Tấn công Brute Force
+            </label>
+            <label class="mcq-option" style="display:block; margin: 10px 0; cursor:pointer;">
+                <input type="radio" name="q2" value="D"> D. DNS Spoofing đổi domain
+            </label>
+        </div>
+
+        <div class="input-group" style="margin-top: 15px;">
+            <button class="quiz-button" onclick="checkAnswer(2)">Check</button>
+        </div>
+        <p id="feedback-2" style="margin-top: 10px; color: #e74c3c; font-weight: 600;"></p>
+    </div>
+
+    <!-- CÂU 3 -->
+    <div id="question-3" class="question-block" style="display:none;">
+        <h3>3. IP Forwarding</h3>
+        <p>Lệnh <code>echo 1 &gt; /proc/sys/net/ipv4/ip_forward</code> dùng để làm gì?</p>
+
+        <div class="mcq-group" style="margin-top: 12px;">
+            <label class="mcq-option" style="display:block; margin: 10px 0; cursor:pointer;">
+                <input type="radio" name="q3" value="A"> A. Tắt card mạng
+            </label>
+            <label class="mcq-option" style="display:block; margin: 10px 0; cursor:pointer;">
+                <input type="radio" name="q3" value="B"> B. Bật chuyển tiếp gói tin (IP forwarding) để máy làm trung gian
+            </label>
+            <label class="mcq-option" style="display:block; margin: 10px 0; cursor:pointer;">
+                <input type="radio" name="q3" value="C"> C. Xóa ARP cache
+            </label>
+            <label class="mcq-option" style="display:block; margin: 10px 0; cursor:pointer;">
+                <input type="radio" name="q3" value="D"> D. Đổi DNS server
+            </label>
+        </div>
+
+        <div class="input-group" style="margin-top: 15px;">
+            <button class="quiz-button" onclick="checkAnswer(3)">Check</button>
+        </div>
+        <p id="feedback-3" style="margin-top: 10px; color: #e74c3c; font-weight: 600;"></p>
+    </div>
+
+    <!-- CÂU 4 -->
+    <div id="question-4" class="question-block" style="display:none;">
+        <h3>4. Cơ chế Phòng chống</h3>
+        <p>Tính năng nào trên Switch kiểm tra gói tin ARP bằng cách so sánh với Binding Table?</p>
+
+        <div class="mcq-group" style="margin-top: 12px;">
+            <label class="mcq-option" style="display:block; margin: 10px 0; cursor:pointer;">
+                <input type="radio" name="q4" value="A"> A. Port Security
+            </label>
+            <label class="mcq-option" style="display:block; margin: 10px 0; cursor:pointer;">
+                <input type="radio" name="q4" value="B"> B. Dynamic ARP Inspection (DAI)
+            </label>
+            <label class="mcq-option" style="display:block; margin: 10px 0; cursor:pointer;">
+                <input type="radio" name="q4" value="C"> C. STP
+            </label>
+            <label class="mcq-option" style="display:block; margin: 10px 0; cursor:pointer;">
+                <input type="radio" name="q4" value="D"> D. VLAN Trunking
+            </label>
+        </div>
+
+        <div class="input-group" style="margin-top: 15px;">
+            <button class="quiz-button" onclick="checkAnswer(4)">Check</button>
+        </div>
+        <p id="feedback-4" style="margin-top: 10px; color: #e74c3c; font-weight: 600;"></p>
+    </div>
+
+    <!-- CÂU 5 -->
+    <div id="question-5" class="question-block" style="display:none;">
+        <h3>5. Cơ sở dữ liệu</h3>
+        <p>Binding Table được xây dựng bởi tính năng bảo mật nào trên Switch?</p>
+
+        <div class="mcq-group" style="margin-top: 12px;">
+            <label class="mcq-option" style="display:block; margin: 10px 0; cursor:pointer;">
+                <input type="radio" name="q5" value="A"> A. DHCP Snooping
+            </label>
+            <label class="mcq-option" style="display:block; margin: 10px 0; cursor:pointer;">
+                <input type="radio" name="q5" value="B"> B. ARP Spoofing
+            </label>
+            <label class="mcq-option" style="display:block; margin: 10px 0; cursor:pointer;">
+                <input type="radio" name="q5" value="C"> C. NAT
+            </label>
+            <label class="mcq-option" style="display:block; margin: 10px 0; cursor:pointer;">
+                <input type="radio" name="q5" value="D"> D. DNS Cache
+            </label>
+        </div>
+
+        <div class="input-group" style="margin-top: 15px;">
+            <button class="quiz-button" onclick="checkAnswer(5)">Check</button>
+        </div>
+        <p id="feedback-5" style="margin-top: 10px; color: #e74c3c; font-weight: 600;"></p>
+    </div>
+
+</div>
+
+<div style="margin-top: 50px; border-top: 1px solid var(--border-light); padding-top: 20px; font-size: 14px; text-align: center; color: var(--muted);">
+    &copy; 2025 Cyber Ranges Platform. All rights reserved.
+</div>
+
+</section>
+</main>
+</div>
+
+<script>
+    // 1) ĐÁP ÁN ĐÚNG (TRẮC NGHIỆM)
+    // Mỗi câu đúng 1 lựa chọn: A/B/C/D
+    const correctAnswers = {
+        1: "B",
+        2: "B",
+        3: "B",
+        4: "B",
+        5: "A"
+    };
+
+    // --- HÀM GỬI TIẾN ĐỘ (NHẬN SỐ PHẦN TRĂM) ---
+    async function submitProgress(percent) {
+        const username = localStorage.getItem("cyber_current_user");
+
+        if (!username) {
+            console.log("Chưa đăng nhập, không lưu được.");
+            return;
         }
-    
-        // 2. HÀM CHUẨN HÓA ĐÁP ÁN
-        function normalizeAnswer(answer) {
-            return answer.toLowerCase().trim().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"").replace(/\s{2,}/g," ");
+
+        try {
+            console.log(`Đang gửi tiến độ ${percent}% về Server...`);
+
+            const response = await fetch('/api/submit-quiz', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    username: username,
+                    labId: 'arp_spoofing',
+                    progress: percent
+                })
+            });
+
+            const data = await response.json();
+            console.log("Server đã lưu:", data);
+
+        } catch (error) {
+            console.error("Lỗi kết nối Server:", error);
         }
-    
-        // 3. HÀM CHECK ĐÁP ÁN (ĐÃ SỬA ĐỂ GỬI ĐIỂM TỪNG CÂU)
-        function checkAnswer(questionNumber) {
-            const inputId = 'answer-' + questionNumber;
-            const feedbackId = 'feedback-' + questionNumber;
-            const currentQuestionId = 'question-' + questionNumber;
-            
-            const userInput = document.getElementById(inputId).value;
-            const feedbackElement = document.getElementById(feedbackId);
-            const currentQuestionElement = document.getElementById(currentQuestionId);
-            
-            const normalizedInput = normalizeAnswer(userInput);
-            const validAnswers = correctAnswers[questionNumber];
-            let isCorrect = false;
-    
-            for (const valid of validAnswers) {
-                if (normalizedInput.includes(normalizeAnswer(valid))) {
-                    isCorrect = true;
-                    break;
-                }
-            }
-    
-            if (isCorrect) {
-                // --- XỬ LÝ KHI ĐÚNG ---
-                feedbackElement.style.color = '#2ecc71';
-                feedbackElement.innerHTML = '<i class="fas fa-check"></i> Chính xác!';
-                
-                // Khóa nút lại
-                document.getElementById(inputId).disabled = true;
-                currentQuestionElement.querySelector('.quiz-button').disabled = true;
-    
-                // 👉 TÍNH TOÁN VÀ GỬI ĐIỂM NGAY LẬP TỨC 👈
-                // Câu 1 đúng -> 20%, Câu 2 đúng -> 40%...
-                const currentPercent = questionNumber * 20;
-                submitProgress(currentPercent); 
-    
-                
-                // Chuyển câu hỏi sau 0.5 giây
-                setTimeout(() => {
-                    currentQuestionElement.style.display = 'none';
-    
-                    if (questionNumber < 5) {
-                        // Hiện câu tiếp theo
-                        const nextQuestionId = 'question-' + (questionNumber + 1);
-                        const nextQuestionElement = document.getElementById(nextQuestionId);
-                        if (nextQuestionElement) {
-                            nextQuestionElement.style.display = 'block';
-                            document.getElementById('feedback-' + (questionNumber + 1)).innerHTML = '';
-                        }
-                    } else {
-                        // Nếu là câu cuối cùng (Câu 5)
-                        document.getElementById('completion-message').style.display = 'block';
-                        document.getElementById('quiz').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    // 2) LẤY ĐÁP ÁN NGƯỜI DÙNG ĐÃ CHỌN (RADIO)
+    function getSelectedOption(questionNumber) {
+        const name = 'q' + questionNumber;
+        const checked = document.querySelector(`input[name="${name}"]:checked`);
+        return checked ? checked.value : null; // "A"/"B"/"C"/"D" hoặc null
+    }
+
+    // 3) KHÓA CÂU HỎI SAU KHI TRẢ LỜI ĐÚNG
+    function lockQuestion(questionNumber) {
+        const radios = document.querySelectorAll(`input[name="q${questionNumber}"]`);
+        radios.forEach(r => r.disabled = true);
+
+        const currentQuestionElement = document.getElementById('question-' + questionNumber);
+        const btn = currentQuestionElement.querySelector('.quiz-button');
+        if (btn) btn.disabled = true;
+    }
+
+    // 4) CHECK ĐÁP ÁN + GỬI TIẾN ĐỘ
+    function checkAnswer(questionNumber) {
+        const feedbackElement = document.getElementById('feedback-' + questionNumber);
+        const currentQuestionElement = document.getElementById('question-' + questionNumber);
+
+        const selected = getSelectedOption(questionNumber);
+        if (!selected) {
+            feedbackElement.style.color = '#e74c3c';
+            feedbackElement.innerHTML = '<i class="fas fa-times"></i> Bạn chưa chọn đáp án!';
+            return;
+        }
+
+        const isCorrect = (selected === correctAnswers[questionNumber]);
+
+        if (isCorrect) {
+            feedbackElement.style.color = '#2ecc71';
+            feedbackElement.innerHTML = '<i class="fas fa-check"></i> Chính xác!';
+
+            lockQuestion(questionNumber);
+
+            // Câu 1 đúng -> 20%, ... Câu 5 -> 100%
+            const currentPercent = questionNumber * 20;
+            submitProgress(currentPercent);
+
+            setTimeout(() => {
+                currentQuestionElement.style.display = 'none';
+
+                if (questionNumber < 5) {
+                    const nextQuestionElement = document.getElementById('question-' + (questionNumber + 1));
+                    if (nextQuestionElement) {
+                        nextQuestionElement.style.display = 'block';
+                        document.getElementById('feedback-' + (questionNumber + 1)).innerHTML = '';
                     }
-                }, 500);
-    
-            } else {
-                // --- XỬ LÝ KHI SAI ---
-                feedbackElement.style.color = '#e74c3c';
-                feedbackElement.innerHTML = '<i class="fas fa-times"></i> Chưa chính xác. Vui lòng thử lại!';
-            }
+                } else {
+                    document.getElementById('completion-message').style.display = 'block';
+                    document.getElementById('quiz').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }, 500);
+
+        } else {
+            feedbackElement.style.color = '#e74c3c';
+            feedbackElement.innerHTML = '<i class="fas fa-times"></i> Chưa chính xác. Vui lòng thử lại!';
         }
-    
-        // 4. KHỞI TẠO
-        document.addEventListener('DOMContentLoaded', () => {
-            const allQuestions = document.querySelectorAll('.question-block');
-            allQuestions.forEach(q => { q.style.display = 'none'; });
-            const firstQuestion = document.getElementById('question-1');
-            if (firstQuestion) { firstQuestion.style.display = 'block'; }
-        });
-    </script>
+    }
+
+    // 5) KHỞI TẠO
+    document.addEventListener('DOMContentLoaded', () => {
+        const allQuestions = document.querySelectorAll('.question-block');
+        allQuestions.forEach(q => { q.style.display = 'none'; });
+
+        const firstQuestion = document.getElementById('question-1');
+        if (firstQuestion) firstQuestion.style.display = 'block';
+    });
+</script>
 
 </body>
 </html>

@@ -261,174 +261,224 @@ hydra -L user.txt -P custom_pass.txt 192.168.247.138 smb
             <!-- QUIZ -->
             <h2 id="quiz">📝 V. Quiz kiểm tra kiến thức</h2>
 
-            <div style="background:#1a2332;padding:30px;border-radius:10px;">
-
-                <div id="completion-message"
-                    style="display:none;background:#27ae60;padding:20px;color:white;text-align:center;border-radius:10px;font-size:18px;">
-                    🎉 Bạn đã hoàn thành quiz!
-                </div>
-
-                <!-- Q1 -->
-                <div id="question-1">
-                    <h3>1. Hydra đang brute-force dịch vụ nào?</h3>
-                    <input id="answer-1" class="quiz-input">
-                    <button class="quiz-button" onclick="checkAnswer(1)">Check</button>
-                    <p id="feedback-1"></p>
-                </div>
-
-                <!-- Q2 -->
-                <div id="question-2" style="display:none;">
-                    <h3>2. File chứa danh sách user tên là gì?</h3>
-                    <input id="answer-2" class="quiz-input">
-                    <button class="quiz-button" onclick="checkAnswer(2)">Check</button>
-                    <p id="feedback-2"></p>
-                </div>
-
-                <!-- Q3 -->
-                <div id="question-3" style="display:none;">
-                    <h3>3. Công cụ nào dùng để brute-force?</h3>
-                    <input id="answer-3" class="quiz-input">
-                    <button class="quiz-button" onclick="checkAnswer(3)">Check</button>
-                    <p id="feedback-3"></p>
-                </div>
-
-                <!-- Q4 -->
-                <div id="question-4" style="display:none;">
-                    <h3>4. Port SMB mặc định là bao nhiêu?</h3>
-                    <input id="answer-4" class="quiz-input">
-                    <button class="quiz-button" onclick="checkAnswer(4)">Check</button>
-                    <p id="feedback-4"></p>
-                </div>
-
-                <!-- Q5 -->
-                <div id="question-5" style="display:none;">
-                    <h3>5. Mục tiêu brute-force trong bài lab là máy nào?</h3>
-                    <input id="answer-5" class="quiz-input">
-                    <button class="quiz-button" onclick="checkAnswer(5)">Check</button>
-                    <p id="feedback-5"></p>
-                </div>
-
+            <div class="quiz-container" style="background:#1a2332;padding:30px;border-radius:10px; border:1px solid rgba(255,255,255,.08);">
+            
+              <div id="completion-message"
+                  style="display:none;background:#27ae60;padding:20px;color:white;text-align:center;border-radius:10px;font-size:18px;font-weight:700;">
+                  🎉 Bạn đã hoàn thành quiz!
+              </div>
+            
+              <!-- Q1 -->
+              <div id="question-1" class="question-block">
+                <h3>1. Hydra đang brute-force dịch vụ nào?</h3>
+            
+                <label style="display:block;margin:10px 0;">
+                  <input type="radio" name="q1" value="a"> A. HTTP
+                </label>
+                <label style="display:block;margin:10px 0;">
+                  <input type="radio" name="q1" value="b"> B. SSH
+                </label>
+                <label style="display:block;margin:10px 0;">
+                  <input type="radio" name="q1" value="c"> C. FTP
+                </label>
+                <label style="display:block;margin:10px 0;">
+                  <input type="radio" name="q1" value="d"> D. DNS
+                </label>
+            
+                <button class="quiz-button" onclick="checkAnswer(1)">Check</button>
+                <p id="feedback-1" style="margin-top:10px;font-weight:600;"></p>
+              </div>
+            
+              <!-- Q2 -->
+              <div id="question-2" class="question-block" style="display:none;">
+                <h3>2. File chứa danh sách user tên là gì?</h3>
+            
+                <label style="display:block;margin:10px 0;">
+                  <input type="radio" name="q2" value="a"> A. pass.txt
+                </label>
+                <label style="display:block;margin:10px 0;">
+                  <input type="radio" name="q2" value="b"> B. users.txt
+                </label>
+                <label style="display:block;margin:10px 0;">
+                  <input type="radio" name="q2" value="c"> C. username.list
+                </label>
+                <label style="display:block;margin:10px 0;">
+                  <input type="radio" name="q2" value="d"> D. account.csv
+                </label>
+            
+                <button class="quiz-button" onclick="checkAnswer(2)">Check</button>
+                <p id="feedback-2" style="margin-top:10px;font-weight:600;"></p>
+              </div>
+            
+              <!-- Q3 -->
+              <div id="question-3" class="question-block" style="display:none;">
+                <h3>3. Công cụ nào dùng để brute-force?</h3>
+            
+                <label style="display:block;margin:10px 0;">
+                  <input type="radio" name="q3" value="a"> A. Nmap
+                </label>
+                <label style="display:block;margin:10px 0;">
+                  <input type="radio" name="q3" value="b"> B. Wireshark
+                </label>
+                <label style="display:block;margin:10px 0;">
+                  <input type="radio" name="q3" value="c"> C. Hydra
+                </label>
+                <label style="display:block;margin:10px 0;">
+                  <input type="radio" name="q3" value="d"> D. Ettercap
+                </label>
+            
+                <button class="quiz-button" onclick="checkAnswer(3)">Check</button>
+                <p id="feedback-3" style="margin-top:10px;font-weight:600;"></p>
+              </div>
+            
+              <!-- Q4 -->
+              <div id="question-4" class="question-block" style="display:none;">
+                <h3>4. Port SMB mặc định là bao nhiêu?</h3>
+            
+                <label style="display:block;margin:10px 0;">
+                  <input type="radio" name="q4" value="a"> A. 21
+                </label>
+                <label style="display:block;margin:10px 0;">
+                  <input type="radio" name="q4" value="b"> B. 22
+                </label>
+                <label style="display:block;margin:10px 0;">
+                  <input type="radio" name="q4" value="c"> C. 80
+                </label>
+                <label style="display:block;margin:10px 0;">
+                  <input type="radio" name="q4" value="d"> D. 445
+                </label>
+            
+                <button class="quiz-button" onclick="checkAnswer(4)">Check</button>
+                <p id="feedback-4" style="margin-top:10px;font-weight:600;"></p>
+              </div>
+            
+              <!-- Q5 -->
+              <div id="question-5" class="question-block" style="display:none;">
+                <h3>5. Mục tiêu brute-force trong bài lab là máy nào?</h3>
+            
+                <label style="display:block;margin:10px 0;">
+                  <input type="radio" name="q5" value="a"> A. Kali (attacker)
+                </label>
+                <label style="display:block;margin:10px 0;">
+                  <input type="radio" name="q5" value="b"> B. Router
+                </label>
+                <label style="display:block;margin:10px 0;">
+                  <input type="radio" name="q5" value="c"> C. Windows Victim / Target
+                </label>
+                <label style="display:block;margin:10px 0;">
+                  <input type="radio" name="q5" value="d"> D. Switch
+                </label>
+            
+                <button class="quiz-button" onclick="checkAnswer(5)">Check</button>
+                <p id="feedback-5" style="margin-top:10px;font-weight:600;"></p>
+              </div>
+            
             </div>
-
-        </section>
-    </main>
-</div>
-
-<script>
-    // 1. CẤU HÌNH ĐÁP ÁN
-    const correctAnswers = {
-        1: ["00:0c:29:5b:cc:f0", "mac của kali", "kali linux", "máy tấn công", "attacker"],
-        2: ["man-in-the-middle", "man in the middle", "nghe lén"],
-        3: ["chuyển tiếp gói tin", "ip forwarding", "trạm trung chuyển", "forwarding"],
-        4: ["dynamic arp inspection", "dai", "dai inspection"],
-        5: ["dhcp snooping", "dhcp snooping"]
-    };
-
-    // --- HÀM GỬI TIẾN ĐỘ (NHẬN SỐ PHẦN TRĂM) ---
-    async function submitProgress(percent) {
-        const username = localStorage.getItem("cyber_current_user");
-        
-        if (!username) {
-            console.log("Chưa đăng nhập, không lưu được.");
-            return;
-        }
-
-        try {
-            console.log(`Đang gửi tiến độ ${percent}% về Server...`);
             
-            // Gửi số % cụ thể về Server
-            const response = await fetch('/api/submit-quiz', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ 
-                    username: username, 
-                    labId: 'brute_force_ssh', 
-                    progress: percent 
-                })
-            });
-
-            const data = await response.json();
-            console.log("Server đã lưu:", data);
-
-        } catch (error) {
-            console.error("Lỗi kết nối Server:", error);
-        }
-    }
-
-    // 2. HÀM CHUẨN HÓA ĐÁP ÁN
-    function normalizeAnswer(answer) {
-        return answer.toLowerCase().trim().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"").replace(/\s{2,}/g," ");
-    }
-
-    // 3. HÀM CHECK ĐÁP ÁN (ĐÃ SỬA ĐỂ GỬI ĐIỂM TỪNG CÂU)
-    function checkAnswer(questionNumber) {
-        const inputId = 'answer-' + questionNumber;
-        const feedbackId = 'feedback-' + questionNumber;
-        const currentQuestionId = 'question-' + questionNumber;
-        
-        const userInput = document.getElementById(inputId).value;
-        const feedbackElement = document.getElementById(feedbackId);
-        const currentQuestionElement = document.getElementById(currentQuestionId);
-        
-        const normalizedInput = normalizeAnswer(userInput);
-        const validAnswers = correctAnswers[questionNumber];
-        let isCorrect = false;
-
-        for (const valid of validAnswers) {
-            if (normalizedInput.includes(normalizeAnswer(valid))) {
-                isCorrect = true;
-                break;
-            }
-        }
-
-        if (isCorrect) {
-            // --- XỬ LÝ KHI ĐÚNG ---
-            feedbackElement.style.color = '#2ecc71';
-            feedbackElement.innerHTML = '<i class="fas fa-check"></i> Chính xác!';
+            <script>
+              // ✅ Đáp án trắc nghiệm (a/b/c/d)s
+              // Bạn muốn đổi đáp án câu nào thì đổi value ở đây là xong.
+              const correctChoices = {
+                1: "b", // SSH
+                2: "b", // users.txt
+                3: "c", // Hydra
+                4: "d", // 445
+                5: "c"  // Windows Victim/Target
+              };
             
-            // Khóa nút lại
-            document.getElementById(inputId).disabled = true;
-            currentQuestionElement.querySelector('.quiz-button').disabled = true;
-
-            // 👉 TÍNH TOÁN VÀ GỬI ĐIỂM NGAY LẬP TỨC 👈
-            // Câu 1 đúng -> 20%, Câu 2 đúng -> 40%...
-            const currentPercent = questionNumber * 20;
-            submitProgress(currentPercent); 
-
+              // --- HÀM GỬI TIẾN ĐỘ (NHẬN SỐ PHẦN TRĂM) ---
+              async function submitProgress(percent) {
+                const username = localStorage.getItem("cyber_current_user");
             
-            // Chuyển câu hỏi sau 0.5 giây
-            setTimeout(() => {
-                currentQuestionElement.style.display = 'none';
-
-                if (questionNumber < 5) {
-                    // Hiện câu tiếp theo
-                    const nextQuestionId = 'question-' + (questionNumber + 1);
-                    const nextQuestionElement = document.getElementById(nextQuestionId);
-                    if (nextQuestionElement) {
-                        nextQuestionElement.style.display = 'block';
-                        document.getElementById('feedback-' + (questionNumber + 1)).innerHTML = '';
-                    }
-                } else {
-                    // Nếu là câu cuối cùng (Câu 5)
-                    document.getElementById('completion-message').style.display = 'block';
-                    document.getElementById('quiz').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                if (!username) {
+                  console.log("Chưa đăng nhập, không lưu được.");
+                  return;
                 }
-            }, 500);
-
-        } else {
-            // --- XỬ LÝ KHI SAI ---
-            feedbackElement.style.color = '#e74c3c';
-            feedbackElement.innerHTML = '<i class="fas fa-times"></i> Chưa chính xác. Vui lòng thử lại!';
-        }
-    }
-
-    // 4. KHỞI TẠO
-    document.addEventListener('DOMContentLoaded', () => {
-        const allQuestions = document.querySelectorAll('.question-block');
-        allQuestions.forEach(q => { q.style.display = 'none'; });
-        const firstQuestion = document.getElementById('question-1');
-        if (firstQuestion) { firstQuestion.style.display = 'block'; }
-    });
-</script>
+            
+                try {
+                  console.log(`Đang gửi tiến độ ${percent}% về Server...`);
+            
+                  const response = await fetch('/api/submit-quiz', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                      username: username,
+                      labId: 'brute_force_ssh',   // ✅ giữ y như bạn đang dùng
+                      progress: percent
+                    })
+                  });
+            
+                  const data = await response.json();
+                  console.log("Server đã lưu:", data);
+            
+                } catch (error) {
+                  console.error("Lỗi kết nối Server:", error);
+                }
+              }
+            
+              // Lấy đáp án người dùng đã chọn (a/b/c/d)
+              function getSelectedChoice(questionNumber) {
+                const name = "q" + questionNumber;
+                const selected = document.querySelector(`input[name="${name}"]:checked`);
+                return selected ? selected.value : null;
+              }
+            
+              // Disable câu đã làm đúng
+              function lockQuestion(questionNumber) {
+                const name = "q" + questionNumber;
+                document.querySelectorAll(`input[name="${name}"]`).forEach(r => r.disabled = true);
+                const qEl = document.getElementById("question-" + questionNumber);
+                if (qEl) qEl.querySelector(".quiz-button").disabled = true;
+              }
+            
+              // Check đáp án
+              function checkAnswer(questionNumber) {
+                const feedbackEl = document.getElementById("feedback-" + questionNumber);
+                const currentQEl = document.getElementById("question-" + questionNumber);
+            
+                const userChoice = getSelectedChoice(questionNumber);
+                if (!userChoice) {
+                  feedbackEl.style.color = "#f1c40f";
+                  feedbackEl.innerHTML = "⚠️ Bạn hãy chọn A / B / C / D trước đã!";
+                  return;
+                }
+            
+                const isCorrect = (userChoice === correctChoices[questionNumber]);
+            
+                if (isCorrect) {
+                  feedbackEl.style.color = "#2ecc71";
+                  feedbackEl.innerHTML = "✅ Chính xác!";
+            
+                  lockQuestion(questionNumber);
+            
+                  const currentPercent = questionNumber * 20;
+                  submitProgress(currentPercent);
+            
+                  setTimeout(() => {
+                    currentQEl.style.display = "none";
+            
+                    if (questionNumber < 5) {
+                      const nextEl = document.getElementById("question-" + (questionNumber + 1));
+                      if (nextEl) nextEl.style.display = "block";
+                    } else {
+                      document.getElementById("completion-message").style.display = "block";
+                      document.getElementById("quiz").scrollIntoView({ behavior: "smooth", block: "start" });
+                    }
+                  }, 500);
+            
+                } else {
+                  feedbackEl.style.color = "#e74c3c";
+                  feedbackEl.innerHTML = "❌ Chưa chính xác. Vui lòng thử lại!";
+                }
+              }
+            
+              // Khởi tạo: chỉ hiện câu 1
+              document.addEventListener("DOMContentLoaded", () => {
+                document.querySelectorAll(".question-block").forEach(q => q.style.display = "none");
+                const first = document.getElementById("question-1");
+                if (first) first.style.display = "block";
+              });
+            </script>
+            
 </body>
 </html>

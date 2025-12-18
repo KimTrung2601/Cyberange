@@ -4,7 +4,7 @@
     "password": "123",
     "email": "kimtrung@gmail.com",
     "progress": {
-      "arp_spoofing": 80,
+      "arp_spoofing": 100,
       "dhcp_attack": 20,
       "zphisher_fb": 33,
       "phongthu_dhcp": 20,
