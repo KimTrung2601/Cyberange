@@ -298,7 +298,23 @@ ip arp inspection validate src-mac dst-mac ip
     box-shadow: 0 0 12px rgba(63,169,245,0.25);
 ">
 
-    <!-- Thông báo hoàn thành -->
+    <style>
+        .option-group { margin-top: 12px; }
+        .option-item{
+            display:block;
+            margin:10px 0;
+            line-height:1.6;
+            cursor:pointer;
+            user-select:none;
+        }
+        .option-item input[type="radio"]{
+            margin-right:10px;
+            transform: translateY(1px);
+        }
+        .quiz-button{ margin-top:12px; }
+        .quiz-feedback{ margin-top:10px; font-weight:600; }
+    </style>
+
     <div id="completion-message" style="
         display:none;
         padding:20px;
@@ -313,192 +329,158 @@ ip arp inspection validate src-mac dst-mac ip
         <i class="fas fa-check-circle"></i> CHÚC MỪNG! BẠN ĐÃ HOÀN THÀNH BÀI LAB PHÒNG THỦ!
     </div>
 
-    <!-- Câu 1 -->
     <div id="question-1" class="question-block">
         <h3>1. DAI hoạt động dựa trên bảng nào để kiểm tra IP–MAC?</h3>
-        <p>Nhập tên cơ chế tạo bảng IP–MAC binding.</p>
 
-        <div class="input-group">
-            <input type="text" id="answer-1" class="quiz-input" placeholder="Nhập tên cơ chế..." />
-            <button class="quiz-button" onclick="checkAnswer(1)">Check</button>
+        <div class="option-group">
+            <label class="option-item"><input type="radio" name="q1" value="A">A. MAC Address Table</label>
+            <label class="option-item"><input type="radio" name="q1" value="B">B. DHCP Snooping Binding Table</label>
+            <label class="option-item"><input type="radio" name="q1" value="C">C. ARP Cache trên PC</label>
+            <label class="option-item"><input type="radio" name="q1" value="D">D. Routing Table</label>
         </div>
 
+        <button class="quiz-button" onclick="checkAnswer(1)">Check</button>
         <p id="feedback-1" class="quiz-feedback"></p>
     </div>
 
-    <!-- Câu 2 -->
     <div id="question-2" class="question-block" style="display:none;">
-        <h3>2. Tính năng nào kiểm tra và lọc ARP giả mạo?</h3>
-        <p>Trả lời bằng tên đầy đủ hoặc viết tắt.</p>
+        <h3>2. Tính năng nào trên Switch dùng để kiểm tra và chặn ARP giả mạo?</h3>
 
-        <div class="input-group">
-            <input type="text" id="answer-2" class="quiz-input" placeholder="Nhập tên cơ chế..." />
-            <button class="quiz-button" onclick="checkAnswer(2)">Check</button>
+        <div class="option-group">
+            <label class="option-item"><input type="radio" name="q2" value="A">A. Port Security</label>
+            <label class="option-item"><input type="radio" name="q2" value="B">B. Dynamic ARP Inspection (DAI)</label>
+            <label class="option-item"><input type="radio" name="q2" value="C">C. Spanning Tree Protocol (STP)</label>
+            <label class="option-item"><input type="radio" name="q2" value="D">D. VLAN Trunking</label>
         </div>
 
+        <button class="quiz-button" onclick="checkAnswer(2)">Check</button>
         <p id="feedback-2" class="quiz-feedback"></p>
     </div>
 
-    <!-- Câu 3 -->
     <div id="question-3" class="question-block" style="display:none;">
         <h3>3. Cổng nào cần cấu hình “trust” trong DAI?</h3>
-        <p>Nhập tên giao diện (ví dụ: gi0/0).</p>
 
-        <div class="input-group">
-            <input type="text" id="answer-3" class="quiz-input" placeholder="Nhập tên cổng..." />
-            <button class="quiz-button" onclick="checkAnswer(3)">Check</button>
+        <div class="option-group">
+            <label class="option-item"><input type="radio" name="q3" value="A">A. Các cổng access nối PC người dùng</label>
+            <label class="option-item"><input type="radio" name="q3" value="B">B. Cổng uplink/trunk nối lên Switch khác/Router/DHCP Server</label>
+            <label class="option-item"><input type="radio" name="q3" value="C">C. Cổng SPAN (mirror)</label>
+            <label class="option-item"><input type="radio" name="q3" value="D">D. Cổng đang shutdown</label>
         </div>
 
+        <button class="quiz-button" onclick="checkAnswer(3)">Check</button>
         <p id="feedback-3" class="quiz-feedback"></p>
     </div>
 
-    <!-- Câu 4 -->
     <div id="question-4" class="question-block" style="display:none;">
-        <h3>4. Tham số `src-mac` dùng để kiểm tra điều gì?</h3>
+        <h3>4. Tham số <code>src-mac</code> trong DAI dùng để kiểm tra điều gì?</h3>
 
-        <div class="input-group">
-            <input type="text" id="answer-4" class="quiz-input" placeholder="Nhập ý nghĩa..." />
-            <button class="quiz-button" onclick="checkAnswer(4)">Check</button>
+        <div class="option-group">
+            <label class="option-item"><input type="radio" name="q4" value="A">A. So sánh MAC nguồn Ethernet với Sender MAC trong gói ARP</label>
+            <label class="option-item"><input type="radio" name="q4" value="B">B. So sánh IP nguồn với Default Gateway</label>
+            <label class="option-item"><input type="radio" name="q4" value="C">C. Kiểm tra TTL của gói tin</label>
+            <label class="option-item"><input type="radio" name="q4" value="D">D. Kiểm tra DNS Server nhận được</label>
         </div>
 
+        <button class="quiz-button" onclick="checkAnswer(4)">Check</button>
         <p id="feedback-4" class="quiz-feedback"></p>
     </div>
 
-    <!-- Câu 5 -->
     <div id="question-5" class="question-block" style="display:none;">
-        <h3>5. Khi DAI chặn ARP giả, Switch sẽ làm gì?</h3>
+        <h3>5. Khi DAI phát hiện ARP giả mạo, Switch sẽ làm gì?</h3>
 
-        <div class="input-group">
-            <input type="text" id="answer-5" class="quiz-input" placeholder="Nhập hành động..." />
-            <button class="quiz-button" onclick="checkAnswer(5)">Check</button>
+        <div class="option-group">
+            <label class="option-item"><input type="radio" name="q5" value="A">A. Forward bình thường</label>
+            <label class="option-item"><input type="radio" name="q5" value="B">B. Drop/deny gói ARP và ghi log (counters/syslog)</label>
+            <label class="option-item"><input type="radio" name="q5" value="C">C. Tự reboot Switch</label>
+            <label class="option-item"><input type="radio" name="q5" value="D">D. Tự đổi VLAN của máy gửi</label>
         </div>
 
+        <button class="quiz-button" onclick="checkAnswer(5)">Check</button>
         <p id="feedback-5" class="quiz-feedback"></p>
     </div>
-
 </div>
-
-
-<!-- ========================= -->
-<!-- ⭐ FOOTER ⭐ -->
-<!-- ========================= -->
 
 <div style="margin-top:60px; border-top:1px solid var(--border-light); padding-top:20px; text-align:center; color:var(--muted);">
     © 2025 Cyber Ranges Platform
 </div>
 
-
-<!-- ========================= -->
-<!-- ⭐ SCRIPT QUIZ & USERNAME ⭐ -->
-<!-- ========================= -->
-
 <script>
-    // 1. CẤU HÌNH ĐÁP ÁN (có thể đổi nội dung cho phù hợp lab DHCP)
-    const correctAnswers = {
-        1: ["..."],
-        2: ["..."],
-        3: ["..."],
-        4: ["..."],
-        5: ["..."]
-    };
+    const correctAnswers = { 1:"B", 2:"B", 3:"B", 4:"A", 5:"B" };
 
-    // --- HÀM GỬI TIẾN ĐỘ (NHẬN SỐ PHẦN TRĂM) ---
     async function submitProgress(percent) {
         const username = localStorage.getItem("cyber_current_user");
-        
-        if (!username) {
-            console.log("Chưa đăng nhập, không lưu được.");
-            return;
-        }
+        if (!username) return;
 
         try {
-            console.log(`Đang gửi tiến độ ${percent}% về Server...`);
-            
-            // 👇 CHỈ ĐỔI labId Ở ĐÂY
             const response = await fetch('/api/submit-quiz', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ 
-                    username: username, 
-                    labId: 'phongthu_arp',   // <-- tên lab DHCP
-                    progress: percent 
+                body: JSON.stringify({
+                    username: username,
+                    labId: 'phongthu_arp',
+                    progress: percent
                 })
             });
-
-            const data = await response.json();
-            console.log("Server đã lưu:", data);
-
-        } catch (error) {
-            console.error("Lỗi kết nối Server:", error);
+            await response.json();
+        } catch (e) {
+            console.error("Lỗi kết nối Server:", e);
         }
     }
 
-    // 2. HÀM CHUẨN HÓA ĐÁP ÁN
-    function normalizeAnswer(answer) {
-        return answer.toLowerCase().trim()
-            .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"")
-            .replace(/\s{2,}/g," ");
+    function getSelectedOption(questionNumber) {
+        const checked = document.querySelector(`input[name="q${questionNumber}"]:checked`);
+        return checked ? checked.value : "";
     }
 
-    // 3. HÀM CHECK ĐÁP ÁN
+    function lockQuestion(questionNumber) {
+        document.querySelectorAll(`input[name="q${questionNumber}"]`).forEach(r => r.disabled = true);
+        const qEl = document.getElementById('question-' + questionNumber);
+        if (qEl) {
+            const btn = qEl.querySelector('.quiz-button');
+            if (btn) btn.disabled = true;
+        }
+    }
+
     function checkAnswer(questionNumber) {
-        const inputId = 'answer-' + questionNumber;
-        const feedbackId = 'feedback-' + questionNumber;
-        const currentQuestionId = 'question-' + questionNumber;
-        
-        const userInput = document.getElementById(inputId).value;
-        const feedbackElement = document.getElementById(feedbackId);
-        const currentQuestionElement = document.getElementById(currentQuestionId);
-        
-        const normalizedInput = normalizeAnswer(userInput);
-        const validAnswers = correctAnswers[questionNumber];
-        let isCorrect = false;
+        const feedbackEl = document.getElementById('feedback-' + questionNumber);
+        const currentEl = document.getElementById('question-' + questionNumber);
 
-        for (const valid of validAnswers) {
-            if (normalizedInput.includes(normalizeAnswer(valid))) {
-                isCorrect = true;
-                break;
-            }
+        const userChoice = getSelectedOption(questionNumber);
+        if (!userChoice) {
+            feedbackEl.style.color = '#e67e22';
+            feedbackEl.innerHTML = '⚠️ Bạn hãy chọn A/B/C/D trước khi Check!';
+            return;
         }
+
+        const isCorrect = (userChoice === correctAnswers[questionNumber]);
 
         if (isCorrect) {
-            feedbackElement.style.color = '#2ecc71';
-            feedbackElement.innerHTML = '<i class="fas fa-check"></i> Chính xác!';
-            
-            document.getElementById(inputId).disabled = true;
-            currentQuestionElement.querySelector('.quiz-button').disabled = true;
+            feedbackEl.style.color = '#2ecc71';
+            feedbackEl.innerHTML = '<i class="fas fa-check"></i> Chính xác!';
+            lockQuestion(questionNumber);
 
-            const currentPercent = questionNumber * 20;
-            submitProgress(currentPercent); 
+            const percent = questionNumber * 20;
+            submitProgress(percent);
 
             setTimeout(() => {
-                currentQuestionElement.style.display = 'none';
-
+                currentEl.style.display = 'none';
                 if (questionNumber < 5) {
-                    const nextQuestionId = 'question-' + (questionNumber + 1);
-                    const nextQuestionElement = document.getElementById(nextQuestionId);
-                    if (nextQuestionElement) {
-                        nextQuestionElement.style.display = 'block';
-                        document.getElementById('feedback-' + (questionNumber + 1)).innerHTML = '';
-                    }
+                    const nextEl = document.getElementById('question-' + (questionNumber + 1));
+                    if (nextEl) nextEl.style.display = 'block';
                 } else {
                     document.getElementById('completion-message').style.display = 'block';
                     document.getElementById('quiz').scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }
-            }, 500);
-
+            }, 600);
         } else {
-            feedbackElement.style.color = '#e74c3c';
-            feedbackElement.innerHTML = '<i class="fas fa-times"></i> Chưa chính xác. Vui lòng thử lại!';
+            feedbackEl.style.color = '#e74c3c';
+            feedbackEl.innerHTML = '<i class="fas fa-times"></i> Chưa chính xác. Vui lòng thử lại!';
         }
     }
 
-    // 4. KHỞI TẠO
     document.addEventListener('DOMContentLoaded', () => {
-        const allQuestions = document.querySelectorAll('.question-block');
-        allQuestions.forEach(q => { q.style.display = 'none'; });
-        const firstQuestion = document.getElementById('question-1');
-        if (firstQuestion) { firstQuestion.style.display = 'block'; }
+        document.querySelectorAll('.question-block').forEach(q => q.style.display = 'none');
+        const first = document.getElementById('question-1');
+        if (first) first.style.display = 'block';
     });
 </script>
-

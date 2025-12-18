@@ -390,168 +390,209 @@
 
                 <h2 id="quiz">📝 III. Quiz kiểm tra kiến thức</h2>
 
-                <div class="quiz-container" style="background:#1a2332;padding:30px;border-radius:10px;">
+<div class="quiz-container" style="background:#1a2332;padding:30px;border-radius:10px;">
 
-                    <div id="completion-message"
-                        style="display:none;padding:20px;background:#27ae60;color:white;text-align:center;border-radius:8px;">
-                        🎉 Bạn đã hoàn thành quiz!
-                    </div>
+  <div id="completion-message"
+    style="display:none;padding:20px;background:#27ae60;color:white;text-align:center;border-radius:8px;font-weight:700;">
+    🎉 Bạn đã hoàn thành quiz!
+  </div>
 
-                    <!-- CÂU 1 -->
-                    <div id="question-1" class="question-block">
-                        <h3>1. Mục tiêu của tấn công DHCP Starvation là gì?</h3>
-                        <input id="answer-1" class="quiz-input">
-                        <button class="quiz-button" onclick="checkAnswer(1)">Check</button>
-                        <p id="feedback-1"></p>
-                    </div>
+  <style>
+    .option-group { margin-top: 12px; }
+    .option-item{
+      display:block;
+      margin:10px 0;
+      line-height:1.5;
+      cursor:pointer;
+      user-select:none;
+    }
+    .option-item input[type="radio"]{
+      margin-right:10px;
+      transform: translateY(1px);
+    }
+    .question-block h3 { margin-bottom:10px; }
+    .quiz-button { margin-top:12px; }
+    #feedback-1,#feedback-2,#feedback-3,#feedback-4,#feedback-5 { margin-top:10px; font-weight:600; }
+  </style>
 
-                    <!-- CÂU 2 -->
-                    <div id="question-2" class="question-block" style="display:none;">
-                        <h3>2. Công cụ nào được dùng để thực hiện DHCP Starvation?</h3>
-                        <input id="answer-2" class="quiz-input">
-                        <button class="quiz-button" onclick="checkAnswer(2)">Check</button>
-                        <p id="feedback-2"></p>
-                    </div>
+  <!-- CÂU 1 -->
+  <div id="question-1" class="question-block">
+    <h3>1. Khi cấu hình DHCP Snooping trên Switch Cisco, cổng kết nối với máy chủ DHCP thật (Windows Server) cần được cấu hình như thế nào?</h3>
 
-                    <!-- CÂU 3 -->
-                    <div id="question-3" class="question-block" style="display:none;">
-                        <h3>3. Rogue DHCP Server cung cấp Gateway nào cho nạn nhân?</h3>
-                        <input id="answer-3" class="quiz-input">
-                        <button class="quiz-button" onclick="checkAnswer(3)">Check</button>
-                        <p id="feedback-3"></p>
-                    </div>
-
-                    <!-- CÂU 4 -->
-                    <div id="question-4" class="question-block" style="display:none;">
-                        <h3>4. DHCP Starvation gửi hàng loạt gói DISCOVER với loại địa chỉ nào?</h3>
-                        <input id="answer-4" class="quiz-input">
-                        <button class="quiz-button" onclick="checkAnswer(4)">Check</button>
-                        <p id="feedback-4"></p>
-                    </div>
-
-                    <!-- CÂU 5 -->
-                    <div id="question-5" class="question-block" style="display:none;">
-                        <h3>5. Tại sao DHCP thật không thể cấp IP sau khi bị Starvation?</h3>
-                        <input id="answer-5" class="quiz-input">
-                        <button class="quiz-button" onclick="checkAnswer(5)">Check</button>
-                        <p id="feedback-5"></p>
-                    </div>
-
-                </div>
-            </section>
-        </main>
+    <div class="option-group">
+      <label class="option-item"><input type="radio" name="q1" value="A">A. ip dhcp snooping trust (Cổng tin cậy)</label>
+      <label class="option-item"><input type="radio" name="q1" value="B">B. no ip dhcp snooping trust (Cổng không tin cậy)</label>
+      <label class="option-item"><input type="radio" name="q1" value="C">C. ip dhcp snooping limit rate 10 (Giới hạn tốc độ)</label>
+      <label class="option-item"><input type="radio" name="q1" value="D">D. shutdown (Tắt cổng)</label>
     </div>
 
-    <script>
-        // 1. CẤU HÌNH ĐÁP ÁN (có thể đổi nội dung cho phù hợp lab DHCP)
-        const correctAnswers = {
-            1: ["..."],
-            2: ["..."],
-            3: ["..."],
-            4: ["..."],
-            5: ["..."]
-        };
-    
-        // --- HÀM GỬI TIẾN ĐỘ (NHẬN SỐ PHẦN TRĂM) ---
-        async function submitProgress(percent) {
-            const username = localStorage.getItem("cyber_current_user");
-            
-            if (!username) {
-                console.log("Chưa đăng nhập, không lưu được.");
-                return;
-            }
-    
-            try {
-                console.log(`Đang gửi tiến độ ${percent}% về Server...`);
-                
-                // 👇 CHỈ ĐỔI labId Ở ĐÂY
-                const response = await fetch('/api/submit-quiz', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ 
-                        username: username, 
-                        labId: 'dhcp_attack',   // <-- tên lab DHCP
-                        progress: percent 
-                    })
-                });
-    
-                const data = await response.json();
-                console.log("Server đã lưu:", data);
-    
-            } catch (error) {
-                console.error("Lỗi kết nối Server:", error);
-            }
+    <button class="quiz-button" onclick="checkAnswer(1)">Check</button>
+    <p id="feedback-1"></p>
+  </div>
+
+  <!-- CÂU 2 -->
+  <div id="question-2" class="question-block" style="display:none;">
+    <h3>2. Dấu hiệu nào trên máy tính nạn nhân (Windows 10) cho thấy đã bị tấn công bởi một Rogue DHCP Server?</h3>
+
+    <div class="option-group">
+      <label class="option-item"><input type="radio" name="q2" value="A">A. Máy tính chạy chậm hơn bình thường.</label>
+      <label class="option-item"><input type="radio" name="q2" value="B">B. Địa chỉ IP của máy thuộc dải APIPA (169.254.x.x).</label>
+      <label class="option-item"><input type="radio" name="q2" value="C">C. Default Gateway và DNS Server trỏ về IP kẻ tấn công thay vì Router thật.</label>
+      <label class="option-item"><input type="radio" name="q2" value="D">D. Màn hình máy tính bị khóa.</label>
+    </div>
+
+    <button class="quiz-button" onclick="checkAnswer(2)">Check</button>
+    <p id="feedback-2"></p>
+  </div>
+
+  <!-- CÂU 3 -->
+  <div id="question-3" class="question-block" style="display:none;">
+    <h3>3. Khi thực hiện tấn công Rogue DHCP Server, kẻ tấn công thường cấu hình thông số "Default Gateway" cấp cho nạn nhân trỏ về đâu?</h3>
+
+    <div class="option-group">
+      <label class="option-item"><input type="radio" name="q3" value="A">A. Trỏ về Router thật của hệ thống.</label>
+      <label class="option-item"><input type="radio" name="q3" value="B">B. Trỏ về địa chỉ IP của máy nạn nhân.</label>
+      <label class="option-item"><input type="radio" name="q3" value="C">C. Trỏ về địa chỉ IP của máy tấn công (Kali Linux).</label>
+      <label class="option-item"><input type="radio" name="q3" value="D">D. Trỏ về địa chỉ 8.8.8.8.</label>
+    </div>
+
+    <button class="quiz-button" onclick="checkAnswer(3)">Check</button>
+    <p id="feedback-3"></p>
+  </div>
+
+  <!-- CÂU 4 -->
+  <div id="question-4" class="question-block" style="display:none;">
+    <h3>4. Nếu một máy tính Windows 10 không nhận được phản hồi từ bất kỳ DHCP Server nào (do bị tấn công Starvation), nó sẽ tự động gán cho mình địa chỉ IP thuộc dải nào?</h3>
+
+    <div class="option-group">
+      <label class="option-item"><input type="radio" name="q4" value="A">A. 192.168.1.x</label>
+      <label class="option-item"><input type="radio" name="q4" value="B">B. 10.0.0.x</label>
+      <label class="option-item"><input type="radio" name="q4" value="C">C. 169.254.x.x (APIPA)</label>
+      <label class="option-item"><input type="radio" name="q4" value="D">D. 127.0.0.1</label>
+    </div>
+
+    <button class="quiz-button" onclick="checkAnswer(4)">Check</button>
+    <p id="feedback-4"></p>
+  </div>
+
+  <!-- CÂU 5 (CÂU 8 của bạn) -->
+  <div id="question-5" class="question-block" style="display:none;">
+    <h3>5. Trong công cụ Yersinia, chế độ tấn công nào được chọn để gửi hàng loạt gói tin Discover nhằm làm tê liệt DHCP Server?</h3>
+
+    <div class="option-group">
+      <label class="option-item"><input type="radio" name="q5" value="A">A. sending RAW packet</label>
+      <label class="option-item"><input type="radio" name="q5" value="B">B. sending OFFER packet</label>
+      <label class="option-item"><input type="radio" name="q5" value="C">C. sending RELEASE packet</label>
+      <label class="option-item"><input type="radio" name="q5" value="D">D. DoS / sending DISCOVER packet</label>
+    </div>
+
+    <button class="quiz-button" onclick="checkAnswer(5)">Check</button>
+    <p id="feedback-5"></p>
+  </div>
+
+</div>
+
+<script>
+  const correctAnswers = {
+    1: "A",
+    2: "C",
+    3: "C",
+    4: "C",
+    5: "D"
+  };
+
+  async function submitProgress(percent) {
+    const username = localStorage.getItem("cyber_current_user");
+
+    if (!username) {
+      console.log("Chưa đăng nhập, không lưu được.");
+      return;
+    }
+
+    try {
+      const response = await fetch('/api/submit-quiz', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          username: username,
+          labId: 'dhcp_attack',
+          progress: percent
+        })
+      });
+
+      const data = await response.json();
+      console.log("Server đã lưu:", data);
+    } catch (error) {
+      console.error("Lỗi kết nối Server:", error);
+    }
+  }
+
+  function getSelectedOption(questionNumber) {
+    const name = 'q' + questionNumber;
+    const checked = document.querySelector(`input[name="${name}"]:checked`);
+    return checked ? checked.value : "";
+  }
+
+  function lockQuestion(questionNumber) {
+    const name = 'q' + questionNumber;
+    document.querySelectorAll(`input[name="${name}"]`).forEach(r => r.disabled = true);
+    const qEl = document.getElementById('question-' + questionNumber);
+    if (qEl) {
+      const btn = qEl.querySelector('.quiz-button');
+      if (btn) btn.disabled = true;
+    }
+  }
+
+  function checkAnswer(questionNumber) {
+    const feedbackEl = document.getElementById('feedback-' + questionNumber);
+    const currentQuestionEl = document.getElementById('question-' + questionNumber);
+
+    const userChoice = getSelectedOption(questionNumber);
+    if (!userChoice) {
+      feedbackEl.style.color = '#e67e22';
+      feedbackEl.innerHTML = '⚠️ Bạn hãy chọn A/B/C/D trước khi Check!';
+      return;
+    }
+
+    const isCorrect = (userChoice === correctAnswers[questionNumber]);
+
+    if (isCorrect) {
+      feedbackEl.style.color = '#2ecc71';
+      feedbackEl.innerHTML = '<i class="fas fa-check"></i> Chính xác!';
+
+      lockQuestion(questionNumber);
+
+      let currentPercent = questionNumber * 20;
+      if (questionNumber === 5) currentPercent = 100;
+
+      submitProgress(currentPercent);
+
+      setTimeout(() => {
+        currentQuestionEl.style.display = 'none';
+
+        if (questionNumber < 5) {
+          const nextEl = document.getElementById('question-' + (questionNumber + 1));
+          if (nextEl) nextEl.style.display = 'block';
+        } else {
+          document.getElementById('completion-message').style.display = 'block';
+          document.getElementById('quiz').scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
-    
-        // 2. HÀM CHUẨN HÓA ĐÁP ÁN
-        function normalizeAnswer(answer) {
-            return answer.toLowerCase().trim()
-                .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"")
-                .replace(/\s{2,}/g," ");
-        }
-    
-        // 3. HÀM CHECK ĐÁP ÁN
-        function checkAnswer(questionNumber) {
-            const inputId = 'answer-' + questionNumber;
-            const feedbackId = 'feedback-' + questionNumber;
-            const currentQuestionId = 'question-' + questionNumber;
-            
-            const userInput = document.getElementById(inputId).value;
-            const feedbackElement = document.getElementById(feedbackId);
-            const currentQuestionElement = document.getElementById(currentQuestionId);
-            
-            const normalizedInput = normalizeAnswer(userInput);
-            const validAnswers = correctAnswers[questionNumber];
-            let isCorrect = false;
-    
-            for (const valid of validAnswers) {
-                if (normalizedInput.includes(normalizeAnswer(valid))) {
-                    isCorrect = true;
-                    break;
-                }
-            }
-    
-            if (isCorrect) {
-                feedbackElement.style.color = '#2ecc71';
-                feedbackElement.innerHTML = '<i class="fas fa-check"></i> Chính xác!';
-                
-                document.getElementById(inputId).disabled = true;
-                currentQuestionElement.querySelector('.quiz-button').disabled = true;
-    
-                const currentPercent = questionNumber * 20;
-                submitProgress(currentPercent); 
-    
-                setTimeout(() => {
-                    currentQuestionElement.style.display = 'none';
-    
-                    if (questionNumber < 5) {
-                        const nextQuestionId = 'question-' + (questionNumber + 1);
-                        const nextQuestionElement = document.getElementById(nextQuestionId);
-                        if (nextQuestionElement) {
-                            nextQuestionElement.style.display = 'block';
-                            document.getElementById('feedback-' + (questionNumber + 1)).innerHTML = '';
-                        }
-                    } else {
-                        document.getElementById('completion-message').style.display = 'block';
-                        document.getElementById('quiz').scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    }
-                }, 500);
-    
-            } else {
-                feedbackElement.style.color = '#e74c3c';
-                feedbackElement.innerHTML = '<i class="fas fa-times"></i> Chưa chính xác. Vui lòng thử lại!';
-            }
-        }
-    
-        // 4. KHỞI TẠO
-        document.addEventListener('DOMContentLoaded', () => {
-            const allQuestions = document.querySelectorAll('.question-block');
-            allQuestions.forEach(q => { q.style.display = 'none'; });
-            const firstQuestion = document.getElementById('question-1');
-            if (firstQuestion) { firstQuestion.style.display = 'block'; }
-        });
-    </script>
-    
+      }, 600);
+
+    } else {
+      feedbackEl.style.color = '#e74c3c';
+      feedbackEl.innerHTML = '<i class="fas fa-times"></i> Chưa chính xác. Vui lòng thử lại!';
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const allQuestions = document.querySelectorAll('.question-block');
+    allQuestions.forEach(q => q.style.display = 'none');
+    const first = document.getElementById('question-1');
+    if (first) first.style.display = 'block';
+  });
+</script>
+
 
 </body>
 </html>
