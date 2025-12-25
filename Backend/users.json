@@ -23,23 +23,156 @@
     "progress": {
       "dhcp_attack": 100,
       "brute_force_ssh": 20,
-      "dns_psn": 20,
+      "dns_psn": 60,
       "chiem_q": 60,
       "soc_en": 20,
-      "phongthu_arp": 20,
-      "arp_spoofing": 20
+      "phongthu_arp": 100,
+      "arp_spoofing": 100
     }
   },
   {
     "username": "kimtrunggg",
     "password": "123",
     "email": "trynt@gmail.com",
-    "progress": {}
+    "progress": {
+      "dns_psn": 60
+    }
   },
   {
     "username": "kimtru",
     "password": "123",
     "email": "trynt221@gmail.com",
-    "progress": {}
+    "progress": {
+      "dns_psn": 80
+    }
+  },
+  {
+    "username": "doan",
+    "password": "123",
+    "email": "congdoan@gmail.com",
+    "progress": {
+      "brute_force_ssh": 100,
+      "dns_psn": 100
+    }
+  },
+  {
+    "username": "huy",
+    "password": "123",
+    "email": "huy123@gmail.com",
+    "progress": {
+      "brute_force_ssh": 100
+    }
+  },
+  {
+    "username": "thanhhoan",
+    "password": "123",
+    "email": "thanhhoanhaha@gmail.com",
+    "progress": {
+      "dns_psn": 100
+    }
+  },
+  {
+    "username": "tuananh",
+    "password": "123",
+    "email": "tuananh221@gmail.com",
+    "progress": {
+      "dns_psn": 80
+    }
+  },
+  {
+    "username": "tienanh",
+    "password": "123",
+    "email": "tienanhhut@gmail.com",
+    "progress": {
+      "brute_force_ssh": 80
+    }
+  },
+  {
+    "username": "hunganh",
+    "password": "123",
+    "email": "hunganhchimang@gmail.com",
+    "progress": {
+      "dns_psn": 100
+    }
+  },
+  {
+    "username": "thaoanh",
+    "password": "123",
+    "email": "thaoanh@gmail.com",
+    "progress": {
+      "dns_psn": 80
+    }
+  },
+  {
+    "username": "thaoanh123",
+    "password": "123",
+    "email": "thaoanh123@gmail.com",
+    "progress": {
+      "brute_force_ssh": 100
+    }
+  },
+  {
+    "username": "thanhtung",
+    "password": "123",
+    "email": "thanhtung1232@gmail.com",
+    "progress": {
+      "dns_psn": 60
+    }
+  },
+  {
+    "username": "thanhtoan",
+    "password": "123",
+    "email": "thanhtoan@gmail.com",
+    "progress": {
+      "dns_psn": 80
+    }
+  },
+  {
+    "username": "kimanh",
+    "password": "123",
+    "email": "kimanh@gmail.com",
+    "progress": {
+      "dns_psn": 100
+    }
+  },
+  {
+    "username": "thaonguyen",
+    "password": "123",
+    "email": "thaonguyennef@gmail.com",
+    "progress": {
+      "dns_psn": 80
+    }
+  },
+  {
+    "username": "baongoc",
+    "password": "123",
+    "email": "baongocjne@gmail.com",
+    "progress": {
+      "brute_force_ssh": 60
+    }
+  },
+  {
+    "username": "thaongoc",
+    "password": "123",
+    "email": "thaongoc@gmail.com",
+    "progress": {
+      "dns_psn": 100
+    }
+  },
+  {
+    "username": "ngocem",
+    "password": "123",
+    "email": "ngocjem@1343",
+    "progress": {
+      "dns_psn": 100
+    }
+  },
+  {
+    "username": "thanhhao",
+    "password": "123",
+    "email": "123@gmail.com",
+    "progress": {
+      "dns_psn": 60
+    }
   }
 ]

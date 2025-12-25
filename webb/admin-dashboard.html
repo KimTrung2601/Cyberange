@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Cyber Ranges | Admin Dashboard</title>
+
+  <link rel="stylesheet" href="css/admin-dashboard.css">
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+<div class="admin-app">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="logo">
+      <i class="fas fa-shield-alt"></i>
+      <span>CYBER<br>RANGES</span>
+    </div>
+
+    <nav>
+      <a class="nav-link active" data-view="dashboard">
+        <i class="fas fa-chart-line"></i> Dashboard
+      </a>
+      <a class="nav-link" data-view="students">
+        <i class="fas fa-users"></i> Học viên
+      </a>
+    </nav>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <!-- ================= DASHBOARD ================= -->
+    <section id="view-dashboard">
+
+      <h1>📊 Quản lý tiến độ học viên</h1>
+
+      <!-- STATS -->
+      <section class="stats">
+        <div class="stat-card blue">
+          <h3 id="totalUsers">0</h3>
+          <p>Tổng học viên</p>
+        </div>
+        <div class="stat-card green">
+          <h3 id="completedUsers">0</h3>
+          <p>Hoàn thành &gt; 70%</p>
+        </div>
+        <div class="stat-card yellow">
+          <h3 id="avgProgress">0%</h3>
+          <p>Tiến độ trung bình</p>
+        </div>
+      </section>
+
+      <!-- CHARTS -->
+      <section class="charts">
+        <div class="chart-box">
+          <canvas id="completionChart"></canvas>
+        </div>
+        <div class="chart-box">
+          <canvas id="avgChart"></canvas>
+        </div>
+      </section>
+
+    </section>
+
+    <!-- ================= STUDENTS ================= -->
+    <section id="view-students" class="hidden">
+
+      <h1>📋 Danh sách học viên</h1>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Tiến độ</th>
+            <th>Chi tiết</th>
+          </tr>
+        </thead>
+        <tbody id="userTable"></tbody>
+      </table>
+
+    </section>
+
+  </main>
+</div>
+
+<!-- MODAL -->
+<div id="studentModal" class="modal hidden">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal()">&times;</span>
+
+    <h2>👤 Thông tin học viên</h2>
+    <p><strong>Username:</strong> <span id="modalUsername"></span></p>
+    <p><strong>Email:</strong> <span id="modalEmail"></span></p>
+
+    <h3>📚 Tiến độ các Lab</h3>
+    <div id="modalProgress"></div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="js/admin-dashboard.js"></script>
+</body>
+</html>
